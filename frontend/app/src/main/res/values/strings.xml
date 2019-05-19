@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">frontend</string>
+    <string name="app_name">掌上课堂</string>
+    <string name="url_root">http://192.168.190.1:8080/</string>
 </resources>
