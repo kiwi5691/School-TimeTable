@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/login_backgrouond">
+    <!-- padding 内边距   layout_margin 外边距
+  		android:layout_alignParentTop 布局的位置是否处于顶部 -->
+
+    <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:layout_margin="15dip"
+            android:background="#93ffffff" >
+        <!-- 账号 -->
+        <TextView
+                android:id="@+id/login_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="账 号" />
+        <EditText
+            android:id="@+id/user_id_card_input"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_user"
+            android:singleLine="true"
+            android:inputType="text" />
+        <!-- 密码 text -->
+        <TextView
+                android:id="@+id/user_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_id_card_input"
+                android:layout_marginTop="3dp"
+                android:text="密 码"/>
+        <!-- 登录button -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/warnText"
+                android:layout_below="@id/user_password"
+                android:textSize="15dp"
+                android:textColor="#ff0000" />
+        <Button
+                android:id="@+id/register_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/warnText"
+                android:layout_alignRight="@id/user_password"
+                android:text="注 册"
+                android:background="#4FC1FB"
+                android:layout_alignLeft="@+id/user_password"
+                android:layout_alignStart="@+id/user_password"
+                android:textColor="#ffffff"
+                android:textSize="20dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        <TextView  android:id="@+id/register_text"
+                   android:text="登  录"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="#EEB423"
+                   android:textColorLink="#FF0066CC"
+                   android:textSize="18dp"
+                   android:layout_alignParentTop="true"
+                   android:layout_alignParentRight="true"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginRight="27dp"
+                   android:layout_marginEnd="27dp" />
+
+    </RelativeLayout>
+</LinearLayout>
