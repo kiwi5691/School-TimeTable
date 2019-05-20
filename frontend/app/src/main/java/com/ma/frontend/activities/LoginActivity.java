@@ -1,5 +1,7 @@
-package com.ma.frontend;
+package com.ma.frontend.activities;
 
+import android.app.Person;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +10,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
+import com.ma.frontend.R;
 import com.ma.frontend.Vo.Result;
 import com.ma.frontend.Vo.StudentVo;
 import com.ma.frontend.config.HttpConstant;
@@ -24,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText mUsernameEditText;
     private EditText mPassWordEditText;
     private Button mLoginButton;
+    private TextView mRegister;
     //用于接收Http请求的servlet的URL地址
    // private String originAddress = getResources().getString(R.string.url_root) +"/user_student/login";
 
@@ -57,10 +62,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             if (code==200){
                 result = "登录成功";
+
+                Intent intent=new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setClass(LoginActivity.this, PersonActivity.class);
+                startActivity(intent);
             }else if (code==400){
-                result = "密码错误";
+                result = "账号密码错误";
             }else {
-                result = msg.obj.toString();
+                result = "请检查网络";
             }
             Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
         }
@@ -71,10 +81,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mUsernameEditText = (EditText) findViewById(R.id.user_name_input);
         mPassWordEditText = (EditText) findViewById(R.id.user_password_input);
         mLoginButton = (Button) findViewById(R.id.login_button);
+        mRegister =(TextView) findViewById(R.id.register_text);
     }
 
     private void initEvent() {
         mLoginButton.setOnClickListener(this);
+        mRegister.setOnClickListener(this);
     }
 
 
@@ -168,11 +180,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (response.isSuccessful()) {
                         //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
                         mHandler.obtainMessage(1, response.body().string()).sendToTarget();
-
                     } else {
                         throw new IOException("Unexpected code:" + response);
                     }
                 } catch (IOException e) {
+                    Toast.makeText(LoginActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
@@ -180,7 +192,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-
+    private void ToRegister(){
+        Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
+         startActivity(intent);
+    }
     private boolean isInputValid() {
         //检查用户输入的合法性，这里暂且默认用户输入合法
         return true;
@@ -194,6 +209,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.login_button:
                 LoginRequest(name,pwd);
                 break;
+            case R.id.register_text:
+                ToRegister();
+                break;
+
         }
     }
 }

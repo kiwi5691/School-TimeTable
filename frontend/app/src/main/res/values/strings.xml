@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">掌上课堂</string>
+    <string name="register">注册</string>
     <string name="url_root">http://192.168.190.1:8080/</string>
+    <string name="button_search">查询</string>
+    <string name="button_person">个人</string>
+    <string name="button_course">课表</string>
 </resources>

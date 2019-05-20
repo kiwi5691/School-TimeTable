@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_paddingtop">5dp</dimen>
+    <dimen name="button_textsize">12dp</dimen>
+    <dimen name="lin_height">52dp</dimen>
+</resources>

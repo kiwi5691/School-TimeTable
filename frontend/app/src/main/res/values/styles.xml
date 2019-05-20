@@ -8,4 +8,27 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="buttonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingTop">@dimen/button_paddingtop</item>
+        <item name="android:textColor">@drawable/tab_textcolor</item>
+        <item name="android:textSize">@dimen/button_textsize</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:scaleType">matrix</item>
+    </style>
+
+    <style name="bottom_tab">
+        <item name="android:layout_width" >0dp</item>
+        <item name="android:layout_height" >wrap_content</item>
+        <item name="android:layout_weight" >1</item>
+        <item name="android:text" >0dp</item>
+        <item name="android:gravity" >center</item>
+        <item name="android:textColor" >@drawable/sel_bottom_tab_text</item>
+        <item name="android:padding" >8dp</item>
+        <item name="android:button" >@null</item>
+    </style>
+
+
 </resources>

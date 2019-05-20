@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:text="@string/button_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_alignParentStart="true"
+                android:layout_marginStart="125dp" android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" android:id="@+id/textView2" android:layout_marginTop="121dp"
+                android:layout_marginLeft="125dp"/>
+    </RelativeLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/lin_height"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+
+        <Button
+                android:id="@+id/rb_search"
+                style="@style/buttonStyle"
+                android:drawableTop="@drawable/button_search_selector"
+                android:text="@string/button_search"/>
+
+        <Button
+                android:id="@+id/rb_course"
+                style="@style/buttonStyle"
+                android:drawableTop="@drawable/button_course_selector"
+                android:text="@string/button_course"/>
+
+        <Button
+                android:id="@+id/rb_person"
+                style="@style/buttonStyle"
+                android:drawableTop="@drawable/button_person_selector"
+                android:text="@string/button_person"/>
+
+    </LinearLayout>
+</RelativeLayout>
