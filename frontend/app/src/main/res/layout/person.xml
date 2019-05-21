@@ -1,19 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
     <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-                android:text="@string/button_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_alignParentStart="true"
-                android:layout_marginStart="125dp" android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" android:id="@+id/textView2" android:layout_marginTop="121dp"
-                android:layout_marginLeft="125dp"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="154dp"
+                android:background="@color/colorPrimary"
+                android:padding="10dp">
+            <ImageView
+                    android:id="@+id/icon_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/nav_icon_male"/>
+
+            <TextView
+                    android:id="@+id/Menu_main_textDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="2019-5-21"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+            <TextView
+                    android:id="@+id/Menu_main_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/Menu_main_institute"
+                    android:layout_marginBottom="10dp"
+                    android:text="Sherry,欢迎你"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+            <TextView
+                    android:id="@+id/Menu_main_institute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:text="计算机学院"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+            <TextView
+                    android:id="@+id/Menu_main_major"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/Menu_main_institute"
+                    android:layout_marginLeft="50dp"
+                    android:text="计算机科学与技术"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+        </RelativeLayout>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="524dp"
+                android:background="@color/white"
+                android:padding="10dp" android:layout_alignParentStart="true" android:layout_alignParentTop="true"
+                android:layout_marginTop="153dp" android:layout_alignParentLeft="true">
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:background="@color/shahowred"
+                    android:padding="10dp" android:layout_centerHorizontal="true" android:layout_alignParentTop="true"
+                    android:layout_marginTop="248dp">
+                <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="21dp" app:srcCompat="@drawable/ic_logout"
+                        android:layout_marginStart="46dp"
+                        android:id="@+id/imageView" android:layout_marginTop="18dp" android:layout_marginLeft="46dp"/>
+                <Button
+                        android:text="登出"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:id="@+id/rb_logout" android:layout_marginTop="2dp"
+                        android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:background="@color/border_clo"
+                    android:padding="10dp"
+                    android:layout_marginTop="82dp" >
+                <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="21dp" app:srcCompat="@drawable/ic_update"
+                        android:layout_marginStart="46dp"
+                        android:id="@+id/imageView1" android:layout_marginTop="18dp"
+                        android:layout_marginLeft="46dp"/>
+                <Button
+                        android:text="修改信息"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:id="@+id/button1" android:layout_marginTop="2dp"
+                        android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:background="@color/border_clo"
+                    android:padding="10dp" android:layout_alignParentTop="true"
+                    android:layout_marginTop="168dp" >
+                <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="21dp" app:srcCompat="@drawable/ic_setting"
+                        android:layout_marginStart="46dp"
+                        android:id="@+id/imageView3" android:layout_marginTop="18dp" android:layout_marginLeft="46dp"/>
+                <Button
+                        android:text="设置"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:id="@+id/button3" android:layout_marginTop="2dp"
+                        android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="66dp"
+                    android:background="@color/border_clo"
+                    android:padding="10dp">
+                <ImageView
+                        android:layout_width="37dp"
+                        android:layout_height="21dp" app:srcCompat="@drawable/ic_search"
+                        android:layout_marginStart="46dp"
+                        android:id="@+id/imageView4" android:layout_marginTop="18dp"
+                        android:layout_marginLeft="46dp"/>
+                <Button
+                        android:text="查看信息"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:id="@+id/button4" android:layout_marginTop="2dp"
+                        android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
     <LinearLayout
             android:layout_width="match_parent"

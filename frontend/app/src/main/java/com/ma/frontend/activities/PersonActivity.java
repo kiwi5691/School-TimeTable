@@ -45,7 +45,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
     private void Search(){
         Intent intent=new Intent();
-        intent.setClass(PersonActivity.this, PersonActivity.class);
+        intent.setClass(PersonActivity.this, SearchActivity.class);
         startActivity(intent);
     }
      private void Course(){

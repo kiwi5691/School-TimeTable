@@ -7,13 +7,46 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-                android:text="@string/button_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_alignParentStart="true"
-                android:layout_marginStart="125dp" android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" android:id="@+id/textView2" android:layout_marginTop="121dp"
-                android:layout_marginLeft="125dp"/>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:background="#F0F3F6"
+        >
+
+            <LinearLayout style="@style/wrap_layout" >
+                <!-- 上圆角-->
+                <LinearLayout style="@style/top_layout">
+                    <TextView style="@style/usertext" android:text="平时成绩查询"/>
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+
+                <!-- 分割线 -->
+                <View style="@style/bg_line"/>
+                <!-- 无圆角-->
+                <LinearLayout style="@style/mid_layout">
+                    <TextView style="@style/usertext" android:text="课堂评价"/>
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+                <View style="@style/bg_line"/>
+                <!-- 下圆角-->
+                <LinearLayout style="@style/bottom_layout">
+                    <TextView style="@style/usertext" android:text="查看出勤和作业"/>
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 全圆角-->
+            <LinearLayout style="@style/wrap_layout">
+                <LinearLayout style="@style/single_layout">
+                    <TextView style="@style/usertext" android:text="查看教师"/>
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </RelativeLayout>
     <LinearLayout
             android:layout_width="match_parent"

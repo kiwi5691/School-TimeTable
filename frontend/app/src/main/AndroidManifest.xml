@@ -29,6 +29,10 @@
                 android:name=".activities.CourseActivity"
                 android:label="@string/register" >
         </activity>
+        <activity
+                android:name=".activities.SearchActivity"
+                android:label="@string/register" >
+        </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

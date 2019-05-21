@@ -4,8 +4,32 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="black">#1A1A1A</color>
+
     <color name="background_tab_pressed">#6633B5E5</color>
     <color name="bg_tab_select">#80FF80</color>
     <color name="bg_tab_unselect">#272636</color>
     <color name="bg_tab">#fff</color>
+    <color name="shahowred">#FFCCCC</color>
+
+    <color name="border_clo">#ccc</color>
+    <color name="text_clo">#333</color>
+
+    <color name="white">#ffffff</color>
+    <color name="blue">#419DE4</color>
+
+    <color name="textColorPrimary">#616161</color>
+    <color name="textColorPrimaryDark">#000000</color>
+    <color name="scu__defaultBackground">#e0e0e0</color>
+    <color name="scu__defaultContent">#f5f5f5</color>
+    <color name="subWeekHead">#fff7f6f4</color>
+    <color name="textBorder">#a8abad</color>
+    <color name="windowBackground">#e5e5e5</color>
+
+    <color name="courseTable1">#FF9800</color>
+    <color name="courseTable2">#9C27B0</color>
+    <color name="courseTable3">#03A9F4</color>
+    <color name="courseTable4">#F44336</color>
+    <color name="courseTable5">#8BC34A</color>
+
+    <color name="province_line_border">#C7C7C7</color>
 </resources>

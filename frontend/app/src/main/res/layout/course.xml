@@ -6,14 +6,257 @@
     <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <TextView
-                android:text="@string/button_course"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_alignParentStart="true"
-                android:layout_marginStart="125dp" android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true" android:id="@+id/textView2" android:layout_marginTop="121dp"
-                android:layout_marginLeft="125dp"/>
+            android:layout_height="672dp">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/scu__defaultBackground"
+                android:orientation="vertical">
+
+
+            <RelativeLayout
+                    android:id="@+id/scu_main_MainTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Menu_main_textWeeks"
+                                style="@style/TitleBarText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="第10周"
+                                android:textSize="24sp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:gravity="right"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:id="@+id/Btn_Course_Refresh"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:background="@drawable/btn_main_head"
+                            android:orientation="vertical">
+
+                        <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/ic_action_refresh"
+                                android:gravity="center_vertical|center_horizontal">
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@color/subWeekHead"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:gravity="center_vertical">
+
+                    <TextView android:id="@+id/test_empty"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              style="@style/courseTableText"
+                              android:text="@string/empty"
+                              android:background="@drawable/main_text_view_bg"
+                    />
+
+                    <LinearLayout
+                            android:id="@+id/View_Course_SubWrap_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Mon"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_horizontal"
+                                android:text="一"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/View_Course_SubWrap_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Tue"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="二"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Wed"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="三"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Thu"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="四"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Fri"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="五"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Sat"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="六"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.0"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                        <TextView
+                                android:id="@+id/Text_Course_Subhead_Sun"
+                                style="@style/SubHeadTextGray"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="5dp"
+                                android:gravity="center_horizontal"
+                                android:text="日"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                    style="@style/PageHeaderShadow"
+                    android:layout_width="match_parent"/>
+
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <ScrollView
+                        android:id="@+id/scroll_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                >
+                    <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/test_course_rl"
+                            android:background="@drawable/bg_main"
+                    >
+                    </RelativeLayout>
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
     </RelativeLayout>
     <LinearLayout
             android:layout_width="match_parent"
