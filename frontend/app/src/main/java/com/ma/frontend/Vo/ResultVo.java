@@ -1,6 +1,6 @@
 package com.ma.frontend.Vo;
 
-public class Result {
+public class ResultVo {
     /**
      * 响应状态码
      */
@@ -14,7 +14,7 @@ public class Result {
      */
     private Object data;
 
-    Result(int code, String message, Object data) {
+    ResultVo(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;

@@ -1,6 +1,5 @@
 package com.ma.frontend.activities;
 
-import android.app.Person;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -14,8 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.Gson;
 import com.ma.frontend.R;
-import com.ma.frontend.Vo.Result;
-import com.ma.frontend.Vo.StudentVo;
+import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.utils.HttpCallbackListener;
 import com.ma.frontend.utils.HttpUtil;
@@ -56,8 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.handleMessage(msg);
             String result = "";
             String ReturnMessage = (String) msg.obj;
-            final Result Showresult = new Gson().fromJson(ReturnMessage, Result.class);
-            final int code = Showresult.getCode();
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
             Log.i("code is",String.valueOf(code));
 
             if (code==200){
@@ -65,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(LoginActivity.this, PersonActivity.class);
+                intent.setClass(LoginActivity.this, InitActivity.class);
                 startActivity(intent);
             }else if (code==400){
                 result = "账号密码错误";
@@ -114,8 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }*/
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put(StudentVo.USERNAME, number);
-        params.put(StudentVo.PASSWORD, password);
      /*   if (admin.isChecked()) {
             params.put(User.POWER, "1");
         }else if (user.isChecked()) {

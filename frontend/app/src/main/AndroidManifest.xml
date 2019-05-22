@@ -22,16 +22,24 @@
                 android:label="@string/register" >
         </activity>
         <activity
+                android:name=".activities.InitActivity"
+                android:label="@string/init" >
+        </activity>
+        <activity
                 android:name=".activities.PersonActivity"
-                android:label="@string/register" >
+                android:label="@string/person" >
         </activity>
         <activity
                 android:name=".activities.CourseActivity"
-                android:label="@string/register" >
+                android:label="@string/course" >
         </activity>
         <activity
                 android:name=".activities.SearchActivity"
-                android:label="@string/register" >
+                android:label= "@string/search" >
+        </activity>
+        <activity
+                android:name=".activities.CourseDetailInfoActivity"
+                android:label= "@string/detail" >
         </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>

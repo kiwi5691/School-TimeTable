@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/scu__defaultBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+            android:id="@+id/scu_main_MainTitle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="vertical" >
+
+            <LinearLayout
+                    android:id="@+id/Btn_Course_Back"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:clickable="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:background="@drawable/btn_main_head"
+                    android:orientation="vertical" >
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_action_back"
+                        android:gravity="center_vertical" >
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|center_horizontal"
+                android:orientation="vertical" >
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:orientation="vertical" >
+
+                <TextView
+                        android:id="@+id/Text_Course_Title"
+                        style="@style/TitleBarText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="课程信息"
+                        android:textSize="24sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="right"
+                android:orientation="vertical" >
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/scu__defaultContent"
+            app:cardElevation="8dp"
+            app:cardCornerRadius="4dp">
+
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingTop="2dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="15dp">
+
+                    <TextView
+                            android:id="@+id/Detail_Course_Name"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            style="@style/BtnMainFuncText"
+                            android:text="课程名"
+                            android:layout_weight="1.0" />
+
+                    <TextView
+                            android:id="@+id/Detail_Course_Teacher"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center_horizontal"
+                            style="@style/BtnMainFuncText"
+                            android:text="任课教师"
+                            android:layout_weight="1.0" />
+
+                    <TextView
+                            android:id="@+id/Detail_Course_Time"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center_horizontal"
+                            style="@style/BtnMainFuncText"
+                            android:text="时间"
+                            android:layout_weight="1.0" />
+
+                    <TextView
+                            android:id="@+id/Detail_Course_Week"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center_horizontal"
+                            style="@style/BtnMainFuncText"
+                            android:text="周数"
+                            android:layout_weight="1.0" />
+
+                    <TextView
+                            android:id="@+id/Detail_Course_Space"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_gravity="center_horizontal"
+                            style="@style/BtnMainFuncText"
+                            android:text="地点"
+                            android:layout_weight="1.0" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:text="删除课程"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/Btn_Delete"
+                            android:layout_weight="1.0"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"  />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
