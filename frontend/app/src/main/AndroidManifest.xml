@@ -41,6 +41,22 @@
                 android:name=".activities.CourseDetailInfoActivity"
                 android:label= "@string/detail" >
         </activity>
+        <activity
+                android:name=".activities.person.LookupAcivity"
+                android:label= "@string/lookup" >
+        </activity>
+        <activity
+                android:name=".activities.person.SettingAcivity"
+                android:label= "@string/setting" >
+        </activity>
+        <activity
+                android:name=".activities.person.LogoutAcivity"
+                android:label= "@string/logout" >
+        </activity>
+        <activity
+                android:name=".activities.person.UpdateAcivity"
+                android:label= "@string/update" >
+        </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

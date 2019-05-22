@@ -69,11 +69,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     /**
      * View相关成员变量
      */
-    protected View menuView;
-    protected ImageView headshotView;
-    protected TextView nameTextView;
-    protected TextView insTextView;
-    protected TextView majorTextView;
     protected View refreshView;
 
     protected TextView dateTextView;//当前日期
@@ -191,22 +186,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         super.onBackPressed();
-    }
-
-
-
-
-    @SuppressLint("SimpleDateFormat")
-    private void initDate() {
-        Date currentTime = new Date();
-        String[] weekDays = {"日", "一", "二", "三", "四", "五", "六"};
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(currentTime);
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0)  w = 0;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  ");
-        String dateString = formatter.format(currentTime);
-        dateTextView.setText(dateString + "星期" + weekDays[w]);
     }
 
 

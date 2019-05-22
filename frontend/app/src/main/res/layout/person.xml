@@ -8,6 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <RelativeLayout
+                android:id="@+id/nav_view"
                 android:layout_width="match_parent"
                 android:layout_height="154dp"
                 android:background="@color/colorPrimary"
@@ -100,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:id="@+id/button1" android:layout_marginTop="2dp"
+                        android:id="@+id/rb_update" android:layout_marginTop="2dp"
                         android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
             </RelativeLayout>
             <RelativeLayout
@@ -119,7 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:id="@+id/button3" android:layout_marginTop="2dp"
+                        android:id="@+id/rb_setting" android:layout_marginTop="2dp"
                         android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
             </RelativeLayout>
             <RelativeLayout
@@ -138,7 +139,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="0dp"
-                        android:id="@+id/button4" android:layout_marginTop="2dp"
+                        android:id="@+id/rb_lookup" android:layout_marginTop="2dp"
                         android:layout_marginLeft="0dp" android:background="#00000000" android:textSize="24sp"/>
             </RelativeLayout>
         </RelativeLayout>
