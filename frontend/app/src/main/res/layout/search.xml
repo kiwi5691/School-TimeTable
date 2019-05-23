@@ -7,8 +7,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:layout_width="match_parent"
+        <LinearLayout
+                android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
                       android:background="#F0F3F6"
@@ -16,7 +16,7 @@
 
             <LinearLayout style="@style/wrap_layout" >
                 <!-- 上圆角-->
-                <LinearLayout style="@style/top_layout">
+                <LinearLayout style="@style/top_layout" android:id="@+id/check_grade">
                     <TextView style="@style/usertext" android:text="平时成绩查询"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
@@ -24,13 +24,13 @@
                 <!-- 分割线 -->
                 <View style="@style/bg_line"/>
                 <!-- 无圆角-->
-                <LinearLayout style="@style/mid_layout">
+                <LinearLayout style="@style/mid_layout" android:id="@+id/course_evatue">
                     <TextView style="@style/usertext" android:text="课堂评价"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
                 <View style="@style/bg_line"/>
                 <!-- 下圆角-->
-                <LinearLayout style="@style/bottom_layout">
+                <LinearLayout style="@style/bottom_layout" android:id="@+id/home_work">
                     <TextView style="@style/usertext" android:text="查看出勤和作业"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
@@ -39,8 +39,13 @@
 
             <!-- 全圆角-->
             <LinearLayout style="@style/wrap_layout">
-                <LinearLayout style="@style/single_layout">
+                <LinearLayout style="@style/single_layout" android:id="@+id/check_teacher">
                     <TextView style="@style/usertext" android:text="查看教师"/>
+                    <ImageView style="@style/img_arrow"/>
+                </LinearLayout>
+                <LinearLayout style="@style/single_layout" android:layout_width="match_parent"
+                              android:layout_height="match_parent" android:id="@+id/add_course">
+                    <TextView style="@style/usertext" android:text="添加课程"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
 

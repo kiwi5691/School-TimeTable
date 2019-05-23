@@ -21,6 +21,12 @@
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
 
+    <string name="add_course">添加课程</string>
+    <string name="check_grade">平时分数</string>
+    <string name="check_teacher">查看教师</string>
+    <string name="course_evatue">出勤</string>
+    <string name="home_work">作业</string>
+
     <string name="empty"></string>
     <string name="mon">周一</string>
     <string name="tue">周二</string>

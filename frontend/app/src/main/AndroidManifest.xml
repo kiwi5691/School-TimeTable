@@ -57,6 +57,30 @@
                 android:name=".activities.person.UpdateAcivity"
                 android:label= "@string/update" >
         </activity>
+        <activity
+                android:name=".activities.search.CheckTeacherAcivity"
+                android:label= "@string/check_teacher" >
+        </activity>
+        <activity
+                android:name=".activities.search.AddCourseAcitvity"
+                android:label= "@string/add_course" >
+        </activity>
+        <activity
+                android:name=".activities.search.CheckGradeAcivity"
+                android:label= "@string/check_grade" >
+        </activity>
+        <activity
+                android:name=".activities.search.HomeWorkAcivity"
+                android:label= "@string/home_work" >
+        </activity>
+        <activity
+                android:name=".activities.search.CourseEvatueAcivity"
+                android:label= "@string/course_evatue" >
+        </activity>
+        <activity
+                android:name=".activities.person.UpdateAcivity"
+                android:label= "@string/update" >
+        </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

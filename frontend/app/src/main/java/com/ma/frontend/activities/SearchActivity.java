@@ -6,7 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import com.ma.frontend.R;
+import com.ma.frontend.activities.search.AddCourseAcitvity;
+import com.ma.frontend.activities.search.CheckGradeAcivity;
+import com.ma.frontend.activities.search.CheckTeacherAcivity;
 
 /**
  * @Auther:kiwi
@@ -17,6 +21,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //private Button mSearch;
     private Button mCourse;
     private Button mPerson;
+
+    protected LinearLayout mAddcourse;
+    protected LinearLayout mCheckgrade;
+    protected LinearLayout mCheckTeacher;
+    protected LinearLayout mCourseEvatue;
+    protected LinearLayout mHomeWork;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +41,25 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
       // mSearch = (Button) findViewById(R.id.rb_search);
        mPerson = (Button) findViewById(R.id.rb_person);
        mCourse = (Button) findViewById(R.id.rb_course);
+
+       mAddcourse = (LinearLayout) findViewById(R.id.add_course);
+       mCheckgrade = (LinearLayout) findViewById(R.id.check_grade);
+       mCheckTeacher = (LinearLayout) findViewById(R.id.check_teacher);
+       mHomeWork = (LinearLayout) findViewById(R.id.home_work);
+       mCourseEvatue = (LinearLayout) findViewById(R.id.course_evatue);
     }
 
     private void initEvent() {
      //  mSearch.setOnClickListener(this);
        mPerson.setOnClickListener(this);
        mCourse.setOnClickListener(this);
+
+
+       mAddcourse.setOnClickListener(this);
+       mCheckgrade.setOnClickListener(this);
+       mCheckTeacher.setOnClickListener(this);
+       mCourseEvatue.setOnClickListener(this);
+       mHomeWork.setOnClickListener(this);
     }
 
    // private void Search(){
@@ -54,6 +77,32 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         intent.setClass(SearchActivity.this, PersonActivity.class);
         startActivity(intent);
     }
+    private void CheckGrade(){
+        Intent intent=new Intent();
+        intent.setClass(SearchActivity.this, CheckGradeAcivity.class);
+        startActivity(intent);
+    }
+    private void AddCourse(){
+        Intent intent=new Intent();
+        intent.setClass(SearchActivity.this, AddCourseAcitvity.class);
+        startActivity(intent);
+    }
+    private void CheckTeacher(){
+        Intent intent=new Intent();
+        intent.setClass(SearchActivity.this, CheckTeacherAcivity.class);
+        startActivity(intent);
+    }
+    private void HomeWork(){
+        Intent intent=new Intent();
+        intent.setClass(SearchActivity.this, PersonActivity.class);
+        startActivity(intent);
+    }
+    private void CourseEvatue(){
+        Intent intent=new Intent();
+        intent.setClass(SearchActivity.this, PersonActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -65,6 +114,21 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.rb_person:
                 Person();
+                break;
+            case R.id.add_course:
+                AddCourse();
+                break;
+            case R.id.check_grade:
+                CheckGrade();
+                break;
+            case R.id.check_teacher:
+                CheckTeacher();
+                break;
+            case R.id.course_evatue:
+                CourseEvatue();
+                break;
+            case R.id.home_work:
+                HomeWork();
                 break;
         }
     }
