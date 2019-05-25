@@ -19,6 +19,6 @@
                 android:layout_height="73dp"
                 android:theme="@style/SpinnerStyle"
                 android:id="@+id/spinner"
-                android:dropDownWidth="match_parent"/>
+                android:dropDownWidth="match_parent" android:background="@color/border_clo"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

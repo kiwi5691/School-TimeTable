@@ -1,6 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff">
+    <!-- padding 内边距   layout_margin 外边距
+  		android:layout_alignParentTop 布局的位置是否处于顶部 -->
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:layout_margin="15dip"
+            android:background="#93ffffff" >
+        <!-- 账号 -->
+        <TextView
+                android:id="@+id/login_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="课程名字"/>
+        <TextView
+                android:id="@+id/user_phone_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="课程名字"
+                android:layout_below="@id/login_user"
+                android:singleLine="true" android:textSize="24sp"/>
+        <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="0.5dp"
+                         android:layout_below="@id/user_phone_input"
+                         android:background="@android:color/darker_gray"
+                         android:text="TextView" />
+        <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_phone_input"
+                android:layout_marginTop="3dp"
+                android:text="教师姓 名" />
+        <TextView
+                android:id="@+id/user_name_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:singleLine="true"
+                android:text="教师姓 名" android:textSize="24sp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/user_name_input"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <!-- 身份证号码 text -->
+        <TextView
+                android:id="@+id/user_id_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name_input"
+                android:layout_marginTop="3dp"
+                android:text="教室位置"/>
+        <TextView
+                android:id="@+id/look_up"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_id_card"
+                android:singleLine="true"
+                android:text="教室位置" android:textSize="24sp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/look_up"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <!-- 密码 text -->
+        <TextView
+                android:id="@+id/user_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/look_up"
+                android:layout_marginTop="3dp"
+                android:text="起始周"/>
+        <TextView
+                android:id="@+id/user_password_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password"
+                android:singleLine="true"
+                android:text="起始周" android:textSize="24sp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/user_password_input"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <!-- 重复输入密码 text -->
+        <TextView
+                android:id="@+id/user_password_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_input"
+                android:layout_marginTop="3dp"
+                android:text="结束周"/>
+        <TextView
+                android:id="@+id/user_password_input_d"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_"
+                android:singleLine="true"
+                android:text="结束周" android:textSize="24sp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/user_password_input_d"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <TextView
+                android:id="@+id/course_day_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_input_d"
+                android:layout_marginTop="3dp"
+                android:text="结束周"/>
+        <TextView
+                android:id="@+id/course_day"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/course_day_t"
+                android:text="结束周" android:textSize="24sp" android:singleLine="true"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/course_day"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <!-- 登录button -->
+
+    </RelativeLayout>
+
+</LinearLayout>
