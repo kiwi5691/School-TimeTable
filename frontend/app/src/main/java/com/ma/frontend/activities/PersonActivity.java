@@ -1,25 +1,19 @@
 package com.ma.frontend.activities;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Person;
-import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import com.ma.frontend.R;
-import com.ma.frontend.activities.person.LogoutAcivity;
 import com.ma.frontend.activities.person.LookupAcivity;
 import com.ma.frontend.activities.person.SettingAcivity;
 import com.ma.frontend.activities.person.UpdateAcivity;
@@ -170,10 +164,36 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
          intent.setClass(PersonActivity.this, LookupAcivity.class);
          startActivity(intent);
      }
+
+     
+     /**
+      *@Auther kiwi
+      *@Data 2019/5/24
+      @param  * @param
+      *@reutn void
+     */
      private void Logout(){
-         Intent intent=new Intent();
-         intent.setClass(PersonActivity.this, LogoutAcivity.class);
-         startActivity(intent);
+         AlertDialog alertDialog = new AlertDialog.Builder(PersonActivity.this)
+                 .setTitle("登出")
+                 .setMessage("是否登出")
+                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         Intent intent=new Intent();
+                         intent.setClass(PersonActivity.this, LoginActivity.class);
+                         startActivity(intent);
+                     }
+                 })
+                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         return;
+                     }
+                 }).create();
+         alertDialog.show();
+
+
+
      }
      private void Setting(){
          Intent intent=new Intent();

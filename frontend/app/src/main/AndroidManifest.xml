@@ -50,10 +50,6 @@
                 android:label= "@string/setting" >
         </activity>
         <activity
-                android:name=".activities.person.LogoutAcivity"
-                android:label= "@string/logout" >
-        </activity>
-        <activity
                 android:name=".activities.person.UpdateAcivity"
                 android:label= "@string/update" >
         </activity>

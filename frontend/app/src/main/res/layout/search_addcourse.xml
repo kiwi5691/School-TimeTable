@@ -1,6 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff">
+    <!-- padding 内边距   layout_margin 外边距
+  		android:layout_alignParentTop 布局的位置是否处于顶部 -->
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:layout_margin="15dip"
+            android:background="#93ffffff" >
+        <!-- 账号 -->
+        <TextView
+                android:id="@+id/login_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="课程名字"/>
+        <EditText
+                android:id="@+id/user_phone_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="课程名字"
+                android:layout_below="@id/login_user"
+                android:singleLine="true"
+                android:inputType="text"/>
+        <!-- 姓名 text -->
+        <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_phone_input"
+                android:layout_marginTop="3dp"
+                android:text="教师姓 名"/>
+        <EditText
+                android:id="@+id/user_name_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:singleLine="true"
+                android:inputType="text" android:hint="教师名字"/>
+        <!-- 身份证号码 text -->
+        <TextView
+                android:id="@+id/user_id_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name_input"
+                android:layout_marginTop="3dp"
+                android:text="教室位置"/>
+        <EditText
+                android:id="@+id/look_up"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_id_card"
+                android:singleLine="true"
+                android:inputType="text" android:hint="教室"/>
+        <!-- 密码 text -->
+        <TextView
+                android:id="@+id/user_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/look_up"
+                android:layout_marginTop="3dp"
+                android:text="起始周"/>
+        <EditText
+                android:id="@+id/user_password_input"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password"
+                android:password="true"
+                android:singleLine="true"
+                android:inputType="text" android:hint="起始周"/>
+        <!-- 重复输入密码 text -->
+        <TextView
+                android:id="@+id/user_password_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_input"
+                android:layout_marginTop="3dp"
+                android:text="结束周"/>
+        <EditText
+                android:id="@+id/user_password_input_d"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_"
+                android:password="true"
+                android:singleLine="true"
+                android:inputType="text" android:hint="结束周"/>
+        <TextView
+                android:id="@+id/course_day_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_password_input_d"
+                android:layout_marginTop="3dp"
+                android:text="结束周"/>
+        <EditText
+                android:id="@+id/course_day"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/course_day_t"
+                android:password="true"
+                android:singleLine="true"
+                android:inputType="text" android:hint="上课时间"/>
+        <!-- 登录button -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/warnText"
+                android:layout_below="@id/course_day"
+                android:textSize="15dp"
+                android:textColor="#ff0000" />
+
+        <Button
+                android:id="@+id/register_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/warnText"
+                android:layout_alignRight="@id/user_password"
+                android:text="添加课程"
+                android:background="#4FC1FB"
+                android:layout_alignLeft="@+id/user_password"
+                android:layout_alignStart="@+id/user_password"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        <TextView android:id="@+id/rb_return"
+                  android:text="返 回"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="#EEB423"
+                  android:textColorLink="#FF0066CC"
+                  android:textSize="18dp"
+                  android:layout_alignParentTop="true"
+                  android:layout_alignParentRight="true"
+                  android:layout_alignParentEnd="true"
+                  android:layout_marginRight="27dp"
+                  android:layout_marginEnd="27dp"/>
+
+    </RelativeLayout>
+</LinearLayout>

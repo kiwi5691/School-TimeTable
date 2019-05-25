@@ -93,6 +93,12 @@
         <item name="android:background">@drawable/mid_layout_selector</item>
     </style>
 
+
+    <style name="SpinnerStyle">
+        <item name="colorAccent">#888888</item>
+        <item name="colorControlNormal">#ddffffff</item> <!--改变了spinner的颜色  -->
+    </style>
+
     <!-- 下圆角样式 -->
     <style name="bottom_layout"  parent="base_layout">
         <item name="android:background">@drawable/bottom_layout_selector</item>

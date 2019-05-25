@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+                android:text="请选择课程"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp" android:id="@+id/textView" android:textSize="30sp"/>
+        <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="73dp"
+                android:theme="@style/SpinnerStyle"
+                android:id="@+id/spinner"
+                android:dropDownWidth="match_parent"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
