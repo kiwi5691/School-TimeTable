@@ -9,6 +9,11 @@
   <sql id="Base_Column_List" >
     id, rid, role
   </sql>
+  <select id="CheckRoles" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select role
+    from role_permission
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

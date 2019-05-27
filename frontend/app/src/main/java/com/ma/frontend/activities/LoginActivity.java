@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public String pwd = " ";
 
     String root= HttpConstant.OriginAddress;
-    private String originAddress = root + "/user_student/login";
+    private String originAddress = root + "/user/login";
 
     final OkHttpClient client = new OkHttpClient();
 
