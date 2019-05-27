@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.android.backend.dao.CourseDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.android.backend.domain.CourseDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="regular_grade" property="regularGrade" jdbcType="VARCHAR" />
+    <result column="evaluation_score" property="evaluationScore" jdbcType="INTEGER" />
+    <result column="evaluation_info" property="evaluationInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_name, course_id, regular_grade, evaluation_score, evaluation_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.android.backend.domain.CourseDetail" >
+    insert into course_detail (id, student_name, course_id, 
+      regular_grade, evaluation_score, evaluation_info
+      )
+    values (#{id,jdbcType=INTEGER}, #{studentName,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, 
+      #{regularGrade,jdbcType=VARCHAR}, #{evaluationScore,jdbcType=INTEGER}, #{evaluationInfo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.android.backend.domain.CourseDetail" >
+    insert into course_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentName != null" >
+        student_name,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="regularGrade != null" >
+        regular_grade,
+      </if>
+      <if test="evaluationScore != null" >
+        evaluation_score,
+      </if>
+      <if test="evaluationInfo != null" >
+        evaluation_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="studentName != null" >
+        #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="regularGrade != null" >
+        #{regularGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationScore != null" >
+        #{evaluationScore,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationInfo != null" >
+        #{evaluationInfo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.CourseDetail" >
+    update course_detail
+    <set >
+      <if test="studentName != null" >
+        student_name = #{studentName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="regularGrade != null" >
+        regular_grade = #{regularGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluationScore != null" >
+        evaluation_score = #{evaluationScore,jdbcType=INTEGER},
+      </if>
+      <if test="evaluationInfo != null" >
+        evaluation_info = #{evaluationInfo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.CourseDetail" >
+    update course_detail
+    set student_name = #{studentName,jdbcType=VARCHAR},
+      course_id = #{courseId,jdbcType=VARCHAR},
+      regular_grade = #{regularGrade,jdbcType=VARCHAR},
+      evaluation_score = #{evaluationScore,jdbcType=INTEGER},
+      evaluation_info = #{evaluationInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

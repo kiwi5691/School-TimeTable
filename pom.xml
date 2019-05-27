@@ -14,6 +14,15 @@
     <name>backend</name>
     <description>Android finall</description>
 
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -79,7 +88,7 @@
                 </executions>
                 <configuration>
                     <!-- generator 工具配置文件的位置 -->
-                    <configurationFile>src/main/resources/mybatis-generator/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>

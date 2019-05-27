@@ -1,8 +1,11 @@
 package com.android.backend.controller;
 
+import com.android.backend.dao.UserLoginMapper;
+import com.android.backend.domain.UserLogin;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import com.android.backend.vo.StudentVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +18,18 @@ import java.util.Objects;
 @CrossOrigin
 public class UserController {
 
-    @RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
+
+    @Autowired
+    private UserLoginMapper userLoginMapper;
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/27
+     @param  * @param loginInfoVo
+     * 测试用例
+      * @param bindingResult
+     *@reutn com.android.backend.util.Result
+    */
+    /*@RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
     public Result login(StudentVo loginInfoVo, BindingResult bindingResult) {
 
         System.out.println(loginInfoVo.getUsername()+" --"+loginInfoVo.getPassword());
@@ -28,5 +42,21 @@ public class UserController {
             return ResultFactory.buildFailResult(message);
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
+    }*/
+    @RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
+    public Result login(UserLogin loginInfoVo, BindingResult bindingResult) {
+
+        System.out.println(loginInfoVo.getUserName()+" --"+loginInfoVo.getUserPassword());
+        if (bindingResult.hasErrors()) {
+            String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
+            return ResultFactory.buildFailResult(message);
+        }
+        if(userLoginMapper.Checklogin(loginInfoVo)!=1) {
+            String message = String.format("登陆失败，详细信息[用户名、密码信息不正确]。");
+            return ResultFactory.buildFailResult(message);
+        }
+        return ResultFactory.buildSuccessResult("登陆成功。");
     }
+
+
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.android.backend.dao.GlobalInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.android.backend.domain.GlobalInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="versionStr" property="versionstr" jdbcType="VARCHAR" />
+    <result column="termBegin" property="termbegin" jdbcType="VARCHAR" />
+    <result column="yearFrom" property="yearfrom" jdbcType="INTEGER" />
+    <result column="yearTo" property="yearto" jdbcType="INTEGER" />
+    <result column="term" property="term" jdbcType="INTEGER" />
+    <result column="isFirstUse" property="isfirstuse" jdbcType="INTEGER" />
+    <result column="activeUserUid" property="activeuseruid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, version, versionStr, termBegin, yearFrom, yearTo, term, isFirstUse, activeUserUid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from global_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from global_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.android.backend.domain.GlobalInfo" >
+    insert into global_info (id, version, versionStr, 
+      termBegin, yearFrom, yearTo, 
+      term, isFirstUse, activeUserUid
+      )
+    values (#{id,jdbcType=INTEGER}, #{version,jdbcType=INTEGER}, #{versionstr,jdbcType=VARCHAR}, 
+      #{termbegin,jdbcType=VARCHAR}, #{yearfrom,jdbcType=INTEGER}, #{yearto,jdbcType=INTEGER}, 
+      #{term,jdbcType=INTEGER}, #{isfirstuse,jdbcType=INTEGER}, #{activeuseruid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.android.backend.domain.GlobalInfo" >
+    insert into global_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="versionstr != null" >
+        versionStr,
+      </if>
+      <if test="termbegin != null" >
+        termBegin,
+      </if>
+      <if test="yearfrom != null" >
+        yearFrom,
+      </if>
+      <if test="yearto != null" >
+        yearTo,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="isfirstuse != null" >
+        isFirstUse,
+      </if>
+      <if test="activeuseruid != null" >
+        activeUserUid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="versionstr != null" >
+        #{versionstr,jdbcType=VARCHAR},
+      </if>
+      <if test="termbegin != null" >
+        #{termbegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yearfrom != null" >
+        #{yearfrom,jdbcType=INTEGER},
+      </if>
+      <if test="yearto != null" >
+        #{yearto,jdbcType=INTEGER},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=INTEGER},
+      </if>
+      <if test="isfirstuse != null" >
+        #{isfirstuse,jdbcType=INTEGER},
+      </if>
+      <if test="activeuseruid != null" >
+        #{activeuseruid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.GlobalInfo" >
+    update global_info
+    <set >
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="versionstr != null" >
+        versionStr = #{versionstr,jdbcType=VARCHAR},
+      </if>
+      <if test="termbegin != null" >
+        termBegin = #{termbegin,jdbcType=VARCHAR},
+      </if>
+      <if test="yearfrom != null" >
+        yearFrom = #{yearfrom,jdbcType=INTEGER},
+      </if>
+      <if test="yearto != null" >
+        yearTo = #{yearto,jdbcType=INTEGER},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=INTEGER},
+      </if>
+      <if test="isfirstuse != null" >
+        isFirstUse = #{isfirstuse,jdbcType=INTEGER},
+      </if>
+      <if test="activeuseruid != null" >
+        activeUserUid = #{activeuseruid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.GlobalInfo" >
+    update global_info
+    set version = #{version,jdbcType=INTEGER},
+      versionStr = #{versionstr,jdbcType=VARCHAR},
+      termBegin = #{termbegin,jdbcType=VARCHAR},
+      yearFrom = #{yearfrom,jdbcType=INTEGER},
+      yearTo = #{yearto,jdbcType=INTEGER},
+      term = #{term,jdbcType=INTEGER},
+      isFirstUse = #{isfirstuse,jdbcType=INTEGER},
+      activeUserUid = #{activeuseruid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
