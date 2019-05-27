@@ -1,28 +1,21 @@
-package com.android.backend.controller;
+package com.android.backend.controller.user;
 
 import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
-import com.android.backend.vo.StudentVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 //import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import java.util.Objects;
 
 @RestController
 @CrossOrigin
