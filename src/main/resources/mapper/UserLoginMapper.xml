@@ -9,6 +9,11 @@
   <sql id="Base_Column_List" >
     id, user_name, user_password
   </sql>
+  <select id="selectAllByName" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select *
+    from user_login where
+      user_name =#{userName,jdbcType=VARCHAR}
+  </select>
   <select id="Checklogin" resultType="java.lang.Integer" parameterType="java.lang.String" >
     select 1
     from user_login

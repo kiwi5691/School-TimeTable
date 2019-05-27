@@ -16,4 +16,6 @@ public interface UserLoginMapper {
     int updateByPrimaryKey(UserLogin record);
 
     int Checklogin(UserLogin userLogin);
+
+   UserLogin selectAllByName(String username);
 }

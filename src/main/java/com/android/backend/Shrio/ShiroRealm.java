@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.android.backend.dao.RolePermissionMapper;
+import com.android.backend.dao.UserLoginMapper;
+import com.android.backend.domain.UserLogin;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -35,13 +38,11 @@ public class ShiroRealm extends AuthenticatingRealm {
     private Logger logger = LoggerFactory.getLogger(ShiroRealm.class);
 
     @Autowired
-    private UsersMapper usersMapper;
+    private UserLoginMapper userLoginMapper;
 
-    @Autowired
-    private RolesPermissionsMapper rolesPermissionsMapper;
+   // @Autowired
+   // private RolePermissionMapper rolePermissionMapper;
 
-    @Autowired
-    private PermissionMapper permissionMapper;
    /* @Autowired
     private SysRolePermissionService sysRolePermissionService;
     @Autowired
@@ -61,7 +62,7 @@ public class ShiroRealm extends AuthenticatingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         logger.info("验证当前Subject时获取到token为：" + token.toString());
         // 查出是否有此用户
-        Users user = usersMapper.selectAllByName(token.getUsername());
+        UserLogin user = userLoginMapper.selectAllByName(token.getUsername());
         if (user != null) {
             Session session = SecurityUtils.getSubject().getSession();
             session.setAttribute("user", user);//成功则放入session
@@ -80,13 +81,13 @@ public class ShiroRealm extends AuthenticatingRealm {
     }
 
     /**
-     * 权限认证
+     * 权限认证,因为只对两者操作，不创建权限表
      *
      * @param principalCollection
      * @return
      */
     //   @Override
-    protected AuthorizationInfo doGetAuthorizationInfo(
+  /*  protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principalCollection) {
         logger.info("##################执行Shiro权限认证##################");
         // 获取当前登录输入的用户名，等价于(String)
@@ -113,6 +114,6 @@ public class ShiroRealm extends AuthenticatingRealm {
         }
         // 返回null的话，就会导致任何用户访问被拦截的请求时，都会自动跳转到unauthorizedUrl指定的地址
         return null;
-    }
+    }*/
 
 }

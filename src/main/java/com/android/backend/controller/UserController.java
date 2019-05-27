@@ -6,12 +6,18 @@ import com.android.backend.domain.UserLogin;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import com.android.backend.vo.StudentVo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+//import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,6 +28,8 @@ import java.util.Objects;
 @CrossOrigin
 @SessionAttributes("role")
 public class UserController {
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     @Autowired
     private UserLoginMapper userLoginMapper;
@@ -49,9 +57,28 @@ public class UserController {
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
     }*/
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/27
+     @param  * @param loginInfoVo
+     * @param rid
+     * @param bindingResult
+     * @param model
+     *@reutn com.android.backend.util.Result
+     * TODO 待 trycatch 修改
+     */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST, produces = "application/json")
     public Result login(UserLogin loginInfoVo, int rid, BindingResult bindingResult, Model model) {
+
+        String username = loginInfoVo.getUserName();
+        logger.info("用户paswd为:"+loginInfoVo.getUserPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(username, loginInfoVo.getUserPassword());
+        //获取当前的Subject
+        Subject currentUser = SecurityUtils.getSubject();
         System.out.println(loginInfoVo.getUserName()+" --"+loginInfoVo.getUserPassword());
+
+
         if (bindingResult.hasErrors()) {
             String message = String.format("登陆失败，详细信息[%s]。", bindingResult.getFieldError().getDefaultMessage());
             return ResultFactory.buildFailResult(message);
