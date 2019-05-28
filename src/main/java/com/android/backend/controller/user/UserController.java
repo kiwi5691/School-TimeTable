@@ -3,31 +3,45 @@ package com.android.backend.controller.user;
 import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
+import com.android.backend.service.TimetableUserInfo;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-//import org.apache.log4j.Logger;
+
 
 
 @RestController
 @CrossOrigin
-@SessionAttributes("role")
 public class UserController {
+    /**
+     *@Auther kiwi
+     *初始化logger变量
+    */
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
+    /**
+     *@Auther kiwi
+     *注入
+     */
     @Autowired
     private UserLoginMapper userLoginMapper;
     @Autowired
     private RolePermissionMapper rolePermissionMapper;
+    @Autowired
+    private TimetableUserInfo timetableUserInfo;
+
+
     /**
      *@Auther kiwi
      *@Data 2019/5/27
@@ -113,11 +127,44 @@ public class UserController {
 
 
 
+
+
+
     @RequestMapping(value="/user/register",method = RequestMethod.POST,produces = "application/json")
     public Result register(UserLogin loginInfoVo, int rid,
     BindingResult bindingResult, Model model) {
 
-        String message = String.format("注册成功");
+        logger.info("-----注册------");
+        logger.info("用户名：" + loginInfoVo.getUserName());
+
+
+        try {
+            userLoginMapper.selectIsName(loginInfoVo);
+            logger.info("是否存在此账户:"+userLoginMapper.selectIsName(loginInfoVo));
+        } catch (Exception e) {
+
+            //md5 盐加密密码
+            String hashAlgorithmName = "MD5";//加密方式
+            Object crdentials = loginInfoVo.getUserPassword();//密码原值
+            ByteSource salt = ByteSource.Util.bytes(loginInfoVo.getUserName());//以账号作为盐值
+            int hashIterations = 1024;//加密1024次
+            Object result = new SimpleHash(hashAlgorithmName,crdentials,salt,hashIterations);
+
+
+
+            loginInfoVo.setUserPassword(result.toString());
+            logger.info("加密后的密码为:"+result.toString());
+
+
+
+            userLoginMapper.insert(loginInfoVo);//  存入登录信息表
+            timetableUserInfo.register(rid,loginInfoVo.getUserName());  //  存入信息表中
+
+            model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
+            return ResultFactory.buildSuccessResult("注册成功。");
+        }
+
+        String message = String.format("已经存在账号，注册失败");
         return ResultFactory.buildFailResult(message);
 
     }
