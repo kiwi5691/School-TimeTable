@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+        xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#ffffff">
@@ -27,10 +27,9 @@
                 android:id="@+id/user_phone_input"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="手 机 号"
                 android:layout_below="@id/login_user"
                 android:singleLine="true"
-                android:inputType="text"/>
+                android:inputType="text" android:hint="输入账号"/>
         <!-- 姓名 text -->
         <TextView
                 android:id="@+id/user_name"
@@ -45,28 +44,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_name"
                 android:singleLine="true"
-                android:inputType="text" />
-        <!-- 身份证号码 text -->
-        <TextView
-                android:id="@+id/user_id_card"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/user_name_input"
-                android:layout_marginTop="3dp"
-                android:text="身份证号码"/>
-        <EditText
-                android:id="@+id/look_up"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/user_id_card"
-                android:singleLine="true"
-                android:inputType="text" />
+                android:inputType="text" android:hint="输入名字"/>
         <!-- 密码 text -->
         <TextView
                 android:id="@+id/user_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/look_up"
+                android:layout_below="@id/user_name_input"
                 android:layout_marginTop="3dp"
                 android:text="密 码"/>
         <EditText
@@ -76,7 +60,7 @@
                 android:layout_below="@id/user_password"
                 android:password="true"
                 android:singleLine="true"
-                android:inputType="textPassword" />
+                android:inputType="textPassword" android:hint="输入密码"/>
         <!-- 重复输入密码 text -->
         <TextView
                 android:id="@+id/user_password_"
@@ -92,7 +76,7 @@
                 android:layout_below="@id/user_password_"
                 android:password="true"
                 android:singleLine="true"
-                android:inputType="textPassword" />
+                android:inputType="textPassword" android:hint="再次确认密码"/>
         <!-- 登录button -->
         <TextView
                 android:layout_width="wrap_content"
