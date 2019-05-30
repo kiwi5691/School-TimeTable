@@ -71,7 +71,32 @@
                 android:textColor="#ffffff"
                 android:textSize="20dp"/>
     </RelativeLayout>
-
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="421dp"
+            android:layout_height="50dp">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="#ffffff"
+                android:layout_height="39dp">
+            <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                <RadioButton
+                        android:text="学生"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/ck_student" android:layout_weight="1"
+                        android:checked="true"/>
+                <RadioButton
+                        android:text="教师"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/ck_teacher" android:layout_weight="1"
+                        android:checked="false"/>
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
     <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
@@ -87,6 +112,12 @@
                    android:layout_alignParentEnd="true"
                    android:layout_marginRight="27dp"
                    android:layout_marginEnd="27dp" />
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_alignParentStart="true"
+                android:layout_marginStart="120dp" android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true" android:layout_marginBottom="0dp"
+                android:layout_marginLeft="120dp"/>
 
     </RelativeLayout>
 </LinearLayout>

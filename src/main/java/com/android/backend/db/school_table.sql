@@ -39,6 +39,7 @@ CREATE TABLE `teacher_info` (
                                 id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                 user_id int(11) NOT NULL DEFAULT '0',
                                 nick_name NVARCHAR(100) NOT NULL DEFAULT '',
+                                phone NVARCHAR(100) DEFAULT NULL COMMENT '联系电话',
                                 province NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT'行政区域表的省',
                                 city NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT'行政区域表的市',
                                 area NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT'行政区域表的区县',
@@ -54,7 +55,7 @@ CREATE TABLE `teacher_info` (
 DROP TABLE IF EXISTS `table_storage`;
 CREATE TABLE `table_storage` (
                                 id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                key_num NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT '文件的唯一索引',
+                                'key' NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT '文件的唯一索引',
                                 name NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT '文件名',
                                 type NVARCHAR(100) NOT NULL DEFAULT ' 'COMMENT '文件类型',
                                 size NVARCHAR(100) NOT NULL DEFAULT '' COMMENT '文件大小',

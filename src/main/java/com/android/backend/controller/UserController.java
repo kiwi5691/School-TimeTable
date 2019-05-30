@@ -1,9 +1,10 @@
-package com.android.backend.controller.user;
+
+package com.android.backend.controller;
 
 import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
-import com.android.backend.service.TimetableUserInfo;
+import com.android.backend.service.TimetableUserInfoService;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import org.apache.shiro.SecurityUtils;
@@ -39,17 +40,10 @@ public class UserController {
     @Autowired
     private RolePermissionMapper rolePermissionMapper;
     @Autowired
-    private TimetableUserInfo timetableUserInfo;
+    private TimetableUserInfoService timetableUserInfoService;
 
 
-    /**
-     *@Auther kiwi
-     *@Data 2019/5/27
-     @param  * @param loginInfoVo
-     * 测试用例
-      * @param bindingResult
-     *@reutn com.android.backend.util.Result
-    */
+
     /*@RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
     public Result login(StudentVo loginInfoVo, BindingResult bindingResult) {
 
@@ -126,12 +120,19 @@ public class UserController {
     }
 
 
-
-
-
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/29
+     @param  * @param loginInfoVo
+     * @param Nickname
+     * @param rid
+     * @param bindingResult
+     * @param model
+     *@reutn com.android.backend.util.Result
+    */
 
     @RequestMapping(value="/user/register",method = RequestMethod.POST,produces = "application/json")
-    public Result register(UserLogin loginInfoVo, int rid,
+    public Result register(UserLogin loginInfoVo,String Nickname, int rid,
     BindingResult bindingResult, Model model) {
 
         logger.info("-----注册------");
@@ -158,7 +159,7 @@ public class UserController {
 
 
             userLoginMapper.insert(loginInfoVo);//  存入登录信息表
-            timetableUserInfo.register(rid,loginInfoVo.getUserName());  //  存入信息表中
+            timetableUserInfoService.register(rid,loginInfoVo.getUserName(),Nickname);  //  存入信息表中
 
             model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
             return ResultFactory.buildSuccessResult("注册成功。");

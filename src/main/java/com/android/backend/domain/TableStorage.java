@@ -3,7 +3,7 @@ package com.android.backend.domain;
 public class TableStorage {
     private Integer id;
 
-    private String keyNum;
+    private String key;
 
     private String name;
 
@@ -21,12 +21,12 @@ public class TableStorage {
         this.id = id;
     }
 
-    public String getKeyNum() {
-        return keyNum;
+    public String getkey() {
+        return key;
     }
 
-    public void setKeyNum(String keyNum) {
-        this.keyNum = keyNum == null ? null : keyNum.trim();
+    public void setkey(String key) {
+        this.key = key == null ? null : key.trim();
     }
 
     public String getName() {

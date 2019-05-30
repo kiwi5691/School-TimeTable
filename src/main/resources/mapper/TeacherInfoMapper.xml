@@ -3,7 +3,7 @@
 <mapper namespace="com.android.backend.dao.TeacherInfoMapper" >
   <resultMap id="BaseResultMap" type="com.android.backend.domain.TeacherInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
@@ -35,7 +35,7 @@
       gender, birthday, last_login_time, 
       add_time, update_time, headshot
       )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
       #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
       #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{headshot,jdbcType=VARCHAR}
@@ -86,7 +86,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null" >
         #{nickName,jdbcType=VARCHAR},
@@ -124,7 +124,7 @@
     update teacher_info
     <set >
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="nickName != null" >
         nick_name = #{nickName,jdbcType=VARCHAR},
@@ -161,7 +161,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.TeacherInfo" >
     update teacher_info
-    set user_id = #{userId,jdbcType=INTEGER},
+    set user_id = #{userId,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},

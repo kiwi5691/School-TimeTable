@@ -7,10 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.gson.Gson;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
@@ -21,22 +18,31 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText mUsernameEditText;
     private EditText mPassWordEditText;
     private Button mLoginButton;
     private TextView mRegister;
+    private RadioButton mTeacher;
+    private RadioButton mStudent;
     //用于接收Http请求的servlet的URL地址
    // private String originAddress = getResources().getString(R.string.url_root) +"/user_student/login";
 
     public String name = " ";
     public String pwd = " ";
+    public String Ridt ="1";
+
 
     String root= HttpConstant.OriginAddress;
-    private String originAddress = root + "/user/login";
+    private String originAddress = root + "/user/login?";
 
-    final OkHttpClient client = new OkHttpClient();
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15,TimeUnit.SECONDS)
+            .writeTimeout(15,TimeUnit.SECONDS)
+            .build();
 
 
     @Override
@@ -56,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String ReturnMessage = (String) msg.obj;
             final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
             final int code = showresult.getCode();
+            final String message = showresult.getMessage();
             Log.i("code is",String.valueOf(code));
 
             if (code==200){
@@ -66,9 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 intent.setClass(LoginActivity.this, InitActivity.class);
                 startActivity(intent);
             }else if (code==400){
-                result = "账号密码错误";
-            }else {
-                result = "请检查网络";
+                result = message;
             }
             Toast.makeText(LoginActivity.this, result, Toast.LENGTH_SHORT).show();
         }
@@ -80,12 +85,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPassWordEditText = (EditText) findViewById(R.id.user_password_input);
         mLoginButton = (Button) findViewById(R.id.login_button);
         mRegister =(TextView) findViewById(R.id.register_text);
+        mTeacher = (RadioButton) findViewById(R.id.ck_teacher);
+        mStudent = (RadioButton) findViewById(R.id.ck_student);
     }
 
     private void initEvent() {
         mLoginButton.setOnClickListener(this);
         mRegister.setOnClickListener(this);
+        mTeacher.setOnClickListener(this);
+        mStudent.setOnClickListener(this);
+
     }
+
 
 
     /**
@@ -152,13 +163,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     */
     private void LoginRequest(String username,String password)  {
 
+
+        if(mStudent.isChecked()){
+            Ridt="1";
+        }
+        else {
+            Ridt="2";
+        }
         name = mUsernameEditText.getText().toString().trim();
         pwd = mPassWordEditText.getText().toString().trim();
 
+        Log.i("rid is:",Ridt);
         //建立请求表单，添加上传服务器的参数
-        RequestBody formBody = new FormBody.Builder()
-                .add("username",name)
-                .add("password",pwd)
+        RequestBody formBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("UserName",name)
+                .addFormDataPart("UserPassword",pwd)
+                .addFormDataPart("rid",Ridt)
                 .build();
         //发起请求
         final Request request = new Request.Builder()
@@ -166,6 +187,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .post(formBody)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
+        Log.i("url is",request.toString());
+        Log.i("url--username ---",name);
+        Log.i("url--pwd ---",pwd);
+        Log.i("url--formBody ---",formBody.toString());
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -180,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         throw new IOException("Unexpected code:" + response);
                     }
                 } catch (IOException e) {
-                    Toast.makeText(LoginActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+              //      Toast.makeText(LoginActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
             }
@@ -208,7 +235,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.register_text:
                 ToRegister();
                 break;
-
+            case R.id.ck_student:
+                Ridt="1";
+                break;
+            case R.id.ck_teacher:
+                Ridt="2";
+                break;
         }
     }
 }

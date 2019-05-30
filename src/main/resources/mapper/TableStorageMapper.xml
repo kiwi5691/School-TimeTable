@@ -3,14 +3,14 @@
 <mapper namespace="com.android.backend.dao.TableStorageMapper" >
   <resultMap id="BaseResultMap" type="com.android.backend.domain.TableStorage" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="key_num" property="keyNum" jdbcType="VARCHAR" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="size" property="size" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, key_num, name, type, size, url
+    id, key, name, type, size, url
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,9 +23,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.android.backend.domain.TableStorage" >
-    insert into table_storage (id, key_num, name, 
+    insert into table_storage (id, key, name,
       type, size, url)
-    values (#{id,jdbcType=INTEGER}, #{keyNum,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
       #{type,jdbcType=VARCHAR}, #{size,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.android.backend.domain.TableStorage" >
@@ -34,8 +34,8 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="keyNum != null" >
-        key_num,
+      <if test="key != null" >
+        key,
       </if>
       <if test="name != null" >
         name,
@@ -54,8 +54,8 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="keyNum != null" >
-        #{keyNum,jdbcType=VARCHAR},
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -74,8 +74,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.TableStorage" >
     update table_storage
     <set >
-      <if test="keyNum != null" >
-        key_num = #{keyNum,jdbcType=VARCHAR},
+      <if test="key != null" >
+        key = #{key,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -94,7 +94,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.TableStorage" >
     update table_storage
-    set key_num = #{keyNum,jdbcType=VARCHAR},
+    set key = #{key,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       size = #{size,jdbcType=VARCHAR},

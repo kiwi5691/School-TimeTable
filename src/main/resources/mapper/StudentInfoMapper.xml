@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.android.backend.domain.StudentInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="major" property="major" jdbcType="VARCHAR" />
     <result column="year" property="year" jdbcType="VARCHAR" />
@@ -40,7 +40,7 @@
       area, gender, birthday, 
       last_login_time, add_time, update_time, 
       headshot)
-    values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{year,jdbcType=VARCHAR}, 
       #{institute,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
       #{area,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, 
@@ -107,7 +107,7 @@
         #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
@@ -157,7 +157,7 @@
         nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -204,7 +204,7 @@
   <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.StudentInfo" >
     update student_info
     set nick_name = #{nickName,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       major = #{major,jdbcType=VARCHAR},
       year = #{year,jdbcType=VARCHAR},
