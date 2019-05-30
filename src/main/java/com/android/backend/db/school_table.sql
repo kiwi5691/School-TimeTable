@@ -72,8 +72,8 @@ CREATE TABLE `course_info` (
 DROP TABLE IF EXISTS `user_course`;
 CREATE TABLE `user_course` (
                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                               cid integer(10) NOT NULL DEFAULT '0' COMMENT '课程标记id',
-                               uid NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '课程名字'
+                               cid integer(10) NOT NULL DEFAULT '0' COMMENT '课程id',
+                               uid NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '学生id'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课堂';
 /*'****************安卓端的global ，整体设计在数据库表中。dtd也不需要传值*/
 DROP TABLE IF EXISTS `global_info`;

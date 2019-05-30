@@ -46,6 +46,9 @@ public class CourseController {
 
     @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "applciation/json")
     public Result courseSave(CourseBaseinfo cInfo, BindingResult bindingResult){
+
+
+
         cInfo.setWeekfrom(2);
         cInfo.setWeekto(18);
         cInfo.setWeektype(1);

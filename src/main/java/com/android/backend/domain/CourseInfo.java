@@ -1,6 +1,7 @@
 package com.android.backend.domain;
 
 public class CourseInfo {
+
     private Integer id;
 
     private String courseName;
