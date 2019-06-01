@@ -34,21 +34,30 @@ public class CourseDetailService {
     */
     public void saveCourse(CourseBaseinfo courseBaseinfo,CourseInfo courseInfo,String StudentName){
 
-        /*
-         *单纯数据存表联结
-        */
-        courseBaseinfoMapper.insert(courseBaseinfo);
-        courseInfoMapper.insert(courseInfo);
+        try {
+            /**
+             *单纯数据存表联结
+             */
+            courseBaseinfoMapper.insert(courseBaseinfo);
+            courseInfoMapper.insert(courseInfo);
 
+            /**
+             *学生的单纯课程信息
+             */
+            CourseDetail courseDetail = new CourseDetail();
+            courseDetail.setCourseId(courseBaseinfo.getId().toString());
+            courseDetail.setStudentName(StudentName);
+            courseDetailMapper.insert(courseDetail);
 
-        CourseDetail courseDetail = new CourseDetail();
-        courseDetail.setCourseId(courseBaseinfo.getId().toString());
-        courseDetail.setStudentName(StudentName);
-        courseDetailMapper.insert(courseDetail);
-
-        UserCourse userCourse =new UserCourse();
-        userCourse.setCid(courseBaseinfo.getId()); //课程id
-        userCourse.setId(userLoginMapper.selectAllByName(StudentName).getId());//学生id
+            /**
+             *学生，课程数据联结
+             */
+            UserCourse userCourse = new UserCourse();
+            userCourse.setCid(courseBaseinfo.getId()); //课程id
+            userCourse.setId(userLoginMapper.selectAllByName(StudentName).getId());//学生id
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -14,117 +14,148 @@
             android:layout_height="wrap_content"
             android:padding="15dip"
             android:layout_margin="15dip"
-            android:background="#93ffffff" >
+            android:background="#93ffffff">
+
         <!-- 账号 -->
+        <LinearLayout
+                android:id="@+id/local"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text=" 住址"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_weight="1"
+                    android:textSize="18sp"/>
+            <Spinner
+                    android:id="@+id/s1"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown">
+            </Spinner>
+            <Spinner
+                    android:id="@+id/s2"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"></Spinner>
+            <Spinner
+                    android:id="@+id/s3"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown"></Spinner>
+        </LinearLayout>
         <TextView
                 android:id="@+id/login_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
-                android:text="课程名字"/>
+                android:text=" "/>
         <EditText
-                android:id="@+id/user_phone_input"
+                android:id="@+id/user_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="课程名字"
+                android:hint="姓名"
                 android:layout_below="@id/login_user"
                 android:singleLine="true"
                 android:inputType="text"/>
         <!-- 姓名 text -->
         <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/year_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_phone_input"
+                android:layout_below="@id/user_name"
                 android:layout_marginTop="3dp"
-                android:text="教师姓 名"/>
+                android:text="入学年份"/>
         <EditText
-                android:id="@+id/user_name_input"
+                android:id="@+id/year_in_d"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_name"
+                android:layout_below="@id/year_in"
                 android:singleLine="true"
-                android:inputType="text" android:hint="教师名字"/>
+                android:inputType="text" android:hint="入学年份"/>
         <!-- 身份证号码 text -->
         <TextView
                 android:id="@+id/user_id_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_name_input"
+                android:layout_below="@id/year_in_d"
                 android:layout_marginTop="3dp"
-                android:text="教室位置"/>
+                android:text="专业"/>
         <EditText
-                android:id="@+id/look_up"
+                android:id="@+id/major"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_id_card"
                 android:singleLine="true"
-                android:inputType="text" android:hint="教室"/>
+                android:inputType="text" android:hint="专业"/>
         <!-- 密码 text -->
         <TextView
-                android:id="@+id/user_password"
+                android:id="@+id/institute"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/look_up"
+                android:layout_below="@id/major"
                 android:layout_marginTop="3dp"
-                android:text="起始周"/>
+                android:text="学院"/>
         <EditText
-                android:id="@+id/user_password_input"
+                android:id="@+id/institute_d"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password"
+                android:layout_below="@id/institute"
                 android:password="true"
                 android:singleLine="true"
-                android:inputType="text" android:hint="起始周"/>
+                android:inputType="text" android:hint="学院"/>
         <!-- 重复输入密码 text -->
         <TextView
-                android:id="@+id/user_password_"
+                android:id="@+id/user_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password_input"
+                android:layout_below="@id/institute_d"
                 android:layout_marginTop="3dp"
-                android:text="结束周"/>
+                android:text="性别"/>
         <EditText
-                android:id="@+id/user_password_input_d"
+                android:id="@+id/user_gender_d"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password_"
+                android:layout_below="@id/user_gender"
                 android:password="true"
                 android:singleLine="true"
-                android:inputType="text" android:hint="结束周"/>
+                android:inputType="text" android:hint="性别"/>
         <TextView
                 android:id="@+id/course_day_t"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password_input_d"
+                android:layout_below="@id/user_gender_d"
                 android:layout_marginTop="3dp"
-                android:text="结束周"/>
+                android:text="电话"/>
         <EditText
-                android:id="@+id/course_day"
+                android:id="@+id/user_phone"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/course_day_t"
                 android:password="true"
                 android:singleLine="true"
-                android:inputType="text" android:hint="上课时间"/>
+                android:inputType="text" android:hint="电话"/>
         <!-- 登录button -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:id="@+id/warnText"
-                android:layout_below="@id/course_day"
+                android:layout_below="@id/user_phone"
                 android:textSize="15dp"
-                android:textColor="#ff0000" />
+                android:textColor="#ff0000"/>
 
         <Button
-                android:id="@+id/register_button"
+                android:id="@+id/update_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/warnText"
                 android:layout_alignRight="@id/user_password"
-                android:text="添加课程"
+                android:text="修改信息"
                 android:background="#4FC1FB"
                 android:layout_alignLeft="@+id/user_password"
                 android:layout_alignStart="@+id/user_password"

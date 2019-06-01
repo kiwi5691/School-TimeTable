@@ -1,10 +1,11 @@
 package com.android.backend.controller;
 
-import com.android.backend.controller.UserController;
 import com.android.backend.dao.CourseBaseinfoMapper;
 import com.android.backend.dao.CourseDetailMapper;
 import com.android.backend.dao.CourseInfoMapper;
 import com.android.backend.domain.CourseBaseinfo;
+import com.android.backend.domain.CourseInfo;
+import com.android.backend.service.CourseDetailService;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import org.slf4j.Logger;
@@ -41,36 +42,64 @@ public class CourseController {
     private CourseDetailMapper courseDetailMapper;
     @Autowired
     private CourseInfoMapper courseInfoMapper;
+    @Autowired
+    private CourseDetailService courseDetailService;
 
-
-
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/30
+     * 保存课程
+     @param  * @param courseBaseinfo
+     * @param courseInfo
+     * @param StudentName
+     * @param bindingResult
+     *@reutn com.android.backend.util.Result
+    */
     @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "applciation/json")
-    public Result courseSave(CourseBaseinfo cInfo, BindingResult bindingResult){
+    public Result courseSave(CourseBaseinfo courseBaseinfo, CourseInfo courseInfo, String StudentName, BindingResult bindingResult){
+
+        try {
+            courseDetailService.saveCourse(courseBaseinfo,courseInfo,StudentName);
+            return ResultFactory.buildFailResult("保存成功");
+        }catch (Exception e) {
+            return ResultFactory.buildFailResult("保存失败");
+        }
 
 
-
-        cInfo.setWeekfrom(2);
-        cInfo.setWeekto(18);
-        cInfo.setWeektype(1);
-      //  cInfo.setDay(3);
-        cInfo.setLessonfrom(3);
-        cInfo.setLessonto(4);
-      //  cInfo.setCoursename("数据库原理");
-    //    cInfo.setTeacher("李华");
-        cInfo.setPlace("第一教学楼302");
-
-   //     courseInfoList.add(cInfo);
-     //   courseInfoList.add(cInfo2);
-
-
-        return ResultFactory.buildFailResult("1");
     }
 
 
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/30
+     * 获取课表信息
+     @param  * @param UserId
+     * @param bindingResult
+     *@reutn com.android.backend.util.Result
+    */
     @RequestMapping(value = "user/course/get",method = RequestMethod.GET,produces = "applciation/json")
-    public Result courseGet(CourseBaseinfo cInfo, BindingResult bindingResult){
+    public Result courseGet(String UserId, BindingResult bindingResult){
 
         return ResultFactory.buildFailResult("1");
     }
+
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/30
+     * 获取所有教师
+     @param  * @param UserId
+     * @param bindingResult
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/course/getAllteacher",method = RequestMethod.GET,produces = "applciation/json")
+    public Result findAllTeacher(String UserId, BindingResult bindingResult){
+
+        return ResultFactory.buildFailResult("1");
+    }
+
+
+
 }
 

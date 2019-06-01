@@ -1,6 +1,5 @@
 package com.android.backend.controller;
 
-import com.android.backend.controller.UserController;
 import com.android.backend.dao.*;
 import com.android.backend.domain.UserLogin;
 import com.android.backend.util.Result;
@@ -40,14 +39,52 @@ public class BaseInfoController {
     /**
      *@Auther kiwi
      *@Data 2019/5/28
-     @param  * @param userLogin
+     * 获取分数
+     @param  * @param userId
      *@reutn com.android.backend.util.Result
      */
 
     @RequestMapping(value = "user/search/checkgrade",method = RequestMethod.GET,produces = "applciation/json")
-    public Result getGrade(UserLogin userLogin){
+    public Result getGrade(String UserId){
+
 
         return ResultFactory.buildSuccessResult("1");
     }
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/30
+     * 获取课堂评价
+     @param  * @param UserId
+     * @param CourseName
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/checkClassEvate",method = RequestMethod.GET,produces = "applciation/json")
+    public Result getClassEvate(String UserId,String CourseName){
+
+
+        return ResultFactory.buildSuccessResult("1");
+    }
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/30
+     * 上传课堂评价
+     @param  * @param UserId
+     * @param CourseName
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/updateClassEvate",method = RequestMethod.GET,produces = "applciation/json")
+    public Result updateClassEvate(String UserId,String CourseName){
+
+
+        return ResultFactory.buildSuccessResult("1");
+    }
+
+
+
+
+
+
 
 }

@@ -8,6 +8,23 @@
     <!-- padding 内边距   layout_margin 外边距
   		android:layout_alignParentTop 布局的位置是否处于顶部 -->
 
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="424dp"
+            android:layout_height="72dp">
+        <TextView
+                android:text="最后一次登录时间"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="28dp" android:id="@+id/user_lastlogintime2"
+                android:textColor="@color/black" android:textSize="18sp"/>
+        <TextView
+                android:text="time"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="41dp" android:id="@+id/user_lastlogintime"
+                android:textColor="@color/black" android:textSize="30sp"/>
+    </LinearLayout>
     <RelativeLayout
             android:id="@+id/login_div"
             android:layout_width="fill_parent"
@@ -22,34 +39,34 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="5dp"
-                android:text="课程名字"/>
+                android:text="账号"/>
         <TextView
-                android:id="@+id/user_phone_input"
+                android:id="@+id/user_id"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="课程名字"
+                android:text="账号"
                 android:layout_below="@id/login_user"
                 android:singleLine="true" android:textSize="24sp"/>
         <TextView
-                         android:layout_width="match_parent"
-                         android:layout_height="0.5dp"
-                         android:layout_below="@id/user_phone_input"
-                         android:background="@android:color/darker_gray"
-                         android:text="TextView" />
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/user_id"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
         <TextView
                 android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_phone_input"
+                android:layout_below="@id/user_id"
                 android:layout_marginTop="3dp"
-                android:text="教师姓 名" />
+                android:text="姓名" />
         <TextView
                 android:id="@+id/user_name_input"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_name"
                 android:singleLine="true"
-                android:text="教师姓 名" android:textSize="24sp"/>
+                android:text="姓名" android:textSize="24sp"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -63,18 +80,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_name_input"
                 android:layout_marginTop="3dp"
-                android:text="教室位置"/>
+                android:text="入学年份"/>
         <TextView
-                android:id="@+id/look_up"
+                android:id="@+id/year_in"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_id_card"
                 android:singleLine="true"
-                android:text="教室位置" android:textSize="24sp"/>
+                android:text="入学年份" android:textSize="24sp"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@id/look_up"
+                android:layout_below="@id/year_in"
                 android:background="@android:color/darker_gray"
                 android:text="TextView" />
         <!-- 密码 text -->
@@ -82,20 +99,20 @@
                 android:id="@+id/user_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/look_up"
+                android:layout_below="@id/year_in"
                 android:layout_marginTop="3dp"
-                android:text="起始周"/>
+                android:text="住址"/>
         <TextView
-                android:id="@+id/user_password_input"
+                android:id="@+id/user_local"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_password"
                 android:singleLine="true"
-                android:text="起始周" android:textSize="24sp"/>
+                android:text="住址" android:textSize="24sp"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@id/user_password_input"
+                android:layout_below="@id/user_local"
                 android:background="@android:color/darker_gray"
                 android:text="TextView" />
         <!-- 重复输入密码 text -->
@@ -103,39 +120,58 @@
                 android:id="@+id/user_password_"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password_input"
+                android:layout_below="@id/user_local"
                 android:layout_marginTop="3dp"
-                android:text="结束周"/>
+                android:text="性别"/>
         <TextView
-                android:id="@+id/user_password_input_d"
+                android:id="@+id/user_gender"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_password_"
                 android:singleLine="true"
-                android:text="结束周" android:textSize="24sp"/>
+                android:text="性别" android:textSize="24sp"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@id/user_password_input_d"
+                android:layout_below="@id/user_gender"
                 android:background="@android:color/darker_gray"
                 android:text="TextView" />
         <TextView
                 android:id="@+id/course_day_t"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/user_password_input_d"
+                android:layout_below="@id/user_gender"
                 android:layout_marginTop="3dp"
-                android:text="结束周"/>
+                android:text="生日"/>
         <TextView
-                android:id="@+id/course_day"
+                android:id="@+id/user_birthday"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/course_day_t"
-                android:text="结束周" android:textSize="24sp" android:singleLine="true"/>
+                android:text="生日" android:textSize="24sp" android:singleLine="true"/>
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_below="@id/course_day"
+                android:layout_below="@id/user_birthday"
+                android:background="@android:color/darker_gray"
+                android:text="TextView" />
+        <TextView
+                android:id="@+id/user_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_birthday"
+                android:layout_marginTop="3dp"
+                android:text="电话"/>
+        <TextView
+                android:id="@+id/user_phone_d"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_phone"
+                android:text="电话" android:textSize="24sp" android:singleLine="true"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/user_phone_d"
                 android:background="@android:color/darker_gray"
                 android:text="TextView" />
         <!-- 登录button -->

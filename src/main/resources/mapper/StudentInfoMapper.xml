@@ -23,6 +23,11 @@
     id, nick_name, user_id, phone, major, year, institute, province, city, area, gender, 
     birthday, last_login_time, add_time, update_time, headshot
   </sql>
+  <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select *
+    from student_info where
+      user_id =#{userId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -150,6 +155,24 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByUserId" parameterType="com.android.backend.domain.StudentInfo" >
+    update student_info
+    set nick_name = #{nickName,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        major = #{major,jdbcType=VARCHAR},
+        year = #{year,jdbcType=VARCHAR},
+        institute = #{institute,jdbcType=VARCHAR},
+        province = #{province,jdbcType=VARCHAR},
+        city = #{city,jdbcType=VARCHAR},
+        area = #{area,jdbcType=VARCHAR},
+        gender = #{gender,jdbcType=TINYINT},
+        birthday = #{birthday,jdbcType=DATE},
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        headshot = #{headshot,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.StudentInfo" >
     update student_info
     <set >

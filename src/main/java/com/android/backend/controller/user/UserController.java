@@ -1,5 +1,5 @@
 
-package com.android.backend.controller;
+package com.android.backend.controller.user;
 
 import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
@@ -62,6 +62,7 @@ public class UserController {
     /**
      *@Auther kiwi
      *@Data 2019/5/27
+     * 用户登录controller
      @param  * @param loginInfoVo
      * @param rid
      * @param bindingResult
@@ -123,6 +124,7 @@ public class UserController {
     /**
      *@Auther kiwi
      *@Data 2019/5/29
+     * 用户注册controller
      @param  * @param loginInfoVo
      * @param Nickname
      * @param rid

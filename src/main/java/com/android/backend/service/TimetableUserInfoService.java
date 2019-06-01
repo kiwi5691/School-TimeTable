@@ -27,24 +27,28 @@ public class TimetableUserInfoService {
     //rid , username
     public void register(int rid,String userName,String Nickname){
 
+        try {
 
-        StudentInfo studentInfo = new StudentInfo();
-        TeacherInfo teacherInfo = new TeacherInfo();
+            StudentInfo studentInfo = new StudentInfo();
+            TeacherInfo teacherInfo = new TeacherInfo();
 
-        Date date = new Date();
-        if(rid==1){
-            studentInfo.setUserId(userName);
-            studentInfo.setAddTime(date);
-            studentInfo.setNickName(Nickname);
-            studentInfo.setLastLoginTime(date);
-            studentInfoMapper.insert(studentInfo);
+            Date date = new Date();
+            if (rid == 1) {
+                studentInfo.setUserId(userName);
+                studentInfo.setAddTime(date);
+                studentInfo.setNickName(Nickname);
+                studentInfo.setLastLoginTime(date);
+                studentInfoMapper.insert(studentInfo);
+            } else if (rid == 2) {
+                teacherInfo.setUserId(userName);
+                teacherInfo.setAddTime(date);
+                teacherInfo.setLastLoginTime(date);
+                teacherInfo.setNickName(userName);
+                teacherInfoMapper.insert(teacherInfo);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        else if(rid==2){
-            teacherInfo.setUserId(userName);
-            teacherInfo.setAddTime(date);
-            teacherInfo.setLastLoginTime(date);
-            teacherInfo.setNickName(userName);
-            teacherInfoMapper.insert(teacherInfo);
-        }
+
     }
 }

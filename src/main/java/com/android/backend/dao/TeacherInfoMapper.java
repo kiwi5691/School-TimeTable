@@ -14,4 +14,8 @@ public interface TeacherInfoMapper {
     int updateByPrimaryKeySelective(TeacherInfo record);
 
     int updateByPrimaryKey(TeacherInfo record);
+
+    TeacherInfo selectById(String UserId);
+
+    int updateByUserId(TeacherInfo teacherInfo);
 }
