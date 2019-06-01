@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_password_input_d"
                 android:layout_marginTop="3dp"
-                android:text="结束周"/>
+                android:text="上课时间"/>
         <EditText
                 android:id="@+id/course_day"
                 android:layout_width="fill_parent"

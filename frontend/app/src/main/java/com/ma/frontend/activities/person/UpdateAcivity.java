@@ -1,21 +1,17 @@
 package com.ma.frontend.activities.person;
 
-import android.app.Person;
 import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.ma.frontend.R;
-import com.ma.frontend.activities.LoginActivity;
 import com.ma.frontend.activities.PersonActivity;
-import com.ma.frontend.activities.RegisterActivity;
-import com.ma.frontend.domain.cityEntity.City;
-import com.ma.frontend.domain.cityEntity.District;
-import com.ma.frontend.domain.cityEntity.Province;
+import com.ma.frontend.domain.city.City;
+import com.ma.frontend.domain.city.District;
+import com.ma.frontend.domain.city.Province;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;

@@ -54,10 +54,6 @@
                 android:label= "@string/update" >
         </activity>
         <activity
-                android:name=".activities.search.CheckTeacherAcivity"
-                android:label= "@string/check_teacher" >
-        </activity>
-        <activity
                 android:name=".activities.search.AddCourseAcitvity"
                 android:label= "@string/add_course" >
         </activity>

@@ -82,11 +82,11 @@ CREATE TABLE `global_info` (
                                    version integer(100) NOT NULL DEFAULT '0' COMMENT '版本号',
                                    versionStr NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '版本描述',
                                    termBegin NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '起始端',
-                                   yearFrom integer(100) NOT NULL DEFAULT '0' COMMENT '开始',
-                                   yearTo integer(100) NOT NULL DEFAULT '0' COMMENT '至',
+                                   yearFrom integer(100) NOT NULL DEFAULT '0' COMMENT '系统时间',
+                                   yearTo integer(100) NOT NULL DEFAULT '0' COMMENT '系统时间',
                                    term integer(100) NOT NULL DEFAULT '0' COMMENT '端',
                                    isFirstUse integer(100) NOT NULL DEFAULT '0' COMMENT '判断需要初始化',
-                                   activeUserUid integer(100) NOT NULL DEFAULT '0' COMMENT '判断用户UID'
+                                   activeUserUid integer(100) NOT NULL DEFAULT '0' COMMENT '判断用户userid,存进全局变量'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程整体信息';
 
 

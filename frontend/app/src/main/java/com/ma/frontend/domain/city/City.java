@@ -1,4 +1,4 @@
-package com.ma.frontend.domain.cityEntity;
+package com.ma.frontend.domain.city;
 
 /**
  * @Auther:kiwi

@@ -9,12 +9,15 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import com.ma.frontend.R;
+import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.db.dao.GlobalInfoDao;
 import com.ma.frontend.db.dao.UserInfoDao;
 import com.ma.frontend.domain.GlobalInfo;
 import com.ma.frontend.domain.UserInfo;
+import okhttp3.OkHttpClient;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther:kiwi
@@ -48,6 +51,21 @@ public class InitActivity extends Activity {
     /**
      * Activity回调函数
      */
+
+
+    /**
+     *@Auther kiwi
+     *TODO 服务端获取初始化。josn传值
+     */
+    String root= HttpConstant.OriginAddress;
+    private String originAddress = root + "/user/login?";
+
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15,TimeUnit.SECONDS)
+            .writeTimeout(15,TimeUnit.SECONDS)
+            .build();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
