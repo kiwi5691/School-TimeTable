@@ -171,6 +171,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
           intent.setClass(PersonActivity.this, CourseActivity.class);
           startActivity(intent);
        }
+
      private void Updates(){
          Intent intent=new Intent();
          intent.setClass(PersonActivity.this, UpdateAcivity.class);

@@ -1,65 +1,189 @@
 package com.ma.frontend.Vo;
 
+import java.util.Date;
+
 /**
  * @Auther:kiwi
  * @Date: 2019/5/22 15:36
  */
-public class StudentInfoVo {
-    private int uid;
-    private String username;
-    private String gender;
-    private String phone;
-    private String headshot;     //头像
-    private String institute;    //学院
-    private String major;        //专业
-    private String year;         //入学年份
 
-    public int getUid() {
-        return uid;
-    }
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getGender() {
-        return gender;
-    }
-    public void setGender(String gender) {
+public class StudentInfoVo {
+    private Integer id;
+
+    private String nickName;
+
+    private String userId;
+
+    private String phone;
+
+    private String major;
+
+    private String year;
+
+    private String institute;
+
+    private String province;
+
+    private String city;
+
+    private String area;
+
+    private Byte gender;
+
+    private Date birthday;
+
+    private Date lastLoginTime;
+
+    private Date addTime;
+
+    private Date updateTime;
+
+    private String headshot;
+
+    public StudentInfoVo(Integer id, String nickName, String userId, String phone, String major, String year, String institute, String province, String city, String area, Byte gender, Date birthday, Date lastLoginTime, Date addTime, Date updateTime, String headshot) {
+        this.id = id;
+        this.nickName = nickName;
+        this.userId = userId;
+        this.phone = phone;
+        this.major = major;
+        this.year = year;
+        this.institute = institute;
+        this.province = province;
+        this.city = city;
+        this.area = area;
         this.gender = gender;
+        this.birthday = birthday;
+        this.lastLoginTime = lastLoginTime;
+        this.addTime = addTime;
+        this.updateTime = updateTime;
+        this.headshot = headshot;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
+
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = phone == null ? null : phone.trim();
     }
-    public String getHeadshot() {
-        return headshot;
-    }
-    public void setHeadshot(String headshot) {
-        this.headshot = headshot;
-    }
-    public String getInstitute() {
-        return institute;
-    }
-    public void setInstitute(String institute) {
-        this.institute = institute;
-    }
+
     public String getMajor() {
         return major;
     }
+
     public void setMajor(String major) {
-        this.major = major;
+        this.major = major == null ? null : major.trim();
     }
+
     public String getYear() {
         return year;
     }
+
     public void setYear(String year) {
-        this.year = year;
+        this.year = year == null ? null : year.trim();
+    }
+
+    public String getInstitute() {
+        return institute;
+    }
+
+    public void setInstitute(String institute) {
+        this.institute = institute == null ? null : institute.trim();
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area == null ? null : area.trim();
+    }
+
+    public Byte getGender() {
+        return gender;
+    }
+
+    public void setGender(Byte gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Date getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(Date addTime) {
+        this.addTime = addTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(String headshot) {
+        this.headshot = headshot == null ? null : headshot.trim();
     }
 }

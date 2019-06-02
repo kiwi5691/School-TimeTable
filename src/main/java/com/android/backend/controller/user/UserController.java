@@ -172,4 +172,21 @@ public class UserController {
 
     }
 
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     * 全局获取userid rid
+     @param  * @param userLogin
+     * @param bindingResult
+     * @param model
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value="/user/golabinfo",method = RequestMethod.POST,produces = "application/json")
+    public Result GolabInfo(UserLogin userLogin,BindingResult bindingResult, Model model){
+
+        String message = "rid=,userid =";
+        return ResultFactory.buildSuccessResult(message);
+    }
 }

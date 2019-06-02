@@ -11,6 +11,7 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.utils.HttpCallbackListener;
 import com.ma.frontend.utils.HttpUtil;
@@ -57,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+            name = mUsernameEditText.getText().toString().trim();
+            pwd = mPassWordEditText.getText().toString().trim();
             super.handleMessage(msg);
             String result = "";
             String ReturnMessage = (String) msg.obj;
@@ -67,6 +70,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             if (code==200){
                 result = "登录成功";
+
+
+                GolabConstant.userName=name;
+                GolabConstant.userPassword=pwd;
+                GolabConstant.rid=Ridt;
+
 
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

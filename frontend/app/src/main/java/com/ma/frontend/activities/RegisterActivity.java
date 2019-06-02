@@ -44,9 +44,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public String pwdCheck=" ";
     public String Ridt ="1";
 
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     *  url源
+    */
     String root= HttpConstant.OriginAddress;
     private String originAddress = root + "/user/register?";
 
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     * okhttp声明
+    */
     OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(15,TimeUnit.SECONDS)

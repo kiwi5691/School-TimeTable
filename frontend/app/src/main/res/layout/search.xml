@@ -6,15 +6,16 @@
     <RelativeLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
         <LinearLayout
                 android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:background="#F0F3F6"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#F0F3F6"
         >
 
-            <LinearLayout style="@style/wrap_layout" >
+            <LinearLayout style="@style/wrap_layout">
                 <!-- 上圆角-->
                 <LinearLayout style="@style/top_layout" android:id="@+id/check_grade">
                     <TextView style="@style/usertext" android:text="平时成绩查询"/>
