@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
 import com.ma.frontend.activities.InitActivity;
+import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import okhttp3.*;
 
@@ -45,7 +47,7 @@ public class LookupAcivity extends AppCompatActivity {
      *  url源
      */
     String root= HttpConstant.OriginAddress;
-    private String originAddress = root + "/user/UpdateStudentInfo";
+    private String originAddress = root + "/user/showStudentInfo";
 
 
     /**
@@ -66,6 +68,7 @@ public class LookupAcivity extends AppCompatActivity {
         setContentView(R.layout.person_lookup);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        Log.i("uid is",GolabConstant.uid);
         intInfoRequest();
         initEvent();
         initView();
@@ -83,7 +86,7 @@ public class LookupAcivity extends AppCompatActivity {
 
             final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
             final int code = showresult.getCode();
-             String message = showresult.getMessage();
+            final String message = showresult.getMessage();
             if (code==200){
                 result = "获取信息成功";
 
@@ -95,8 +98,7 @@ public class LookupAcivity extends AppCompatActivity {
              //   intent.setClass(LookupAcivity.this, InitActivity.class);
              //   startActivity(intent);
             }else if (code==400){
-                message="信息获取失败";
-                result = message;
+                result = "信息获取失败";
             }
             Toast.makeText(LookupAcivity.this, result, Toast.LENGTH_SHORT).show();
         }
@@ -146,15 +148,11 @@ public class LookupAcivity extends AppCompatActivity {
      */
     private void intInfoRequest()  {
 
-        //建立请求表单，添加上传服务器的参数
-        RequestBody formBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("rid","1")
-                .build();
+
+        originAddress = originAddress + "?UserId=kiwi";
         //发起请求
         final Request request = new Request.Builder()
                 .url(originAddress)
-                .get(formBody)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {

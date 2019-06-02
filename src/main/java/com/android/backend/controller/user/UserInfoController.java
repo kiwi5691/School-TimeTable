@@ -50,12 +50,12 @@ public class UserInfoController {
      * @param model
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "/user/showStudentInfo", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/user/showStudentInfo", method = RequestMethod.GET, produces = "application/json")
     public Result showStudentInfo(String UserId,
                         BindingResult bindingResult, Model model) {
-        // TODO 同下
-
-        return ResultFactory.buildFailResult("1");
+        // TODO 对象转json
+        userInfoService.ShowStudent(UserId);
+        return ResultFactory.buildFailResult(userInfoService);
     }
 
 
@@ -68,7 +68,7 @@ public class UserInfoController {
      * @param model
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "/user/showTeacherInfo", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/user/showTeacherInfo", method = RequestMethod.GET, produces = "application/json")
     public Result showTeacherInfo(String UserId,
                            BindingResult bindingResult, Model model) {
 

@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (code==200){
                 result = "登录成功";
 
+                GolabConstant.uid="kiwi";//测试用uid
+
 
                 GolabConstant.userName=name;
                 GolabConstant.userPassword=pwd;
