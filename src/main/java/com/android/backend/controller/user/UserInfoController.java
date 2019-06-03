@@ -7,8 +7,10 @@ import com.android.backend.domain.TeacherInfo;
 import com.android.backend.domain.UserLogin;
 import com.android.backend.service.TimetableUserInfoService;
 import com.android.backend.service.UserInfoService;
+import com.android.backend.util.JSONChange;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,20 @@ public class UserInfoController {
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "/user/showStudentInfo", method = RequestMethod.GET, produces = "application/json")
-    public Result showStudentInfo(String UserId) {
-        logger.info("Studentinfo is ",userInfoService.ShowStudent(UserId).toString());
-        return ResultFactory.buildSuccessResult(userInfoService.ShowStudent(UserId).toString());
+    public Result showStudentInfo(String UserId) throws JsonProcessingException {
+
+
+
+        String jsonStr = JSONChange.objToJson(userInfoService.ShowStudent(UserId));
+
+
+        logger.info("开始发送学生json格式信息，下例");
+        logger.info(jsonStr);
+        logger.info("--------------------");
+        logger.info("学生tostring 格式");
+        logger.info(userInfoService.ShowStudent(UserId).toString());
+
+        return ResultFactory.buildSuccessResult(jsonStr);
     }
 
 

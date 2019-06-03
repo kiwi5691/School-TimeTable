@@ -165,8 +165,7 @@ public class StudentInfo {
 
     @Override
     public String toString() {
-        return "StudentInfo{" +
-                "id=" + id +
+        return  "id=" + id +
                 ", nickName='" + nickName + '\'' +
                 ", userId='" + userId + '\'' +
                 ", phone='" + phone + '\'' +
@@ -181,7 +180,6 @@ public class StudentInfo {
                 ", lastLoginTime=" + lastLoginTime +
                 ", addTime=" + addTime +
                 ", updateTime=" + updateTime +
-                ", headshot='" + headshot + '\'' +
-                '}';
+                ", headshot='" + headshot + '\'';
     }
 }

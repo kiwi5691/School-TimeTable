@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
@@ -78,6 +79,10 @@ public class LookupAcivity extends AppCompatActivity {
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .create();
+
             super.handleMessage(msg);
             String result = "";
             String ReturnMessage = (String) msg.obj;
@@ -87,6 +92,9 @@ public class LookupAcivity extends AppCompatActivity {
             final int code = showresult.getCode();
             final String message = showresult.getMessage();
             final String data = (String) showresult.getData();
+
+            Log.i("resultvo data is",ReturnMessage);
+            Log.i("--------------","-----------");
             Log.i("data is ",data);
             if (code==200){
                 result = "获取信息成功";
