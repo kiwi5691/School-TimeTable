@@ -46,17 +46,16 @@ public class UserInfoController {
      *@Data 2019/5/30
      * 显示学生信息
      @param  * @param UserId
-     * @param bindingResult
-     * @param model
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "/user/showStudentInfo", method = RequestMethod.GET, produces = "application/json")
-    public Result showStudentInfo(String UserId,
-                        BindingResult bindingResult, Model model) {
-        // TODO 对象转json
-        userInfoService.ShowStudent(UserId);
-        return ResultFactory.buildFailResult(userInfoService);
+    public Result showStudentInfo(String UserId) {
+        logger.info("Studentinfo is ",userInfoService.ShowStudent(UserId).toString());
+        return ResultFactory.buildSuccessResult(userInfoService.ShowStudent(UserId).toString());
     }
+
+
+
 
 
     /**

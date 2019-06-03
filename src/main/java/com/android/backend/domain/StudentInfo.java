@@ -162,4 +162,26 @@ public class StudentInfo {
     public void setHeadshot(String headshot) {
         this.headshot = headshot == null ? null : headshot.trim();
     }
+
+    @Override
+    public String toString() {
+        return "StudentInfo{" +
+                "id=" + id +
+                ", nickName='" + nickName + '\'' +
+                ", userId='" + userId + '\'' +
+                ", phone='" + phone + '\'' +
+                ", major='" + major + '\'' +
+                ", year='" + year + '\'' +
+                ", institute='" + institute + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", lastLoginTime=" + lastLoginTime +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", headshot='" + headshot + '\'' +
+                '}';
+    }
 }

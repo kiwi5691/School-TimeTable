@@ -122,4 +122,22 @@ public class TeacherInfo {
     public void setHeadshot(String headshot) {
         this.headshot = headshot == null ? null : headshot.trim();
     }
+
+    @Override
+    public String toString() {
+        return "TeacherInfo{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", area='" + area + '\'' +
+                ", gender=" + gender +
+                ", birthday=" + birthday +
+                ", lastLoginTime=" + lastLoginTime +
+                ", addTime=" + addTime +
+                ", updateTime=" + updateTime +
+                ", headshot='" + headshot + '\'' +
+                '}';
+    }
 }

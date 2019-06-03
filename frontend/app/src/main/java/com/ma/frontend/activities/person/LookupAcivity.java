@@ -69,9 +69,8 @@ public class LookupAcivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         Log.i("uid is",GolabConstant.uid);
-        intInfoRequest();
-        initEvent();
         initView();
+        intInfoRequest();
 
     }
 
@@ -87,12 +86,32 @@ public class LookupAcivity extends AppCompatActivity {
             final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
             final int code = showresult.getCode();
             final String message = showresult.getMessage();
+            final String data = (String) showresult.getData();
+            Log.i("data is ",data);
             if (code==200){
                 result = "获取信息成功";
 
 
-                studentInfoVo = new Gson().fromJson(message,StudentInfoVo.class);
+                studentInfoVo = new Gson().fromJson(data,StudentInfoVo.class);
+                Log.i("info json ==",studentInfoVo.toString());
 
+
+
+                String genderText=" ";
+                //  mInstitute.setText(studentInfoVo.getInstitute());
+                mPhone.setText(studentInfoVo.getPhone());
+                mNickname.setText(studentInfoVo.getNickName());
+                if(studentInfoVo.getGender()==1){
+                    genderText="男";
+                }
+                else{
+                    genderText="女";
+                }
+                sex.setText(genderText);
+                mYearin.setText(studentInfoVo.getYear());
+                mBirthday.setText(studentInfoVo.getBirthday().toString());
+                mLocal.setText(studentInfoVo.getProvince()+studentInfoVo.getArea()+studentInfoVo.getCity());
+                mLastLogin.setText(studentInfoVo.getLastLoginTime().toString());
               //  Intent intent=new Intent();
              //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
              //   intent.setClass(LookupAcivity.this, InitActivity.class);
@@ -103,6 +122,9 @@ public class LookupAcivity extends AppCompatActivity {
             Toast.makeText(LookupAcivity.this, result, Toast.LENGTH_SHORT).show();
         }
     };
+    private void getInfoRequest(){
+        
+    }
 
 
 
@@ -117,28 +139,15 @@ public class LookupAcivity extends AppCompatActivity {
         mBirthday =(TextView)findViewById(R.id.user_birthday);
         mLastLogin =(TextView)findViewById(R.id.user_lastlogintime);
 
-        String genderText=" ";
-      //  mInstitute.setText(studentInfoVo.getInstitute());
-        mPhone.setText(studentInfoVo.getPhone());
-        mNickname.setText(studentInfoVo.getNickName());
-        if(studentInfoVo.getGender()==1){
-            genderText="男";
-        }
-        else{
-            genderText="女";
-        }
-        sex.setText(genderText);
-        mYearin.setText(studentInfoVo.getYear());
-        mBirthday.setText(studentInfoVo.getBirthday().toString());
-        mLocal.setText(studentInfoVo.getProvince()+studentInfoVo.getArea()+studentInfoVo.getCity());
-        mLastLogin.setText(studentInfoVo.getLastLoginTime().toString());
+
+
+
+
+
 
 
     }
 
-    private void initEvent() {
-
-    }
 
 
 
