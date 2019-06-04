@@ -11,8 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
@@ -22,6 +21,8 @@ import com.ma.frontend.config.HttpConstant;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -79,9 +80,16 @@ public class LookupAcivity extends AppCompatActivity {
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            Gson gson = new GsonBuilder()
-                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                    .create();
+            GsonBuilder builder = new GsonBuilder();
+
+            // Register an adapter to manage the date types as long values
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
 
             super.handleMessage(msg);
             String result = "";
@@ -105,6 +113,7 @@ public class LookupAcivity extends AppCompatActivity {
 
 
 
+                mUserId.setText(studentInfoVo.getUserId());
                 String genderText=" ";
                 //  mInstitute.setText(studentInfoVo.getInstitute());
                 mPhone.setText(studentInfoVo.getPhone());
@@ -118,7 +127,7 @@ public class LookupAcivity extends AppCompatActivity {
                 sex.setText(genderText);
                 mYearin.setText(studentInfoVo.getYear());
                 mBirthday.setText(studentInfoVo.getBirthday().toString());
-                mLocal.setText(studentInfoVo.getProvince()+studentInfoVo.getArea()+studentInfoVo.getCity());
+                mLocal.setText(studentInfoVo.getProvince()+studentInfoVo.getCity()+studentInfoVo.getArea());
                 mLastLogin.setText(studentInfoVo.getLastLoginTime().toString());
               //  Intent intent=new Intent();
              //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -146,13 +155,7 @@ public class LookupAcivity extends AppCompatActivity {
         mLocal =(TextView)findViewById(R.id.user_local);
         mBirthday =(TextView)findViewById(R.id.user_birthday);
         mLastLogin =(TextView)findViewById(R.id.user_lastlogintime);
-
-
-
-
-
-
-
+        mUserId =(TextView)findViewById(R.id.user_id);
 
     }
 

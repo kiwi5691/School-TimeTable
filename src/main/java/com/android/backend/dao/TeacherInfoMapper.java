@@ -2,6 +2,8 @@ package com.android.backend.dao;
 
 import com.android.backend.domain.TeacherInfo;
 
+import java.util.Date;
+
 public interface TeacherInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -18,4 +20,7 @@ public interface TeacherInfoMapper {
     TeacherInfo selectById(String UserId);
 
     int updateByUserId(TeacherInfo teacherInfo);
+
+    int updateLoginTime(TeacherInfo teacherInfo);
+
 }

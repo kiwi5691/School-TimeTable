@@ -1,5 +1,7 @@
 package com.android.backend.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TeacherInfo {
@@ -17,12 +19,16 @@ public class TeacherInfo {
 
     private Byte gender;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date lastLoginTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date addTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
 
     private String headshot;

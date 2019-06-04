@@ -8,6 +8,7 @@ import com.android.backend.domain.TeacherInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * @Auther:kiwi
@@ -57,6 +58,23 @@ public class UserInfoService {
             return true;
         }catch (Exception e) {
             return false;
+        }
+    }
+
+    public void UpdateLastLoginTime(String userId,int rid){
+        if(rid==1){
+            Date date = new Date();
+            StudentInfo studentInfo = new StudentInfo();
+            studentInfo.setUserId(userId);
+            studentInfo.setLastLoginTime(date);
+            studentInfoMapper.updateLoginTime(studentInfo);
+        }
+        else {
+            Date date = new Date();
+            TeacherInfo teacherInfo = new TeacherInfo();
+            teacherInfo.setUserId(userId);
+            teacherInfo.setLastLoginTime(date);
+            teacherInfoMapper.updateLoginTime(teacherInfo);
         }
     }
 

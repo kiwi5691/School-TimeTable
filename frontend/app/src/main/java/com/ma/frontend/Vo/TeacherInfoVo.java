@@ -22,17 +22,17 @@ public class TeacherInfoVo {
 
     private Byte gender;
 
-    private Date birthday;
+    private String birthday;
 
-    private Date lastLoginTime;
+    private String lastLoginTime;
 
-    private Date addTime;
+    private String addTime;
 
-    private Date updateTime;
+    private String updateTime;
 
     private String headshot;
 
-    public TeacherInfoVo(Integer id, String userId, String nickName, String province, String city, String area, Byte gender, Date birthday, Date lastLoginTime, Date addTime, Date updateTime, String headshot) {
+    public TeacherInfoVo(Integer id, String userId, String nickName, String province, String city, String area, Byte gender, String birthday, String lastLoginTime, String addTime, String updateTime, String headshot) {
         this.id = id;
         this.userId = userId;
         this.nickName = nickName;
@@ -103,35 +103,35 @@ public class TeacherInfoVo {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public Date getLastLoginTime() {
+    public String getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(String lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Date getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 
-    public Date getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 

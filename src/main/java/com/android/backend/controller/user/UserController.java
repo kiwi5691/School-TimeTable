@@ -5,6 +5,7 @@ import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
 import com.android.backend.service.TimetableUserInfoService;
+import com.android.backend.service.UserInfoService;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import org.apache.shiro.SecurityUtils;
@@ -41,7 +42,8 @@ public class UserController {
     private RolePermissionMapper rolePermissionMapper;
     @Autowired
     private TimetableUserInfoService timetableUserInfoService;
-
+    @Autowired
+    private UserInfoService userInfoService;
 
 
     /*@RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
@@ -112,6 +114,9 @@ public class UserController {
         }
         if(currentUser.isAuthenticated()) {
             model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
+
+            userInfoService.UpdateLastLoginTime(username,rid); // TODO 前端设置一个退出的http请求
+
             return ResultFactory.buildSuccessResult("登陆成功。");
         }else{
             String message = String.format("登陆失败");
