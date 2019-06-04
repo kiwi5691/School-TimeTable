@@ -15,6 +15,11 @@
     from user_course
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectUserId" parameterType="java.lang.String" resultMap="BaseResultMap" >
+    select cid
+    from user_course where
+      uid =#{uid,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_course
     where id = #{id,jdbcType=INTEGER}

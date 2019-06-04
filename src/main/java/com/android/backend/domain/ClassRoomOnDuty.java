@@ -1,5 +1,7 @@
 package com.android.backend.domain;
 
+
+//学生 课堂成绩，出勤
 public class ClassRoomOnDuty {
     private Integer id;
 
@@ -7,11 +9,11 @@ public class ClassRoomOnDuty {
 
     private String courseId;
 
-    private String homeworkGrade;
+    private String homeworkGrade; //作业成绩
 
-    private Integer participation;
+    private Integer participation;    // '出勤, 0未到，1有到',
 
-    private Integer day;
+    private Integer day; //第{}节课'
 
     public Integer getId() {
         return id;

@@ -2,6 +2,9 @@ package com.android.backend.dao;
 
 import com.android.backend.domain.UserCourse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface UserCourseMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,6 @@ public interface UserCourseMapper {
     int updateByPrimaryKeySelective(UserCourse record);
 
     int updateByPrimaryKey(UserCourse record);
+
+    ArrayList<Integer> selectUserId(String userId);           //TODO 可能需要修改1对多的stirng
 }

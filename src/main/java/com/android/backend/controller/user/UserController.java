@@ -4,7 +4,7 @@ package com.android.backend.controller.user;
 import com.android.backend.dao.RolePermissionMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
-import com.android.backend.service.TimetableUserInfoService;
+import com.android.backend.service.UserLoginService;
 import com.android.backend.service.UserInfoService;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
@@ -41,7 +41,7 @@ public class UserController {
     @Autowired
     private RolePermissionMapper rolePermissionMapper;
     @Autowired
-    private TimetableUserInfoService timetableUserInfoService;
+    private UserLoginService userLoginService;
     @Autowired
     private UserInfoService userInfoService;
 
@@ -114,9 +114,6 @@ public class UserController {
         }
         if(currentUser.isAuthenticated()) {
             model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
-
-            userInfoService.UpdateLastLoginTime(username,rid); // TODO 前端设置一个退出的http请求
-
             return ResultFactory.buildSuccessResult("登陆成功。");
         }else{
             String message = String.format("登陆失败");
@@ -166,7 +163,7 @@ public class UserController {
 
 
             userLoginMapper.insert(loginInfoVo);//  存入登录信息表
-            timetableUserInfoService.register(rid,loginInfoVo.getUserName(),Nickname);  //  存入信息表中
+            userLoginService.register(rid,loginInfoVo.getUserName(),Nickname);  //  存入信息表中
 
             model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
             return ResultFactory.buildSuccessResult("注册成功。");
@@ -193,5 +190,22 @@ public class UserController {
 
         String message = "rid=,userid =";
         return ResultFactory.buildSuccessResult(message);
+    }
+
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/4
+     * 退出时添加最后一次登录时间
+     @param  * @param UserId
+     * @param rid
+     *@reutn void
+    */
+    @RequestMapping(value = "/user/logout",method =RequestMethod.GET,produces = "application/json")
+    public void Logout(String UserId,int rid){
+
+        userInfoService.UpdateLastLoginTime(UserId,rid);
+
     }
 }

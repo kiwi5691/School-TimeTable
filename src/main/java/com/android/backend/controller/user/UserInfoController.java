@@ -1,11 +1,7 @@
 package com.android.backend.controller.user;
 
-import com.android.backend.dao.RolePermissionMapper;
-import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.StudentInfo;
 import com.android.backend.domain.TeacherInfo;
-import com.android.backend.domain.UserLogin;
-import com.android.backend.service.TimetableUserInfoService;
 import com.android.backend.service.UserInfoService;
 import com.android.backend.util.JSONChange;
 import com.android.backend.util.Result;
@@ -76,17 +72,21 @@ public class UserInfoController {
      *@Data 2019/5/30
      * 显示教师信息
      @param  * @param UserId
-     * @param bindingResult
-     * @param model
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "/user/showTeacherInfo", method = RequestMethod.GET, produces = "application/json")
-    public Result showTeacherInfo(String UserId,
-                           BindingResult bindingResult, Model model) {
+    public Result showTeacherInfo(String UserId) throws JsonProcessingException {
 
-        // TODO 用josn传值对象错误，需要改成ResultFactory
+        String jsonStr = JSONChange.objToJson(userInfoService.ShowTeacher(UserId));
 
-        return ResultFactory.buildFailResult("1");
+
+        logger.info("开始发送教师json格式信息，下例");
+        logger.info(jsonStr);
+        logger.info("--------------------");
+        logger.info("教师tostring 格式");
+        logger.info(userInfoService.ShowTeacher(UserId).toString());
+
+        return ResultFactory.buildFailResult(jsonStr);
     }
 
 

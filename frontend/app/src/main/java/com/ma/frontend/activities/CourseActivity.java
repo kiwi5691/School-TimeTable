@@ -387,6 +387,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
     //本地测试:后期从服务器端获取课表
     private void getCourseFromServer(int userid){
+
         //模拟从服务器获取的效果
         CourseInfo cInfo1 = new CourseInfo();
         cInfo1.setCid(1);
@@ -399,6 +400,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         cInfo1.setCoursename("数据库原理");
         cInfo1.setTeacher("李华");
         cInfo1.setPlace("第一教学楼302");
+
+
         CourseInfo cInfo2 = new CourseInfo();
         cInfo2.setCid(2);
         cInfo2.setWeekfrom(1);

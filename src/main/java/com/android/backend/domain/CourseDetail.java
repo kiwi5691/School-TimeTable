@@ -7,11 +7,11 @@ public class CourseDetail {
 
     private String courseId;
 
-    private String regularGrade;
+    private String regularGrade; //平时成绩
 
-    private Integer evaluationScore;
+    private Integer evaluationScore;        //课堂评价
 
-    private String evaluationInfo;
+    private String evaluationInfo;      //评价信息
 
     public Integer getId() {
         return id;

@@ -1,5 +1,7 @@
 package com.android.backend.domain;
 
+
+//学生课程信息表      表id--课程--学生账号
 public class UserCourse {
     private Integer id;
 

@@ -93,6 +93,7 @@ CREATE TABLE `global_info` (
 DROP TABLE IF EXISTS `course_baseinfo`;
 CREATE TABLE `course_baseinfo` (
                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
+                               cid INTEGER(11) NULL COMMENT '课程表CourseInfo 的ID',
                                weekfrom integer(100) NOT NULL DEFAULT '0' COMMENT '起始周',
                                weekto integer(100) NOT NULL DEFAULT '0' COMMENT '结束周',
                                weektype integer(100) NOT NULL DEFAULT '0' COMMENT '周类型，1普通，2单周，3双周',
@@ -124,11 +125,13 @@ CREATE TABLE `class_room_on_duty` (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课堂出勤表';
 
 
+/*因为重新设计了一下，选择一门课就一门作业。没空写太多了*/
+/*
 DROP TABLE IF EXISTS `class_room_home_work`;
-CREATE TABLE `class_room_on_duty` (
+CREATE TABLE `class_room_home_work` (
                                       id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                       student_name NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '学生名字',
                                       course_id NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '课程所属id',
                                       homework_grade NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '作业成绩',
                                       homework_info NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '作业信息'
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业表';
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业表';*/

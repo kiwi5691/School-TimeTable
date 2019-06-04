@@ -15,7 +15,7 @@ import java.util.Date;
  * @Date: 2019/5/28 8:42
  */
 @Service
-public class TimetableUserInfoService {
+public class UserLoginService {
 
     @Resource
     private UserLoginMapper userLoginMapper;
