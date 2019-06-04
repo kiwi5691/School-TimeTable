@@ -17,7 +17,7 @@ public interface UserLoginMapper {
 
     int Checklogin(UserLogin userLogin);
 
-   UserLogin selectAllByName(String username);
+    UserLogin selectAllByName(String username);
 
     int selectIsName(UserLogin userLogin);
 }

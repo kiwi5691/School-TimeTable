@@ -44,7 +44,7 @@ public class BaseInfoController {
      *@reutn com.android.backend.util.Result
      */
 
-    @RequestMapping(value = "user/search/checkgrade",method = RequestMethod.GET,produces = "applciation/json")
+    @RequestMapping(value = "user/search/checkgrade",method = RequestMethod.GET,produces = "application/json")
     public Result getGrade(String UserId){
 
 
@@ -59,7 +59,7 @@ public class BaseInfoController {
      * @param CourseName
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/search/checkClassEvate",method = RequestMethod.GET,produces = "applciation/json")
+    @RequestMapping(value = "user/search/checkClassEvate",method = RequestMethod.GET,produces = "application/json")
     public Result getClassEvate(String UserId,String CourseName){
 
 
@@ -74,7 +74,7 @@ public class BaseInfoController {
      * @param CourseName
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/search/updateClassEvate",method = RequestMethod.GET,produces = "applciation/json")
+    @RequestMapping(value = "user/search/updateClassEvate",method = RequestMethod.GET,produces = "application/json")
     public Result updateClassEvate(String UserId,String CourseName){
 
 

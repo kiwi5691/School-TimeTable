@@ -1,13 +1,17 @@
 package com.android.backend.service;
 
+import com.android.backend.controller.CourseController;
 import com.android.backend.dao.*;
 import com.android.backend.domain.*;
 import com.android.backend.dtd.CourseDataDTD;
 import com.android.backend.dtd.TeacherAllDTD;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Auther:kiwi
@@ -15,6 +19,13 @@ import java.util.ArrayList;
  */
 @Service
 public class CourseDetailService {
+
+    /**
+     *@Auther kiwi
+     *logger 初始化
+    */
+    private static Logger logger = LoggerFactory.getLogger(CourseDetailService.class);
+
 
     @Resource
     private CourseDetailMapper courseDetailMapper;
@@ -78,67 +89,41 @@ public class CourseDetailService {
     */
 
 
-    public ArrayList<CourseDataDTD> getAllCourse(String userId){
-
-        /**
-         *@Auther kiwi
-         *dtd参数初始化
-        */
-        Integer cid =0;
-        String Teacher = "";
-        String courseName="";
-        Integer weekfrom=0;
-        Integer weekto=0;
-        Integer weektype=0;
-        String day="";
-        Integer lessonfrom=0;
-        Integer lessonto=0;
-        String place="";
-
-        ArrayList<CourseDataDTD> courseDataDTDS = new ArrayList<CourseDataDTD>();
+    public List<CourseDataDTD> getAllCourse(String userId){
 
 
-        try{
+            List<UserCourse> uidList =new ArrayList<UserCourse>();
 
-            ArrayList<Integer> uidList = new ArrayList<Integer>();
             uidList= userCourseMapper.selectUserId(userId);   //得到cid列
 
-            int flag =0;
-            ///////////
-            for(Integer s:uidList) {
+            List<CourseDataDTD> courseDataDTDS = new ArrayList<CourseDataDTD>(uidList.size());
+
+            for(UserCourse s:uidList) {
+
                 CourseInfo courseInfo =new CourseInfo();
                 CourseBaseinfo courseBaseinfo =new CourseBaseinfo();
-                courseInfo=courseInfoMapper.selectfromCid(s); //info ---cid
-                courseBaseinfo=courseBaseinfoMapper.selectFromCourseId(s);//baseinfo---cid
+                courseInfo=courseInfoMapper.selectfromCid(s.getCid()); //info ---cid
+                courseBaseinfo=courseBaseinfoMapper.selectFromCourseId(s.getCid());//baseinfo---cid
 
-                courseDataDTDS.get(flag).setCid(s);
-                courseDataDTDS.get(flag).setCourseName(courseInfo.getCourseName());
-                courseDataDTDS.get(flag).setTeacher(courseInfo.getTeacher());
-                courseDataDTDS.get(flag).setDay(courseBaseinfo.getDay());
-                courseDataDTDS.get(flag).setLessonfrom(courseBaseinfo.getLessonfrom());
-                courseDataDTDS.get(flag).setLessonto(courseBaseinfo.getLessonto());
-                courseDataDTDS.get(flag).setPlace(courseBaseinfo.getPlace());
-                courseDataDTDS.get(flag).setWeekfrom(courseBaseinfo.getWeekfrom());
-                courseDataDTDS.get(flag).setWeekto(courseBaseinfo.getWeekto());
-                courseDataDTDS.get(flag).setWeektype(courseBaseinfo.getWeektype());
+                CourseDataDTD courseDataDTD = new CourseDataDTD();
 
-                flag++;
+                courseDataDTD.setCid(s.getCid());
+                courseDataDTD.setCourseName(courseInfo.getCourseName());
+                courseDataDTD.setTeacher(courseInfo.getTeacher());
+                courseDataDTD.setDay(courseBaseinfo.getDay());
+                courseDataDTD.setLessonfrom(courseBaseinfo.getLessonfrom());
+                courseDataDTD.setLessonto(courseBaseinfo.getLessonto());
+                courseDataDTD.setPlace(courseBaseinfo.getPlace());
+                courseDataDTD.setWeekfrom(courseBaseinfo.getWeekfrom());
+                courseDataDTD.setWeekto(courseBaseinfo.getWeekto());
+                courseDataDTD.setWeektype(courseBaseinfo.getWeektype());
+                courseDataDTDS.add(courseDataDTD);
 
             }
+            logger.info(courseDataDTDS.get(0).getCourseName());
             return courseDataDTDS;
 
-        }catch (Exception e){
-            courseDataDTDS.get(0).setWeektype(weektype);
-            courseDataDTDS.get(0).setWeekto(weekto);
-            courseDataDTDS.get(0).setWeekfrom(weekfrom);
-            courseDataDTDS.get(0).setPlace(place);
-            courseDataDTDS.get(0).setLessonto(lessonto);
-            courseDataDTDS.get(0).setTeacher("");
-            courseDataDTDS.get(0).setCid(0);
-            courseDataDTDS.get(0).setDay(day);
-            courseDataDTDS.get(0).setCourseName(courseName);
-        }
-        return courseDataDTDS;
+
     }
 
 
@@ -152,21 +137,19 @@ public class CourseDetailService {
     public ArrayList<TeacherAllDTD> getAllTeachers(String userId){
 
         ArrayList<TeacherAllDTD> allTeachers = new ArrayList<TeacherAllDTD>();
-        try {
-            ArrayList<Integer> uidList = new ArrayList<Integer>();
-            uidList= userCourseMapper.selectUserId(userId);   //得到cid列
 
-            Integer flag =0;
-            for(Integer s:uidList) {
-                CourseInfo courseInfo =new CourseInfo();
-                courseInfo=courseInfoMapper.selectfromCid(s); //info ---cid
-                allTeachers.get(flag).setCourseName(courseInfo.getCourseName());
-                allTeachers.get(flag).setTeacherName(courseInfo.getTeacher());
-            }
-        }catch (Exception e){
-            allTeachers.get(0).setCourseName("");
-            allTeachers.get(0).setTeacherName("");
+        List<UserCourse> uidList = new ArrayList<UserCourse>();
+        uidList= userCourseMapper.selectUserId(userId);   //得到cid列
+
+        for(UserCourse s:uidList) {
+            CourseInfo courseInfo =new CourseInfo();
+            courseInfo=courseInfoMapper.selectfromCid(s.getCid()); //info ---cid
+            TeacherAllDTD teacherAllDTD =new TeacherAllDTD();
+            teacherAllDTD.setCourseName(courseInfo.getCourseName());
+            teacherAllDTD.setTeacherName(courseInfo.getTeacher());
+            allTeachers.add(teacherAllDTD);
         }
+
 
         return allTeachers;
     }
@@ -183,12 +166,12 @@ public class CourseDetailService {
 
         ArrayList<String> allCourses = new ArrayList<String>();
         try {
-            ArrayList<Integer> uidList = new ArrayList<Integer>();
+            List<UserCourse> uidList = new ArrayList<UserCourse>();
             uidList= userCourseMapper.selectUserId(userId);   //得到cid列
 
-            for(Integer s:uidList) {
+            for(UserCourse s:uidList) {
                 CourseInfo courseInfo =new CourseInfo();
-                courseInfo=courseInfoMapper.selectfromCid(s); //info ---cid
+                courseInfo=courseInfoMapper.selectfromCid(s.getCid()); //info ---cid
                 allCourses.add(courseInfo.getCourseName());
             }
         }catch (Exception e){

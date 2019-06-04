@@ -48,7 +48,7 @@ public class CourseController {
      * @param bindingResult
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "applciation/json")
+    @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "application/json")
     public Result courseSave(CourseBaseinfo courseBaseinfo, CourseInfo courseInfo, String StudentName, BindingResult bindingResult){
 
         try {
@@ -69,10 +69,11 @@ public class CourseController {
      @param  * @param UserId
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/course/get",method = RequestMethod.GET,produces = "applciation/json")
+    @RequestMapping(value = "user/course/get",method = RequestMethod.GET,produces = "application/json")
     public Result courseGet(String UserId) throws JsonProcessingException {
 
         String jsonStr = JSONChange.objToJson(courseDetailService.getAllCourse(UserId));
+        logger.info("json is"+jsonStr);
         logger.info("发送所有课程");
         return ResultFactory.buildSuccessResult(jsonStr);
     }
@@ -86,7 +87,7 @@ public class CourseController {
      @param  * @param UserId
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/course/getAllteacher",method = RequestMethod.GET,produces = "applciation/json")
+    @RequestMapping(value = "user/course/getAllteacher",method = RequestMethod.GET,produces = "application/json")
     public Result findAllTeacher(String UserId) throws JsonProcessingException {
 
         String jsonStr = JSONChange.objToJson(courseDetailService.getAllTeachers(UserId));
@@ -101,7 +102,7 @@ public class CourseController {
      @param  * @param UserId
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/course/getAllcourseName",method = RequestMethod.GET,produces = "applcaition/json")
+    @RequestMapping(value = "user/course/getAllcourseName",method = RequestMethod.GET,produces = "application/json")
     public Result getAllCourse(String UserId) throws JsonProcessingException{
         String jsonStr = JSONChange.objToJson(courseDetailService.getAllCourseName(UserId));
         logger.info("发送所有课程名字");

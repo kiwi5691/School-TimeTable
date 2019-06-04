@@ -11,7 +11,7 @@
   </sql>
   <select id="selectIsName" resultType="java.lang.Integer" parameterType="java.lang.String">
     SELECT 1 from user_login  where user_name = #{userName, jdbcType=VARCHAR}
-</select>
+ </select>
   <select id="selectAllByName" parameterType="java.lang.String" resultMap="BaseResultMap" >
     select *
     from user_login where
