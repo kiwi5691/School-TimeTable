@@ -8,7 +8,6 @@ import lombok.Data;
  */
 @Data
 public class HomeWorkInfoDTD {
-    
     private String courseName;
 
     private String homeworkGrade; //作业成绩
