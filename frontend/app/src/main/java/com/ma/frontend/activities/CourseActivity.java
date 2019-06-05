@@ -235,7 +235,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
             if (code==200){
                 result = "获取信息成功";
 
-
                 CourseDataVo[] array = new Gson().fromJson(data, CourseDataVo[].class);
                 courseDataVos= Arrays.asList(array);
 
