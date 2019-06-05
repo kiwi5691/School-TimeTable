@@ -44,15 +44,15 @@ public class CourseController {
      * 保存课程
      @param  * @param courseBaseinfo
      * @param courseInfo
-     * @param StudentName
+     * @param UserId
      * @param bindingResult
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "application/json")
-    public Result courseSave(CourseBaseinfo courseBaseinfo, CourseInfo courseInfo, String StudentName, BindingResult bindingResult){
+    public Result courseSave(CourseBaseinfo courseBaseinfo, CourseInfo courseInfo, String UserId, BindingResult bindingResult){
 
         try {
-            courseDetailService.saveCourse(courseBaseinfo,courseInfo,StudentName);
+            courseDetailService.saveCourse(courseBaseinfo,courseInfo,UserId);
             return ResultFactory.buildSuccessResult("保存成功");
         }catch (Exception e) {
             return ResultFactory.buildFailResult("保存失败");

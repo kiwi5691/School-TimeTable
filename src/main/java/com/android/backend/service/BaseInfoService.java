@@ -3,10 +3,12 @@ package com.android.backend.service;
 import com.android.backend.dao.ClassRoomOnDutyMapper;
 import com.android.backend.dao.CourseDetailMapper;
 import com.android.backend.dao.CourseInfoMapper;
+import com.android.backend.domain.ClassRoomOnDuty;
 import com.android.backend.domain.CourseDetail;
 import com.android.backend.domain.CourseInfo;
 import com.android.backend.dtd.CourseDataDTD;
 import com.android.backend.dtd.EvaluationInfoDTD;
+import com.android.backend.dtd.HomeWorkInfoDTD;
 import com.android.backend.dtd.RegularGradeDTD;
 import org.springframework.stereotype.Service;
 
@@ -135,5 +137,55 @@ public class BaseInfoService {
         }
         else
             return false;
+    }
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/5
+     * 获取出勤，作业
+     @param  * @param userId
+     *@reutn java.util.List<com.android.backend.dtd.HomeWorkInfoDTD>
+    */
+    public List<HomeWorkInfoDTD> getHomeWorkAndPart(String userId){
+
+        List<HomeWorkInfoDTD> homeWorkInfoDTDS = new ArrayList<HomeWorkInfoDTD>();
+        List<ClassRoomOnDuty> classRoomOnDuties = new ArrayList<ClassRoomOnDuty>();
+
+        classRoomOnDuties = classRoomOnDutyMapper.selectFromUserName(userId);
+
+        for(ClassRoomOnDuty classRoomOnDuty:classRoomOnDuties){
+
+            HomeWorkInfoDTD homeWorkInfoDTD = new HomeWorkInfoDTD();
+
+            CourseInfo courseInfo = new CourseInfo();
+            courseInfo=courseInfoMapper.selectfromCid(Integer.parseInt(classRoomOnDuty.getCourseId()));
+
+            homeWorkInfoDTD.setCourseName(courseInfo.getCourseName());
+            homeWorkInfoDTD.setDay(classRoomOnDuty.getDay());
+            homeWorkInfoDTD.setHomeworkGrade(classRoomOnDuty.getHomeworkGrade());
+            homeWorkInfoDTD.setParticipation(classRoomOnDuty.getParticipation());
+
+            homeWorkInfoDTDS.add(homeWorkInfoDTD);
+        }
+
+        return homeWorkInfoDTDS;
+    }
+
+    public boolean updateHomeWorkAndPart(HomeWorkInfoDTD homeWorkInfoDTD,String UserId){
+
+        try{
+            ClassRoomOnDuty classRoomOnDuty = new ClassRoomOnDuty();
+            classRoomOnDuty.setStudentName(UserId);
+            classRoomOnDuty.setCourseId(String.valueOf(courseInfoMapper.selectCourseName(homeWorkInfoDTD.getCourseName())));     //courseName 转id
+            classRoomOnDuty.setHomeworkGrade(homeWorkInfoDTD.getHomeworkGrade());
+            classRoomOnDuty.setParticipation(homeWorkInfoDTD.getParticipation());
+            classRoomOnDuty.setDay(homeWorkInfoDTD.getDay());
+            classRoomOnDutyMapper.insert(classRoomOnDuty);
+        }catch (Exception e){
+//            return false;
+              e.printStackTrace();
+        }
+        return false;
     }
 }

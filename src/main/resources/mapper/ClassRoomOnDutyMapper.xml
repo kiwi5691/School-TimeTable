@@ -12,8 +12,13 @@
   <sql id="Base_Column_List" >
     id, student_name, course_id, homework_grade, participation, day
   </sql>
+  <select id="selectFromUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from class_room_on_duty
+    where student_name = #{studentName,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from class_room_on_duty
     where id = #{id,jdbcType=INTEGER}

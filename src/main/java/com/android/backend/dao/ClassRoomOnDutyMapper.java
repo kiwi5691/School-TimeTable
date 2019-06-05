@@ -2,6 +2,8 @@ package com.android.backend.dao;
 
 import com.android.backend.domain.ClassRoomOnDuty;
 
+import java.util.List;
+
 public interface ClassRoomOnDutyMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface ClassRoomOnDutyMapper {
     int updateByPrimaryKeySelective(ClassRoomOnDuty record);
 
     int updateByPrimaryKey(ClassRoomOnDuty record);
+
+    List<ClassRoomOnDuty> selectFromUserName(String UserId);
 }

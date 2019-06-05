@@ -25,7 +25,8 @@ public class CourseDetailService {
     */
     private static Logger logger = LoggerFactory.getLogger(CourseDetailService.class);
 
-
+    @Resource
+    private ClassRoomOnDutyMapper classRoomOnDutyMapper;
     @Resource
     private CourseDetailMapper courseDetailMapper;
     @Resource
@@ -57,12 +58,21 @@ public class CourseDetailService {
 
             /**
              *学生的单纯课程信息
+             * courseDetail表
              */
             CourseDetail courseDetail = new CourseDetail();
             courseDetail.setCourseId(courseBaseinfo.getId().toString());
             courseDetail.setStudentName(StudentName);
             courseDetailMapper.insert(courseDetail);
 
+            /**
+             *class on duty 表
+            */
+
+            ClassRoomOnDuty classRoomOnDuty = new ClassRoomOnDuty();
+            classRoomOnDuty.setCourseId(courseBaseinfo.getId().toString());
+            classRoomOnDuty.setStudentName(StudentName);
+            classRoomOnDutyMapper.insert(classRoomOnDuty);
             /**
              *学生，课程数据联结
              */

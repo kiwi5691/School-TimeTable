@@ -2,6 +2,7 @@ package com.android.backend.controller.course;
 
 import com.android.backend.dao.*;
 import com.android.backend.dtd.EvaluationInfoDTD;
+import com.android.backend.dtd.HomeWorkInfoDTD;
 import com.android.backend.service.BaseInfoService;
 import com.android.backend.util.JSONChange;
 import com.android.backend.util.Result;
@@ -118,13 +119,39 @@ public class BaseInfoController {
 
 
 
-    @RequestMapping(value = "user/search/checkpartAndhomeWork",method = RequestMethod.GET,produces = "application/json")
-    public Result getPartAndHomework(String UserId) throws JsonProcessingException {
+    /**
+     *@Auther kiwi
+     * 发送出勤和作业
+     *@Data 2019/6/5
+     @param  * @param UserId
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/checkPartAndHomeWork",method = RequestMethod.GET,produces = "application/json")
+    public Result getPartAndHomeWork(String UserId) throws JsonProcessingException {
 
-        String jsonStr = JSONChange.objToJson(baseInfoService.getAllRegularGrade(UserId));
+        String jsonStr = JSONChange.objToJson(baseInfoService.getHomeWorkAndPart(UserId));
         logger.info("json is"+jsonStr);
-        logger.info("发送课程，分数----信息");
+        logger.info("发送出勤，作业");
         return ResultFactory.buildSuccessResult(jsonStr);
     }
 
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/5
+     * 更新出勤，作业
+     @param  * @param homeWorkInfoDTD
+     * @param UserId
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/updatePartAndHomeWork",method = RequestMethod.POST,produces = "application/json")
+    public Result updatePartAndHomeWork(HomeWorkInfoDTD homeWorkInfoDTD,String UserId){
+
+        if(baseInfoService.updateHomeWorkAndPart(homeWorkInfoDTD,UserId)) {
+
+            return ResultFactory.buildSuccessResult("更新成功");
+        }
+        else
+            return ResultFactory.buildFailResult("更新失败");
+    }
 }
