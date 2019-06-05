@@ -9,6 +9,9 @@
   <sql id="Base_Column_List" >
     id, course_name, teacher
   </sql>
+  <select id="findId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT 1 from course_info where id = #{id,jdbcType=VARCHAR}
+  </select>
   <select id="selectCourseName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id
     from course_info

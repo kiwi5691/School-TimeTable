@@ -19,9 +19,7 @@ import com.ma.frontend.Vo.CourseDataVo;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.TeacherAllVo;
 import com.ma.frontend.config.HttpConstant;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -49,6 +47,9 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
     private EditText mStarweek;
     private EditText mEndweek;
     private EditText mCoursetime;
+    private EditText mLessonto;
+    private EditText mLessionfrom;
+    private EditText mWeektye;
 
 
 
@@ -87,6 +88,10 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
         mCoursetime= (EditText) findViewById(R.id.course_day);
         mCoursename = (EditText) findViewById(R.id.user_phone_input);
         mCourselocal = (EditText)findViewById(R.id.look_up);
+        mWeektye = (EditText)findViewById(R.id.week_type);
+        mLessionfrom = (EditText)findViewById(R.id.lesson_from);
+        mLessonto = (EditText)findViewById(R.id.lesson_to);
+
 
         rb_addCourse=(Button)findViewById(R.id.register_button);
     }
@@ -122,12 +127,12 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
             final String data = (String) showresult.getData();
 
             if (code==200){
-                result = "获取信息成功";
+                result = "课程上传成功";
 
 
 
             }else if (code==400){
-                result = "信息获取失败";
+                result = "课程上传失败";
             }
             Toast.makeText(AddCourseAcitvity.this, result, Toast.LENGTH_SHORT).show();
         }
@@ -147,8 +152,25 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
         originAddress = originAddress + "?UserId="+sp.getString("userName","none");
         Log.i("url is------",originAddress);
         //发起请求
+
+
+        RequestBody formBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("courseName",mCoursename.getText().toString().trim())
+                .addFormDataPart("teacher",mTeachername.getText().toString().trim())
+                .addFormDataPart("weekfrom",mStarweek.getText().toString().trim())
+                .addFormDataPart("weekto",mEndweek.getText().toString().trim())
+                .addFormDataPart("weektype",mWeektye.getText().toString().trim())
+                .addFormDataPart("day",mCoursetime.getText().toString().trim())
+                .addFormDataPart("lessonfrom",mLessionfrom.getText().toString().trim())
+                .addFormDataPart("lessonto",mLessonto.getText().toString().trim())
+                .addFormDataPart("place",mCourselocal.getText().toString().trim())
+                .addFormDataPart("UserId",sp.getString("userName","none"))
+                .build();
+        //发起请求
         final Request request = new Request.Builder()
                 .url(originAddress)
+                .post(formBody)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {

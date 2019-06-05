@@ -74,7 +74,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_password"
-                android:password="true"
                 android:singleLine="true"
                 android:inputType="text" android:hint="起始周"/>
         <!-- 重复输入密码 text -->
@@ -90,7 +89,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_password_"
-                android:password="true"
                 android:singleLine="true"
                 android:inputType="text" android:hint="结束周"/>
         <TextView
@@ -105,16 +103,57 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/course_day_t"
-                android:password="true"
                 android:singleLine="true"
                 android:inputType="text" android:hint="上课时间"/>
+        <TextView
+                android:id="@+id/frm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/course_day"
+                android:layout_marginTop="3dp"
+                android:text="开始节次"/>
+        <EditText
+                android:id="@+id/lesson_from"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/frm"
+                android:singleLine="true"
+                android:inputType="text" android:hint="开始节次"/>
+        <TextView
+                android:id="@+id/less"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lesson_from"
+                android:layout_marginTop="3dp"
+                android:text="结束节次"/>
+        <EditText
+                android:id="@+id/lesson_to"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/less"
+                android:singleLine="true"
+                android:inputType="text" android:hint="结束节次"/>
+        <TextView
+                android:id="@+id/wek_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lesson_to"
+                android:layout_marginTop="3dp"
+                android:text="周类型(1普通，2单周，3双周)"/>
+        <EditText
+                android:id="@+id/week_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wek_t"
+                android:singleLine="true"
+                android:inputType="text" android:hint="周类型"/>
         <!-- 登录button -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:id="@+id/warnText"
-                android:layout_below="@id/course_day"
+                android:layout_below="@id/week_type"
                 android:textSize="15dp"
                 android:textColor="#ff0000" />
 

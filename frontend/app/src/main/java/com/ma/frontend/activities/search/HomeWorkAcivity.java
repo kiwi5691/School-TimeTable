@@ -181,7 +181,7 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
                     response = client.newCall(request).execute();
                     if (response.isSuccessful()) {
                         //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
-                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                        cHandler.obtainMessage(1, response.body().string()).sendToTarget();
                     } else {
                         throw new IOException("Unexpected code:" + response);
                     }

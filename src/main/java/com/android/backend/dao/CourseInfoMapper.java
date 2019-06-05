@@ -18,4 +18,7 @@ public interface CourseInfoMapper {
     CourseInfo selectfromCid(Integer cid);
 
     int selectCourseName(String courseName);
+
+    int findId(CourseInfo courseInfo);
+
 }

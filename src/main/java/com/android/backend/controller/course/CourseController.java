@@ -2,8 +2,10 @@ package com.android.backend.controller.course;
 
 import com.android.backend.domain.CourseBaseinfo;
 import com.android.backend.domain.CourseInfo;
+import com.android.backend.dtd.CourseDataDTD;
 import com.android.backend.service.CourseDetailService;
 import com.android.backend.util.JSONChange;
+import com.android.backend.util.PrimaryKeySetUtil;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.android.backend.util.PrimaryKeySetUtil;
 /**
  * @Auther:kiwi
  * @Date: 2019/5/27 23:13
@@ -40,16 +42,30 @@ public class CourseController {
 
     /**
      *@Auther kiwi
-     *@Data 2019/5/30
-     * 保存课程
-     @param  * @param courseBaseinfo
-     * @param courseInfo
+     *@Data 2019/6/5
+     *  保存课程
+     @param  * @param courseDataDTD
      * @param UserId
      * @param bindingResult
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "user/course/save",method = RequestMethod.POST,produces = "application/json")
-    public Result courseSave(CourseBaseinfo courseBaseinfo, CourseInfo courseInfo, String UserId, BindingResult bindingResult){
+    public Result courseSave(CourseDataDTD courseDataDTD, String UserId, BindingResult bindingResult){
+        CourseBaseinfo courseBaseinfo = new CourseBaseinfo();
+        CourseInfo courseInfo = new CourseInfo();
+
+        int idTemp = PrimaryKeySetUtil.setKey();
+        courseBaseinfo.setCid(idTemp);    //CID自制
+        courseInfo.setCourseName(courseDataDTD.getCourseName());
+        courseInfo.setId(idTemp);
+        courseInfo.setTeacher(courseDataDTD.getTeacher());
+        courseBaseinfo.setDay(courseDataDTD.getDay());
+        courseBaseinfo.setLessonfrom(courseDataDTD.getLessonfrom());
+        courseBaseinfo.setLessonto(courseDataDTD.getLessonto());
+        courseBaseinfo.setPlace(courseDataDTD.getPlace());
+        courseBaseinfo.setWeekfrom(courseDataDTD.getWeekfrom());
+        courseBaseinfo.setWeekto(courseDataDTD.getWeekto());
+        courseBaseinfo.setWeektype(courseDataDTD.getWeektype());
 
         try {
             courseDetailService.saveCourse(courseBaseinfo,courseInfo,UserId);
@@ -77,7 +93,6 @@ public class CourseController {
         logger.info("发送所有课程");
         return ResultFactory.buildSuccessResult(jsonStr);
     }
-
 
 
     /**
