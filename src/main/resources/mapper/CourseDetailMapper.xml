@@ -108,4 +108,15 @@
       evaluation_info = #{evaluationInfo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateEvaluateByUserId" parameterType="com.android.backend.domain.CourseDetail" >
+    update course_detail
+    set  evaluation_score = #{evaluationScore,jdbcType=INTEGER},
+        evaluation_info = #{evaluationInfo,jdbcType=VARCHAR}
+    where student_name = #{studentName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateGradeByCourseName" parameterType="com.android.backend.domain.CourseDetail" >
+    update course_detail
+    set  regular_grade = #{regularGrade,jdbcType=VARCHAR}
+    where student_name = #{studentName,jdbcType=VARCHAR} and course_id = #{courseId,jdbcType=VARCHAR}
+  </update>
 </mapper>

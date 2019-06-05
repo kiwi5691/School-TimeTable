@@ -3,6 +3,7 @@ package com.android.backend.dao;
 import com.android.backend.domain.CourseDetail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CourseDetailMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,5 +18,9 @@ public interface CourseDetailMapper {
 
     int updateByPrimaryKey(CourseDetail record);
 
-    ArrayList<CourseDetail> selectFromUserId(String userId);
+    List<CourseDetail> selectFromUserId(String userId);
+
+    int updateEvaluateByUserId(CourseDetail courseDetail);
+
+    int updateGradeByCourseName(CourseDetail courseDetail);
 }

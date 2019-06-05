@@ -1,6 +1,5 @@
 package com.android.backend.service;
 
-import com.android.backend.controller.CourseController;
 import com.android.backend.dao.*;
 import com.android.backend.domain.*;
 import com.android.backend.dtd.CourseDataDTD;
@@ -134,9 +133,9 @@ public class CourseDetailService {
      @param  * @param userId
      *@reutn java.util.ArrayList<com.android.backend.dtd.TeacherAllDTD>
     */
-    public ArrayList<TeacherAllDTD> getAllTeachers(String userId){
+    public List<TeacherAllDTD> getAllTeachers(String userId){
 
-        ArrayList<TeacherAllDTD> allTeachers = new ArrayList<TeacherAllDTD>();
+        List<TeacherAllDTD> allTeachers = new ArrayList<TeacherAllDTD>();
 
         List<UserCourse> uidList = new ArrayList<UserCourse>();
         uidList= userCourseMapper.selectUserId(userId);   //得到cid列
@@ -162,9 +161,9 @@ public class CourseDetailService {
      @param  * @param userId
      *@reutn java.util.ArrayList<java.lang.String>
     */
-    public ArrayList<String> getAllCourseName(String userId){
+    public List<String> getAllCourseName(String userId){
 
-        ArrayList<String> allCourses = new ArrayList<String>();
+        List<String> allCourses = new ArrayList<String>();
         try {
             List<UserCourse> uidList = new ArrayList<UserCourse>();
             uidList= userCourseMapper.selectUserId(userId);   //得到cid列

@@ -1,4 +1,4 @@
-package com.android.backend.controller;
+package com.android.backend.controller.course;
 
 import com.android.backend.domain.CourseBaseinfo;
 import com.android.backend.domain.CourseInfo;
