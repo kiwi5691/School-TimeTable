@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.google.gson.*;
 import com.ma.frontend.R;
@@ -99,7 +101,24 @@ public class CheckTeacherAcivity extends AppCompatActivity implements View.OnCli
                 teacherAllVos= Arrays.asList(array);
 
 
+
+
                 Log.i("info json ==",teacherAllVos.toString());
+
+
+                List<String> dataa = new ArrayList<String>();
+                for(TeacherAllVo teacherAllVo:teacherAllVos){
+                    String c_n ="";
+                    c_n="           "+teacherAllVo.getTeacherName()+"                                     "+teacherAllVo.getCourseName();
+
+
+                    dataa.add(c_n);
+                    Log.i("data is ",dataa.get(0));
+                    Log.i("teacherinfo is ",teacherAllVo.getCourseName());
+                }
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(CheckTeacherAcivity.this,android.R.layout.simple_list_item_1,dataa);
+                ListView listView=(ListView)findViewById(R.id.name);
+                listView.setAdapter(adapter);
 
 
             }else if (code==400){

@@ -70,8 +70,8 @@
                 android:label= "@string/course_evatue" >
         </activity>
         <activity
-                android:name=".activities.person.UpdateAcivity"
-                android:label= "@string/update" >
+                android:name=".activities.search.CheckTeacherAcivity"
+                android:label= "@string/check_teacher" >
         </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>

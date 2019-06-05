@@ -1,6 +1,7 @@
 package com.ma.frontend.activities.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,9 @@ import com.ma.frontend.R;
 import com.ma.frontend.Vo.CourseDataVo;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.TeacherAllVo;
+import com.ma.frontend.activities.LoginActivity;
+import com.ma.frontend.activities.RegisterActivity;
+import com.ma.frontend.activities.SearchActivity;
 import com.ma.frontend.config.HttpConstant;
 import okhttp3.*;
 
@@ -38,7 +42,7 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
 
 
     private Button rb_addCourse;
-
+    private TextView rb_return;
 
 
     private EditText mCoursename;
@@ -76,7 +80,6 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
         actionBar.hide();
         context = getApplicationContext();
         initView();
-        intInfoRequest();
         initEvent();
 
     }
@@ -93,12 +96,13 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
         mLessonto = (EditText)findViewById(R.id.lesson_to);
 
 
+        rb_return =(TextView)findViewById(R.id.rb_return);
         rb_addCourse=(Button)findViewById(R.id.register_button);
     }
 
     private void initEvent() {
         rb_addCourse.setOnClickListener(this);
-
+        rb_return.setOnClickListener(this);
     }
 
     //用于处理消息的Handler
@@ -139,8 +143,22 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
     };
 
 
+
+    private boolean isInputValid() {
+
+        if (!mWeektye.getText().toString().trim().equals("1")||!mWeektye.getText().toString().trim().equals("2")||!mWeektye.getText().toString().trim().equals("3")) {
+            Toast.makeText(AddCourseAcitvity.this, "数字必须为1or2or3！", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+
+    }
+
     private void intInfoRequest()  {
 
+        if(isInputValid()){
+            return;
+        }
 
 
         Context ctx = AddCourseAcitvity.this;
@@ -195,11 +213,21 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
 
     }
 
-
+    private void reback(){
+        Intent intent =new Intent(AddCourseAcitvity.this, SearchActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.register_button:
+                intInfoRequest();
+                break;
+            case R.id.rb_return:
+                reback();
+                break;
+        }
     }
 }
 
