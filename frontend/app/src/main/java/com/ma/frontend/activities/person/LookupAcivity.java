@@ -1,6 +1,8 @@
 package com.ma.frontend.activities.person;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +18,7 @@ import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
 import com.ma.frontend.activities.InitActivity;
+import com.ma.frontend.activities.LoginActivity;
 import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import okhttp3.*;
@@ -52,6 +55,7 @@ public class LookupAcivity extends AppCompatActivity {
     private String originAddress = root + "/user/showStudentInfo";
 
 
+
     /**
      *@Auther kiwi
      *@Data 2019/6/2
@@ -70,7 +74,6 @@ public class LookupAcivity extends AppCompatActivity {
         setContentView(R.layout.person_lookup);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        Log.i("uid is",GolabConstant.uid);
         initView();
         intInfoRequest();
 
@@ -139,9 +142,6 @@ public class LookupAcivity extends AppCompatActivity {
             Toast.makeText(LookupAcivity.this, result, Toast.LENGTH_SHORT).show();
         }
     };
-    private void getInfoRequest(){
-        
-    }
 
 
 
@@ -169,7 +169,15 @@ public class LookupAcivity extends AppCompatActivity {
     private void intInfoRequest()  {
 
 
-        originAddress = originAddress + "?UserId=kiwi";
+
+        Context ctx = LookupAcivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
+        Log.i("url is------",originAddress);
         //发起请求
         final Request request = new Request.Builder()
                 .url(originAddress)

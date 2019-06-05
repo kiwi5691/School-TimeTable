@@ -1,6 +1,8 @@
 package com.ma.frontend.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -72,12 +74,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 result = "登录成功";
 
                 GolabConstant.uid="kiwi";//测试用uid
-
-
                 GolabConstant.userName=name;
                 GolabConstant.userPassword=pwd;
                 GolabConstant.rid=Ridt;
 
+
+                Context ctx = LoginActivity.this;
+                SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("uid",GolabConstant.uid);
+                editor.putString("userName",GolabConstant.userName);
+                editor.putString("userPassword",GolabConstant.userPassword);
+                editor.putString("rid",GolabConstant.rid);
+                editor.commit();
 
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);

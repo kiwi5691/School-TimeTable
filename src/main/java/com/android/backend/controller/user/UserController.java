@@ -203,9 +203,9 @@ public class UserController {
      *@reutn void
     */
     @RequestMapping(value = "/user/logout",method =RequestMethod.GET,produces = "application/json")
-    public void Logout(String UserId,int rid){
+    public Result Logout(String UserId,int rid){
 
         userInfoService.UpdateLastLoginTime(UserId,rid);
-
+        return ResultFactory.buildSuccessResult("退出成功");
     }
 }

@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:background="#ffffff">
     <!-- padding 内边距   layout_margin 外边距
   		android:layout_alignParentTop 布局的位置是否处于顶部 -->
@@ -92,7 +92,6 @@
                 android:layout_below="@id/user_id_card"
                 android:singleLine="true"
                 android:inputType="text" android:hint="专业"/>
-        <!-- 密码 text -->
         <TextView
                 android:id="@+id/institute"
                 android:layout_width="wrap_content"
@@ -105,7 +104,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/institute"
-                android:password="true"
                 android:singleLine="true"
                 android:inputType="text" android:hint="学院"/>
         <!-- 重复输入密码 text -->
@@ -121,9 +119,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/user_gender"
-                android:password="true"
                 android:singleLine="true"
-                android:inputType="text" android:hint="性别"/>
+                android:inputType="number" android:hint="性别"/>
         <TextView
                 android:id="@+id/course_day_t"
                 android:layout_width="wrap_content"
@@ -136,16 +133,29 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/course_day_t"
-                android:password="true"
                 android:singleLine="true"
-                android:inputType="text" android:hint="电话"/>
+                android:inputType="number" android:hint="电话"/>
+        <TextView
+                android:id="@+id/user_birthday_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_phone"
+                android:layout_marginTop="3dp"
+                android:text="生日"/>
+        <EditText
+                android:id="@+id/user_birthday"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_birthday_t"
+                android:singleLine="true"
+                android:inputType="date" android:hint="生日"/>
         <!-- 登录button -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:id="@+id/warnText"
-                android:layout_below="@id/user_phone"
+                android:layout_below="@id/user_birthday"
                 android:textSize="15dp"
                 android:textColor="#ff0000"/>
 

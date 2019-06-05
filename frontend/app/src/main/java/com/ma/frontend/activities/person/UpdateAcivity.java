@@ -1,22 +1,38 @@
 package com.ma.frontend.activities.person;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.google.gson.*;
 import com.ma.frontend.R;
+import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.Vo.StudentInfoVo;
+import com.ma.frontend.activities.InitActivity;
+import com.ma.frontend.activities.LoginActivity;
 import com.ma.frontend.activities.PersonActivity;
+import com.ma.frontend.config.GolabConstant;
+import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.domain.city.City;
 import com.ma.frontend.domain.city.District;
 import com.ma.frontend.domain.city.Province;
+import okhttp3.*;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther:kiwi
@@ -27,7 +43,7 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
     private Button rb_update;
     private TextView rb_return;
 
-
+    private TextView mBirthday;
     private EditText mNickname;
     private EditText mYearin;
     private EditText mMajor;
@@ -48,15 +64,38 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
     //////
 
 
+
+    public StudentInfoVo studentInfoVo;
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     *  url源
+     */
+    String root= HttpConstant.OriginAddress;
+    private String originAddressShowStu = root + "/user/showStudentInfo";
+    private String originAddressShowTea = root + "/user/showTeacherInfo";
+    private String originAddressUpdateStu = root + "/user/UpdateStudentInfo";
+    private String originAddressUpdateTea = root + "/user/UpdateTeacherInfo";
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     * okhttp声明
+     */
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15,TimeUnit.SECONDS)
+            .writeTimeout(15,TimeUnit.SECONDS)
+            .build();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.person_update);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
-        initView();
-        initEvent();
         /////////////////地区
         spinner3 = (Spinner)findViewById(R.id.s3);
         spinner2 = (Spinner)findViewById(R.id.s2);
@@ -96,11 +135,107 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
+
+        initView();
+        initEvent();
+        intInfoRequest();
     }
+
+
+    //用于获取信息的Handler
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            GsonBuilder builder = new GsonBuilder();
+
+            // Register an adapter to manage the date types as long values
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+
+
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            final String data = (String) showresult.getData();
+
+            Log.i("resultvo data is",ReturnMessage);
+            Log.i("--------------","-----------");
+            Log.i("data is ",data);
+            if (code==200){
+                result = "获取信息成功";
+
+
+                studentInfoVo = new Gson().fromJson(data,StudentInfoVo.class);
+                Log.i("info json ==",studentInfoVo.toString());
+
+                mInstitute.setText(studentInfoVo.getInstitute());
+                mMajor.setText(studentInfoVo.getMajor());
+                String genderText=" ";
+                //  mInstitute.setText(studentInfoVo.getInstitute());
+                mPhone.setText(studentInfoVo.getPhone());
+                mNickname.setText(studentInfoVo.getNickName());
+                if(studentInfoVo.getGender()==1){
+                    genderText="男";
+                }
+                else{
+                    genderText="女";
+                }
+                sex.setText(genderText);
+                mYearin.setText(studentInfoVo.getYear());
+                mBirthday.setText(studentInfoVo.getBirthday().toString());
+                //  Intent intent=new Intent();
+                //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                //   intent.setClass(LookupAcivity.this, InitActivity.class);
+                //   startActivity(intent);
+            }else if (code==400){
+                result = "信息获取失败";
+            }
+            Toast.makeText(UpdateAcivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+
+    //用于update消息的Handler
+    private Handler uHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            Log.i("code is",String.valueOf(code));
+
+            if (code==200){
+                result = "保存成功";
+
+            }else if (code==400){
+                result = "保存失败";
+            }
+            Toast.makeText(UpdateAcivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
 
     private void initView() {
         mInstitute = (EditText) findViewById(R.id.institute_d);
+        mBirthday =(TextView)findViewById(R.id.user_birthday);
         mPhone = (EditText) findViewById(R.id.user_phone);
         mMajor = (EditText) findViewById(R.id.major);
         mYearin= (EditText) findViewById(R.id.year_in_d);
@@ -239,6 +374,68 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
 
     private void update(){
 
+
+        int sext= 1;
+        if(sex.getText().toString().trim()=="男"){
+            sext=1;
+        }
+        else {
+            sext=2;
+        }
+
+
+        CharSequence charSequence1 =(CharSequence)spinner1.getSelectedItem().toString();
+        CharSequence charSequence2 =(CharSequence)spinner2.getSelectedItem().toString();
+        CharSequence charSequence3 =(CharSequence)spinner3.getSelectedItem().toString();
+
+        Context ctx = UpdateAcivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+        originAddressUpdateStu = originAddressUpdateStu + "?UserId="+sp.getString("userName","none");
+        Log.i("update url is------",originAddressUpdateStu);
+        //发起请求
+        RequestBody formBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("nickName",mNickname.getText().toString().trim())
+                .addFormDataPart("phone",mPhone.getText().toString().trim())
+                .addFormDataPart("major",mMajor.getText().toString().trim())
+                .addFormDataPart("year",mYearin.getText().toString().trim())
+                .addFormDataPart("institute",mInstitute.getText().toString().trim())
+                .addFormDataPart("province",charSequence1.toString())
+                .addFormDataPart("city",charSequence2.toString())
+                .addFormDataPart("area",charSequence3.toString())
+                .addFormDataPart("gender",String.valueOf(sext))
+                .build();
+        //发起请求
+        final Request request = new Request.Builder()
+                .url(originAddressUpdateStu)
+                .post(formBody)
+                .build();
+        //新建一个线程，用于得到服务器响应的参数
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response = null;
+                try {
+                    //回调
+                    response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                        uHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                    } else {
+                        throw new IOException("Unexpected code:" + response);
+                    }
+                } catch (IOException e) {
+                    // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
     }
 
     private void returnback(){
@@ -258,4 +455,50 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/19
+     */
+    private void intInfoRequest()  {
+
+
+
+        Context ctx = UpdateAcivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+        originAddressShowStu = originAddressShowStu + "?UserId="+sp.getString("userName","none");
+        Log.i("url is------",originAddressShowStu);
+        //发起请求
+        final Request request = new Request.Builder()
+                .url(originAddressShowStu)
+                .build();
+        //新建一个线程，用于得到服务器响应的参数
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response = null;
+                try {
+                    //回调
+                    response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                    } else {
+                        throw new IOException("Unexpected code:" + response);
+                    }
+                } catch (IOException e) {
+                    // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
 }
+

@@ -11,6 +11,8 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,9 +22,15 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
 import android.widget.*;
+import com.google.gson.*;
 import com.ma.frontend.R;
+import com.ma.frontend.Vo.CourseDataVo;
+import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.Vo.StudentInfoVo;
+import com.ma.frontend.activities.person.LookupAcivity;
 import com.ma.frontend.adapter.CourseInfoAdapter;
 import com.ma.frontend.adapter.InfoGallery;
+import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.db.dao.CourseInfoDao;
 import com.ma.frontend.db.dao.GlobalInfoDao;
 import com.ma.frontend.db.dao.UserCourseDao;
@@ -35,9 +43,15 @@ import com.ma.frontend.domain.UserCourse;
 import com.ma.frontend.domain.UserInfo;
 import com.ma.frontend.utils.TimetableUtil;
 import com.ma.frontend.widget.BorderTextView;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther:kiwi
@@ -45,6 +59,9 @@ import java.util.*;
  */
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener{
 
+
+    //vo课程变量
+    public List<CourseDataVo> courseDataVos = new ArrayList<CourseDataVo>();
 
     private static Context context;
 
@@ -95,6 +112,28 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
      */
     GlobalInfo gInfo;//需要isFirstUse和activeUserUid
     UserInfo uInfo;//需要username昵称,gender，phone，headshot，institute，major，year
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     *  url源
+     */
+    String root= HttpConstant.OriginAddress;
+    private String originAddress = root + "/user/course/get";
+
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/2
+     * okhttp声明
+     */
+    OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15,TimeUnit.SECONDS)
+            .writeTimeout(15,TimeUnit.SECONDS)
+            .build();
+
 
 
     /**
@@ -158,10 +197,95 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         //initDate();//显示在menu中的当前日期
         initView();
         initEvent();
+        intInfoRequest();
         initTable();//初始化课表
         refresh();//刷新课表信息
     }
 
+
+
+    //用于处理消息的Handler
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            GsonBuilder builder = new GsonBuilder();
+
+            // Register an adapter to manage the date types as long values
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+
+
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            final String data = (String) showresult.getData();
+
+            Log.i("resultvo data is",ReturnMessage);
+            Log.i("--------------","-----------");
+            Log.i("data is ",data);
+            if (code==200){
+                result = "获取信息成功";
+
+
+                CourseDataVo[] array = new Gson().fromJson(data, CourseDataVo[].class);
+                courseDataVos= Arrays.asList(array);
+
+            }else if (code==400){
+                result = "信息获取失败";
+            }
+            Toast.makeText(CourseActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+    private void intInfoRequest()  {
+
+
+
+        Context ctx = CourseActivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
+        Log.i("url is------",originAddress);
+        //发起请求
+        final Request request = new Request.Builder()
+                .url(originAddress)
+                .build();
+        //新建一个线程，用于得到服务器响应的参数
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response = null;
+                try {
+                    //回调
+                    response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                    } else {
+                        throw new IOException("Unexpected code:" + response);
+                    }
+                } catch (IOException e) {
+                    // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -348,29 +472,37 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         progressDialog.setCancelable(true);
         progressDialog.show();
 
-        //如果还未爬取过课表信息，需要爬取
-        if(courseSettings.getBoolean("needCrawling_" + uid, false) == true) {
-            // 开启连接线程，登录教务处，爬取学生课表信息...
-            //将课表信息上传至课表服务器...
-            //上传成功后插入本地数据库...
-            //刷新课表界面...
-            //此处省略部分代码，因初始化的SharedPreferences信息均为false，因此此处条件语句并不会执行
+        getFromLocal(cw);
+        for(CourseDataVo courseDataVo:courseDataVos) {
+            //模拟从服务器获取的效果
+            Log.i("couisisisi ",courseDataVo.toString());
+            CourseInfo cInfo1 = new CourseInfo();
+            cInfo1.setCid(courseDataVo.getCid());
+            cInfo1.setWeekfrom(courseDataVo.getWeekfrom());
+            cInfo1.setWeekto(courseDataVo.getWeekto());
+            cInfo1.setWeektype(courseDataVo.getWeektype());
+            cInfo1.setDay(Integer.parseInt(courseDataVo.getDay()));
+            cInfo1.setLessonfrom(courseDataVo.getLessonfrom());
+            cInfo1.setLessonto(courseDataVo.getLessonto());
+            cInfo1.setCoursename(courseDataVo.getCourseName());
+            cInfo1.setTeacher(courseDataVo.getTeacher());
+            cInfo1.setPlace(courseDataVo.getPlace());
 
-            //设置该用户课程信息已抓取过的标志
-            courseSettings.edit().putBoolean("needCrawling_" + uid, false).commit();
+            courseInfoList.add(cInfo1);
         }
-        //如果爬取过课表信息，那就直接访问服务器获取课表显示
-        else{
-            //此处判断课表是否被增删过，就防止不进行增删操作只跳转页面带来的延时损耗
-            if(!courseSettings.getBoolean("needRefresh_" + uid, false)){
-                getCourseFromServer(uid);//从服务器获取课程数据存入courseInfoList中
-                //设置该用户信息已从服务器获取过的标志
-                courseSettings.edit().putBoolean("needRefresh_" + uid, false).commit();
-            }
-            else{ //未修改过就直接本地读取
-                getFromLocal(cw);
-            }
+
+
+        //如果从服务器获取成功，则插入数据库
+        saveCourse();
+
+        if (progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
+        //初始化课表
+        initCourse();
+        //显示课表内容
+        initCourseTableBody(cw);
+
     }
 
     //直接从本地数据库缓存提取数据显示
@@ -388,34 +520,24 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     //本地测试:后期从服务器端获取课表
     private void getCourseFromServer(int userid){
 
-        //模拟从服务器获取的效果
-        CourseInfo cInfo1 = new CourseInfo();
-        cInfo1.setCid(1);
-        cInfo1.setWeekfrom(2);
-        cInfo1.setWeekto(18);
-        cInfo1.setWeektype(1);
-        cInfo1.setDay(3);
-        cInfo1.setLessonfrom(3);
-        cInfo1.setLessonto(4);
-        cInfo1.setCoursename("数据库原理");
-        cInfo1.setTeacher("李华");
-        cInfo1.setPlace("第一教学楼302");
+        for(CourseDataVo courseDataVo:courseDataVos) {
+            //模拟从服务器获取的效果
+            Log.i("couisisisi ",courseDataVo.toString());
+            CourseInfo cInfo1 = new CourseInfo();
+            cInfo1.setCid(courseDataVo.getCid());
+            cInfo1.setWeekfrom(courseDataVo.getWeekfrom());
+            cInfo1.setWeekto(courseDataVo.getWeekto());
+            cInfo1.setWeektype(courseDataVo.getWeektype());
+            cInfo1.setDay(Integer.parseInt(courseDataVo.getDay()));
+            cInfo1.setLessonfrom(courseDataVo.getLessonfrom());
+            cInfo1.setLessonto(courseDataVo.getLessonto());
+            cInfo1.setCoursename(courseDataVo.getCourseName());
+            cInfo1.setTeacher(courseDataVo.getTeacher());
+            cInfo1.setPlace(courseDataVo.getPlace());
 
+            courseInfoList.add(cInfo1);
+        }
 
-        CourseInfo cInfo2 = new CourseInfo();
-        cInfo2.setCid(2);
-        cInfo2.setWeekfrom(1);
-        cInfo2.setWeekto(8);
-        cInfo2.setWeektype(1);
-        cInfo2.setDay(1);
-        cInfo2.setLessonfrom(5);
-        cInfo2.setLessonto(7);
-        cInfo2.setCoursename("操作系统原理");
-        cInfo2.setTeacher("王芳");
-        cInfo2.setPlace("第三教学楼105");
-
-        courseInfoList.add(cInfo1);
-        courseInfoList.add(cInfo2);
 
         //如果从服务器获取成功，则插入数据库
         saveCourse();
@@ -635,14 +757,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    /**
-     * 将爬取课程信息上传课表服务器
-     * 若上传成功，则取回服务器端分配的cid及所有课程信息，存入本地数据库
-     * @param couInfo
-     */
-    private void uploadCourseInfo(final CourseInfo couInfo) {
 
-    }
 
     /**
      * 显示周数下拉列表悬浮窗

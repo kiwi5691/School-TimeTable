@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.google.gson.*;
 import com.ma.frontend.R;
+import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.Vo.StudentInfoVo;
 import com.ma.frontend.activities.person.LookupAcivity;
 import com.ma.frontend.activities.person.SettingAcivity;
 import com.ma.frontend.activities.person.UpdateAcivity;
@@ -25,7 +32,11 @@ import com.ma.frontend.db.dao.UserInfoDao;
 import com.ma.frontend.domain.GlobalInfo;
 import com.ma.frontend.domain.UserInfo;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,6 +51,8 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
     private static Context context;
 
     private int uid;
+
+    public StudentInfoVo studentInfoVo;
 
     private Button mSearch;
     private Button mCourse;
@@ -58,10 +71,11 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
     /**
      *@Auther kiwi
-     *TODO 服务端分配学生，教师初始化。josn传值
     */
     String root= HttpConstant.OriginAddress;
-    private String originAddress = root + "/user/login?";
+    private String originAddress = root + "/user/showStudentInfo";
+    private String logoutAddress = root + "/user/logout";
+
 
     OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -107,8 +121,105 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         initView();
         initEvent();
         initDate();
+        intInfoRequest();
 
     }
+
+
+
+    //用于处理消息的Handler
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            GsonBuilder builder = new GsonBuilder();
+
+            // Register an adapter to manage the date types as long values
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+
+
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            final String data = (String) showresult.getData();
+
+            Log.i("resultvo data is",ReturnMessage);
+            Log.i("--------------","-----------");
+            Log.i("data is ",data);
+            if (code==200){
+                result = "获取信息成功";
+
+
+                studentInfoVo = new Gson().fromJson(data, StudentInfoVo.class);
+                Log.i("info json ==",studentInfoVo.toString());
+
+
+                //////////div头像的的变量初始化
+                if(studentInfoVo.getGender().equals("2")){
+                    headshotView.setImageResource(R.drawable.nav_icon_female);
+                }
+                else{
+                    headshotView.setImageResource(R.drawable.nav_icon_male);
+                }
+                nameTextView.setText(studentInfoVo.getNickName()+"，你好");
+
+                if(studentInfoVo.getInstitute()!=null) {
+                    insTextView.setText(studentInfoVo.getInstitute());
+                    majorTextView.setText(studentInfoVo.getMajor());
+                }else {
+                    insTextView.setText("请填写信息");
+                }
+
+            }else if (code==400){
+                result = "信息获取失败";
+            }
+            Toast.makeText(PersonActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+    //用于退出的的Handler
+    private Handler logoutHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+
+            Log.i(ReturnMessage,"----me is");
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+
+            if (code==200){
+                result = message;
+                Intent intent=new Intent();
+                intent.setClass(PersonActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+            }else if (code==400){
+                result = "退出成功";
+
+                Intent intent=new Intent();
+                intent.setClass(PersonActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+            Toast.makeText(PersonActivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
     private void initView() {
         mSearch = (Button) findViewById(R.id.rb_search);
     //    mPerson = (RadioButton) findViewById(R.id.rb_person);
@@ -128,6 +239,8 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         insTextView.setText(uInfo.getInstitute());
         majorTextView = (TextView)findViewById(R.id.Menu_main_major);
         majorTextView.setText(uInfo.getMajor());
+
+
         dateTextView = (TextView)findViewById(R.id.Menu_main_textDate);
         logoutButton = (Button)findViewById(R.id.rb_logout);
         updateButton = (Button)findViewById(R.id.rb_update);
@@ -148,6 +261,51 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
         Log.i("date is",dateString + "星期" + weekDays[w]);
         dateTextView.setText(dateString + "星期" + weekDays[w]);
     }
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/5/19
+     */
+    private void intInfoRequest()  {
+
+
+
+        Context ctx = PersonActivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
+        Log.i("url is------",originAddress);
+        //发起请求
+        final Request request = new Request.Builder()
+                .url(originAddress)
+                .build();
+        //新建一个线程，用于得到服务器响应的参数
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response = null;
+                try {
+                    //回调
+                    response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                    } else {
+                        throw new IOException("Unexpected code:" + response);
+                    }
+                } catch (IOException e) {
+                    // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
 
 
     private void initEvent() {
@@ -197,9 +355,41 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
                  .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                      @Override
                      public void onClick(DialogInterface dialogInterface, int i) {
-                         Intent intent=new Intent();
-                         intent.setClass(PersonActivity.this, LoginActivity.class);
-                         startActivity(intent);
+
+
+
+                         Context ctx = PersonActivity.this;
+                         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+                         SharedPreferences.Editor editor =sp.edit();
+
+//        originAddress = originAddress + "?UserId=kiwi";
+                         logoutAddress = logoutAddress + "?UserId="+sp.getString("userName","none")+"&rid="+sp.getString("rid","none");
+                         Log.i("url is------",logoutAddress);
+                         //发起请求
+                         final Request request = new Request.Builder()
+                                 .url(logoutAddress)
+                                 .build();
+                         //新建一个线程，用于得到服务器响应的参数
+                         new Thread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Response response = null;
+                                 try {
+                                     //回调
+                                     response = client.newCall(request).execute();
+                                     if (response.isSuccessful()) {
+                                         //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                                         logoutHandler.obtainMessage(2, response.body().string()).sendToTarget();
+                                     } else {
+                                         throw new IOException("Unexpected code:" + response);
+                                     }
+                                 } catch (IOException e) {
+                                     // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                                     e.printStackTrace();
+                                 }
+                             }
+                         }).start();
                      }
                  })
                  .setNegativeButton("取消", new DialogInterface.OnClickListener() {
