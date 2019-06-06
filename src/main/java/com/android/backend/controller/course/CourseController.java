@@ -54,6 +54,7 @@ public class CourseController {
         CourseBaseinfo courseBaseinfo = new CourseBaseinfo();
         CourseInfo courseInfo = new CourseInfo();
 
+        logger.info("userid is"+UserId);
         int idTemp = PrimaryKeySetUtil.setKey();
         courseBaseinfo.setCid(idTemp);    //CID自制
         courseInfo.setCourseName(courseDataDTD.getCourseName());
@@ -66,7 +67,13 @@ public class CourseController {
         courseBaseinfo.setWeekfrom(courseDataDTD.getWeekfrom());
         courseBaseinfo.setWeekto(courseDataDTD.getWeekto());
         courseBaseinfo.setWeektype(courseDataDTD.getWeektype());
-
+//
+//        logger.info(String.valueOf(idTemp));
+//        logger.info(courseDataDTD.getCourseName());
+//        logger.info(courseDataDTD.getTeacher());
+//        logger.info(courseDataDTD.getDay());
+//        logger.info(String.valueOf(courseDataDTD.getLessonfrom()));
+//        logger.info(String.valueOf(courseDataDTD.getLessonto()));
         try {
             courseDetailService.saveCourse(courseBaseinfo,courseInfo,UserId);
             return ResultFactory.buildSuccessResult("保存成功");

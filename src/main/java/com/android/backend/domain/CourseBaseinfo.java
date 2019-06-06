@@ -90,4 +90,19 @@ public class CourseBaseinfo {
     public void setPlace(String place) {
         this.place = place == null ? null : place.trim();
     }
+
+    @Override
+    public String toString() {
+        return "CourseBaseinfo{" +
+                "id=" + id +
+                ", cid=" + cid +
+                ", weekfrom=" + weekfrom +
+                ", weekto=" + weekto +
+                ", weektype=" + weektype +
+                ", day='" + day + '\'' +
+                ", lessonfrom=" + lessonfrom +
+                ", lessonto=" + lessonto +
+                ", place='" + place + '\'' +
+                '}';
+    }
 }

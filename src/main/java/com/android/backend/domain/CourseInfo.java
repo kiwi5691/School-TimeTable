@@ -31,4 +31,13 @@ public class CourseInfo {
     public void setTeacher(String teacher) {
         this.teacher = teacher == null ? null : teacher.trim();
     }
+
+    @Override
+    public String toString() {
+        return "CourseInfo{" +
+                "id=" + id +
+                ", courseName='" + courseName + '\'' +
+                ", teacher='" + teacher + '\'' +
+                '}';
+    }
 }

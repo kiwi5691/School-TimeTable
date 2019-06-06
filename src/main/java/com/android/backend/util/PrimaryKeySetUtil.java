@@ -19,7 +19,7 @@ public class PrimaryKeySetUtil {
     @Autowired
     private static CourseInfoMapper courseInfoMapper;
 
-
+//设计数据库主键时候需要确定好值范围
     @PostConstruct
     public static Integer setKey(){
 
@@ -27,7 +27,7 @@ public class PrimaryKeySetUtil {
         int rand=0;
         boolean repeat = false;
         while (repeat == false) {
-            rand = (int) ((Math.random() * 9 + 1) * 100000);
+            rand = (int) ((Math.random() * 9 + 1) * 1000);
             courseInfo.setId(rand);
             try{
                 courseInfoMapper.findId(courseInfo);

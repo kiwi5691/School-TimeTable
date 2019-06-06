@@ -156,19 +156,12 @@ public class AddCourseAcitvity extends AppCompatActivity implements View.OnClick
 
     private void intInfoRequest()  {
 
-        if(isInputValid()){
-            return;
-        }
-
 
         Context ctx = AddCourseAcitvity.this;
         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
 
         SharedPreferences.Editor editor =sp.edit();
 
-//        originAddress = originAddress + "?UserId=kiwi";
-        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",originAddress);
         //发起请求
 
 

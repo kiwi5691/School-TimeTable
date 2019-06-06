@@ -127,17 +127,41 @@
   </insert>
   <update id="updateByUserId" parameterType="com.android.backend.domain.TeacherInfo" >
     update teacher_info
-    set user_id = #{userId,jdbcType=VARCHAR},
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
         nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
         province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
         city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
         area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
         gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null" >
         birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="lastLoginTime != null" >
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
         add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-        headshot = #{headshot,jdbcType=VARCHAR}
+      </if>
+      <if test="headshot != null" >
+        headshot = #{headshot,jdbcType=VARCHAR},
+      </if>
+    </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.TeacherInfo" >

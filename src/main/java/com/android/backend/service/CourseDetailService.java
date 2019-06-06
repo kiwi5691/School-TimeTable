@@ -48,12 +48,16 @@ public class CourseDetailService {
     */
     public void saveCourse(CourseBaseinfo courseBaseinfo,CourseInfo courseInfo,String StudentName){
 
+        logger.info(courseBaseinfo.toString());
+        logger.info(courseInfo.toString());
+        logger.info(StudentName);
+        logger.info("cid to string is "+String.valueOf(courseBaseinfo.getCid()));
+
         try {
             /**
              *单纯数据存表联结
              */
             courseBaseinfoMapper.insert(courseBaseinfo);
-            courseBaseinfo.setCid(courseInfo.getId());
             courseInfoMapper.insert(courseInfo);
 
             /**
@@ -61,7 +65,7 @@ public class CourseDetailService {
              * courseDetail表
              */
             CourseDetail courseDetail = new CourseDetail();
-            courseDetail.setCourseId(courseBaseinfo.getId().toString());
+            courseDetail.setCourseId(String.valueOf(courseBaseinfo.getCid()));
             courseDetail.setStudentName(StudentName);
             courseDetailMapper.insert(courseDetail);
 
@@ -70,15 +74,15 @@ public class CourseDetailService {
             */
 
             ClassRoomOnDuty classRoomOnDuty = new ClassRoomOnDuty();
-            classRoomOnDuty.setCourseId(courseBaseinfo.getId().toString());
+            classRoomOnDuty.setCourseId(String.valueOf(courseBaseinfo.getCid()));
             classRoomOnDuty.setStudentName(StudentName);
             classRoomOnDutyMapper.insert(classRoomOnDuty);
             /**
              *学生，课程数据联结
              */
             UserCourse userCourse = new UserCourse();
-            userCourse.setCid(courseBaseinfo.getId()); //课程id
-            userCourse.setUid(userLoginMapper.selectAllByName(StudentName).getUserName());//学生id
+            userCourse.setCid(courseBaseinfo.getCid()); //课程id
+            userCourse.setUid(StudentName);//学生id
             userCourseMapper.insert(userCourse);
 
 

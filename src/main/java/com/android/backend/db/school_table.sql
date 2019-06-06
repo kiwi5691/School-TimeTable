@@ -65,15 +65,15 @@ CREATE TABLE `table_storage` (
 DROP TABLE IF EXISTS `course_info`;
 CREATE TABLE `course_info` (
                                  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                 course_name NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '课程名字',
-                                 teacher NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '教师名字'
+                                 course_name NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '课程名字',
+                                 teacher NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '教师名字'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课堂信息';
 
 DROP TABLE IF EXISTS `user_course`;
 CREATE TABLE `user_course` (
                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                               cid integer(10) NOT NULL DEFAULT '0' COMMENT '课程id',
-                               uid NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '学生id'
+                               cid integer(100) DEFAULT NULL DEFAULT '0' COMMENT '课程id',
+                               uid NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '学生id'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课堂';
 /*'****************安卓端的global ，整体设计在数据库表中。dtd也不需要传值*/
 DROP TABLE IF EXISTS `global_info`;
@@ -94,34 +94,34 @@ DROP TABLE IF EXISTS `course_baseinfo`;
 CREATE TABLE `course_baseinfo` (
                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
                                cid INTEGER(11) NULL COMMENT '课程表CourseInfo 的ID',
-                               weekfrom integer(100) NOT NULL DEFAULT '0' COMMENT '起始周',
-                               weekto integer(100) NOT NULL DEFAULT '0' COMMENT '结束周',
-                               weektype integer(100) NOT NULL DEFAULT '0' COMMENT '周类型，1普通，2单周，3双周',
-                               day NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '星期几上课',
-                               lessonfrom integer(100) NOT NULL DEFAULT '0' COMMENT '开始节次',
-                               lessonto integer(100) NOT NULL DEFAULT '0' COMMENT '结束节次',
-                               place NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '地点'
+                               weekfrom integer(100) DEFAULT NULL DEFAULT '0' COMMENT '起始周',
+                               weekto integer(100) DEFAULT NULL DEFAULT '0' COMMENT '结束周',
+                               weektype integer(100) DEFAULT NULL DEFAULT '0' COMMENT '周类型，1普通，2单周，3双周',
+                               day NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '星期几上课',
+                               lessonfrom integer(100) DEFAULT NULL DEFAULT '0' COMMENT '开始节次',
+                               lessonto integer(100) DEFAULT NULL DEFAULT '0' COMMENT '结束节次',
+                               place NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '地点'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课程整体信息';
 
 DROP TABLE IF EXISTS `course_detail`;
 CREATE TABLE `course_detail` (
                                id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                               student_name NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '学生名字',
-                               course_id NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '课程所属id',
-                               regular_grade NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '平时成绩',
-                               evaluation_score int(100) NOT NULL DEFAULT '0' COMMENT '评价分数',
-                               evaluation_info NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '评价内容'
+                               student_name NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '学生名字',
+                               course_id NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '课程所属id',
+                               regular_grade NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '平时成绩',
+                               evaluation_score int(100) DEFAULT NULL DEFAULT '0' COMMENT '评价分数',
+                               evaluation_info NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '评价内容'
 
 )ENGINE=InnoDB DEFAULT CHARSET=utf8  COMMENT='课程学生信息表';
 
 DROP TABLE IF EXISTS `class_room_on_duty`;
 CREATE TABLE `class_room_on_duty` (
                                  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-                                 student_name NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '学生名字',
-                                 course_id NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '课程所属id',
-                                 homework_grade NVARCHAR(100) NOT NULL DEFAULT ' ' COMMENT '作业成绩',
-                                 participation int(11) NOT NULL DEFAULT '0' COMMENT '出勤, 0未到，1有到',
-                                 day int(100) NOT NULL DEFAULT '0' COMMENT '第{}节课'
+                                 student_name NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '学生名字',
+                                 course_id NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '课程所属id',
+                                 homework_grade NVARCHAR(100) DEFAULT NULL DEFAULT ' ' COMMENT '作业成绩',
+                                 participation int(11) DEFAULT NULL DEFAULT '0' COMMENT '出勤, 0未到，1有到',
+                                 day int(100) DEFAULT NULL DEFAULT '0' COMMENT '第{}节课'
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='课堂出勤表';
 
 
