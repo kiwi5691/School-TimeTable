@@ -95,34 +95,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 result = "注册成功";
 
 
-
-                if(mStudent.isChecked()){
-                    Ridt="1";
-                }
-                else {
-                    Ridt="2";
-                }
-
-                name = mUsernameEditText.getText().toString().trim();
-                pwd = mPassWordEditText.getText().toString().trim();
-                nikname =mNicknameEditText.getText().toString().trim();
-
-                GolabConstant.userName=name;
-                GolabConstant.userPassword=pwd;
-                GolabConstant.rid=Ridt;
-
-                Context ctx = RegisterActivity.this;
-                SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("userName",GolabConstant.userName);
-                editor.putString("userPassword",GolabConstant.userPassword);
-                editor.putString("rid",GolabConstant.rid);
-                editor.commit();
-
-
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(RegisterActivity.this, InitActivity.class);
+                intent.setClass(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }else if (code==400){
                 result = message;
@@ -139,8 +114,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mUsernameEditText = (EditText) findViewById(R.id.user_phone_input);
         mRegistButton = (Button) findViewById(R.id.register_button);
         mLoginButton = (TextView) findViewById(R.id.login_text);
-        mTeacher = (RadioButton) findViewById(R.id.ck_teacher);
-        mStudent = (RadioButton) findViewById(R.id.ck_student);
+        mTeacher = (RadioButton) findViewById(R.id.ck_teacher_r);
+        mStudent = (RadioButton) findViewById(R.id.ck_student_r);
     }
 
     private void initEvent() {
@@ -166,6 +141,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         else {
             Ridt="2";
         }
+        Log.i("rid is",Ridt);
+
         if (!isInputValid()){
             return;
         }
@@ -176,16 +153,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //建立请求表单，添加上传服务器的参数
         RequestBody formBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("UserName",name)
-                .addFormDataPart("UserPassword",pwd)
+                .addFormDataPart("userName",name)
+                .addFormDataPart("userPassword",pwd)
                 .addFormDataPart("Nickname",nikname)
                 .addFormDataPart("rid",Ridt)
                 .build();
+        Log.i("rid is",Ridt);
         //发起请求
         final Request request = new Request.Builder()
                 .url(originAddress)
                 .post(formBody)
                 .build();
+
+
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {
             @Override
@@ -252,10 +232,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.login_text:
                 ToLogin();
                 break;
-            case R.id.ck_student:
+            case R.id.ck_student_r:
                 Ridt="1";
                 break;
-            case R.id.ck_teacher:
+            case R.id.ck_teacher_r:
                 Ridt="2";
                 break;
         }

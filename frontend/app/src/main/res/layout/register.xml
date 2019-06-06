@@ -117,12 +117,12 @@
                 <RadioButton
                         android:text="学生"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/ck_student" android:layout_weight="1"
+                        android:layout_height="wrap_content" android:id="@+id/ck_student_r" android:layout_weight="1"
                         android:checked="true"/>
                 <RadioButton
                         android:text="教师"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:id="@+id/ck_teacher" android:layout_weight="1"/>
+                        android:layout_height="wrap_content" android:id="@+id/ck_teacher_r" android:layout_weight="1"/>
             </RadioGroup>
         </LinearLayout>
     </RelativeLayout>

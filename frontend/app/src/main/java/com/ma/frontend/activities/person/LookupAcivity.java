@@ -9,6 +9,7 @@ import android.os.Message;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +18,10 @@ import com.google.gson.*;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
+import com.ma.frontend.Vo.TeacherInfoVo;
 import com.ma.frontend.activities.InitActivity;
 import com.ma.frontend.activities.LoginActivity;
+import com.ma.frontend.activities.SearchActivity;
 import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import okhttp3.*;
@@ -45,6 +48,12 @@ public class LookupAcivity extends AppCompatActivity {
     private TextView mBirthday;
     private TextView mLastLogin;
 
+
+
+    private TextView tYear;
+    private TextView tPhone;
+
+    public TeacherInfoVo teacherInfoVo;
     public StudentInfoVo studentInfoVo;
     /**
      *@Auther kiwi
@@ -106,36 +115,67 @@ public class LookupAcivity extends AppCompatActivity {
 
             Log.i("resultvo data is",ReturnMessage);
             Log.i("--------------","-----------");
-            Log.i("data is ",data);
+          //  Log.i("data is ",data);
             if (code==200){
                 result = "获取信息成功";
 
+                if(data.isEmpty()){}
+                else {
+                    Context ctx = LookupAcivity.this;
+                    SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+                    SharedPreferences.Editor editor =sp.edit();
+                    if(sp.getString("rid","none").equals("1")) {
+                        studentInfoVo = new Gson().fromJson(data, StudentInfoVo.class);
+                        Log.i("info json ==", studentInfoVo.toString());
 
-                studentInfoVo = new Gson().fromJson(data,StudentInfoVo.class);
-                Log.i("info json ==",studentInfoVo.toString());
+
+                        mUserId.setText(studentInfoVo.getUserId());
+                        String genderText = " ";
+                        //  mInstitute.setText(studentInfoVo.getInstitute());
+                        mPhone.setText(studentInfoVo.getPhone());
+                        mNickname.setText(studentInfoVo.getNickName());
+                        if (studentInfoVo.getGender() == 1) {
+                            genderText = "男";
+                        } else {
+                            genderText = "女";
+                        }
+                        sex.setText(genderText);
+                        mYearin.setText(studentInfoVo.getYear());
+                        if(studentInfoVo.getBirthday()!=null) {
+                            mBirthday.setText(studentInfoVo.getBirthday().toString());
+                        }
+                        mLocal.setText(studentInfoVo.getProvince() + studentInfoVo.getCity() + studentInfoVo.getArea());
+                        mLastLogin.setText(studentInfoVo.getLastLoginTime().toString());
+                        //  Intent intent=new Intent();
+                        //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //   intent.setClass(LookupAcivity.this, InitActivity.class);
+                    }else {
+                        teacherInfoVo = new Gson().fromJson(data, TeacherInfoVo.class);
+                        Log.i("info json ==", teacherInfoVo.toString());
 
 
+                        mUserId.setText(teacherInfoVo.getUserId());
+                        String genderText = " ";
+                        //  mInstitute.setText(studentInfoVo.getInstitute());
+                        mPhone.setVisibility(View.INVISIBLE);
+                        tPhone.setVisibility(View.INVISIBLE);
+                        tYear.setVisibility(View.INVISIBLE);
+                        mNickname.setText(teacherInfoVo.getNickName());
+                        if (teacherInfoVo.getGender() == 1) {
+                            genderText = "男";
+                        } else {
+                            genderText = "女";
+                        }
+                        sex.setText(genderText);
+                        mYearin.setVisibility(View.INVISIBLE);
+                       if(teacherInfoVo.getBirthday()!=null) {
+                           mBirthday.setText(teacherInfoVo.getBirthday().toString());
+                       }
+                        mLocal.setText(teacherInfoVo.getProvince() + teacherInfoVo.getCity() + teacherInfoVo.getArea());
+                        mLastLogin.setText(teacherInfoVo.getLastLoginTime().toString());
 
-                mUserId.setText(studentInfoVo.getUserId());
-                String genderText=" ";
-                //  mInstitute.setText(studentInfoVo.getInstitute());
-                mPhone.setText(studentInfoVo.getPhone());
-                mNickname.setText(studentInfoVo.getNickName());
-                if(studentInfoVo.getGender()==1){
-                    genderText="男";
-                }
-                else{
-                    genderText="女";
-                }
-                sex.setText(genderText);
-                mYearin.setText(studentInfoVo.getYear());
-                mBirthday.setText(studentInfoVo.getBirthday().toString());
-                mLocal.setText(studentInfoVo.getProvince()+studentInfoVo.getCity()+studentInfoVo.getArea());
-                mLastLogin.setText(studentInfoVo.getLastLoginTime().toString());
-              //  Intent intent=new Intent();
-             //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-             //   intent.setClass(LookupAcivity.this, InitActivity.class);
-             //   startActivity(intent);
+                    }
+                }//   startActivity(intent);
             }else if (code==400){
                 result = "信息获取失败";
             }
@@ -157,6 +197,8 @@ public class LookupAcivity extends AppCompatActivity {
         mLastLogin =(TextView)findViewById(R.id.user_lastlogintime);
         mUserId =(TextView)findViewById(R.id.user_id);
 
+        tPhone =(TextView)findViewById(R.id.user_phone);
+        tYear =(TextView)findViewById(R.id.user_id_card);
     }
 
 

@@ -86,7 +86,7 @@ public class UserInfoController {
         logger.info("教师tostring 格式");
         logger.info(userInfoService.ShowTeacher(UserId).toString());
 
-        return ResultFactory.buildFailResult(jsonStr);
+        return ResultFactory.buildSuccessResult(jsonStr);
     }
 
 
@@ -104,7 +104,7 @@ public class UserInfoController {
                         BindingResult bindingResult, Model model) {
 
         if(userInfoService.UpdateStudentInfo(studentInfo))
-            return ResultFactory.buildFailResult("修改成功");
+            return ResultFactory.buildSuccessResult("修改成功");
         else
             return ResultFactory.buildFailResult("修改失败");
     }
@@ -124,7 +124,7 @@ public class UserInfoController {
                                     BindingResult bindingResult, Model model) {
 
         if(userInfoService.UpdateTeacherInfo(teacherInfo))
-            return ResultFactory.buildFailResult("修改成功");
+            return ResultFactory.buildSuccessResult("修改成功");
         else
             return ResultFactory.buildFailResult("修改失败");
     }

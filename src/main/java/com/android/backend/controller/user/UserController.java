@@ -136,8 +136,7 @@ public class UserController {
     */
 
     @RequestMapping(value="/user/register",method = RequestMethod.POST,produces = "application/json")
-    public Result register(UserLogin loginInfoVo,String Nickname, int rid,
-    BindingResult bindingResult, Model model) {
+    public Result register(UserLogin loginInfoVo,String Nickname,String rid, BindingResult bindingResult, Model model) {
 
         logger.info("-----注册------");
         logger.info("用户名：" + loginInfoVo.getUserName());
@@ -162,10 +161,11 @@ public class UserController {
 
 
 
+            logger.info("rid is",rid);
             userLoginMapper.insert(loginInfoVo);//  存入登录信息表
-            userLoginService.register(rid,loginInfoVo.getUserName(),Nickname);  //  存入信息表中
+            userLoginService.register(Integer.parseInt(rid),loginInfoVo.getUserName(),Nickname);  //  存入信息表中
 
-            model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
+            model.addAttribute("role", rolePermissionMapper.CheckRoles(Integer.parseInt(rid)));
             return ResultFactory.buildSuccessResult("注册成功。");
         }
 

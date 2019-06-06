@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/Menu_main_institute"
                     android:layout_marginBottom="10dp"
-                    android:text="Sherry,欢迎你"
+                    android:text="欢迎你"
                     android:textColor="@color/white"
                     android:textSize="18sp"/>
 
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:text="计算机学院"
+                    android:text="请填写信息"
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
             <TextView
@@ -55,7 +55,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_toRightOf="@+id/Menu_main_institute"
                     android:layout_marginLeft="50dp"
-                    android:text="计算机科学与技术"
+                    android:text=" "
                     android:textColor="@color/white"
                     android:textSize="14sp"/>
         </RelativeLayout>

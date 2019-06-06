@@ -1,10 +1,13 @@
 package com.android.backend.service;
 
+import com.android.backend.controller.user.UserController;
 import com.android.backend.dao.StudentInfoMapper;
 import com.android.backend.dao.TeacherInfoMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.StudentInfo;
 import com.android.backend.domain.TeacherInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +19,14 @@ import java.util.Date;
  */
 @Service
 public class UserLoginService {
+
+
+    /**
+     *@Auther kiwi
+     *初始化logger变量
+     */
+    private static Logger logger = LoggerFactory.getLogger(UserLoginService.class);
+
 
     @Resource
     private UserLoginMapper userLoginMapper;
@@ -32,18 +43,25 @@ public class UserLoginService {
             StudentInfo studentInfo = new StudentInfo();
             TeacherInfo teacherInfo = new TeacherInfo();
 
+            String ridt=String.valueOf(rid);
+            logger.info("ridddddd is",ridt);
+
             Date date = new Date();
-            if (rid == 1) {
+            if (String.valueOf(rid).equals("1")) {
                 studentInfo.setUserId(userName);
                 studentInfo.setAddTime(date);
+                studentInfo.setGender((byte) 1);
                 studentInfo.setNickName(Nickname);
+                studentInfo.setUpdateTime(date);
                 studentInfo.setLastLoginTime(date);
                 studentInfoMapper.insert(studentInfo);
-            } else if (rid == 2) {
+            } else{
                 teacherInfo.setUserId(userName);
                 teacherInfo.setAddTime(date);
+                teacherInfo.setGender((byte)1);
                 teacherInfo.setLastLoginTime(date);
-                teacherInfo.setNickName(userName);
+                teacherInfo.setUpdateTime(date);
+                teacherInfo.setNickName(Nickname);
                 teacherInfoMapper.insert(teacherInfo);
             }
         }catch (Exception e) {

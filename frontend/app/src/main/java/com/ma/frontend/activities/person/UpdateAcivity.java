@@ -16,9 +16,11 @@ import com.google.gson.*;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
+import com.ma.frontend.Vo.TeacherInfoVo;
 import com.ma.frontend.activities.InitActivity;
 import com.ma.frontend.activities.LoginActivity;
 import com.ma.frontend.activities.PersonActivity;
+import com.ma.frontend.activities.SearchActivity;
 import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.domain.city.City;
@@ -43,6 +45,7 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
     private Button rb_update;
     private TextView rb_return;
 
+    public TeacherInfoVo teacherInfoVo;
     private TextView mBirthday;
     private EditText mNickname;
     private EditText mYearin;
@@ -50,6 +53,14 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
     private EditText mInstitute;
     private EditText sex;
     private EditText mPhone;
+
+
+    private TextView tYear;
+    private TextView tMajor;
+    private TextView tInsi;
+    private TextView tPhone;
+    private RadioButton mTeacher;
+    private RadioButton mStudent;
 
     public String sexText=" ";
 
@@ -170,33 +181,63 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
 
             Log.i("resultvo data is",ReturnMessage);
             Log.i("--------------","-----------");
-            Log.i("data is ",data);
+          //  Log.i("data is ",data);
             if (code==200){
                 result = "获取信息成功";
 
 
-                studentInfoVo = new Gson().fromJson(data,StudentInfoVo.class);
-                Log.i("info json ==",studentInfoVo.toString());
+                if(data.isEmpty()){}
+                else {
+                    Context ctx = UpdateAcivity.this;
+                    SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+                    SharedPreferences.Editor editor =sp.edit();
+                    if(sp.getString("rid","none").equals("1")) {
+                        studentInfoVo = new Gson().fromJson(data, StudentInfoVo.class);
+                        Log.i("info json ==", studentInfoVo.toString());
 
-                mInstitute.setText(studentInfoVo.getInstitute());
-                mMajor.setText(studentInfoVo.getMajor());
-                String genderText=" ";
-                //  mInstitute.setText(studentInfoVo.getInstitute());
-                mPhone.setText(studentInfoVo.getPhone());
-                mNickname.setText(studentInfoVo.getNickName());
-                if(studentInfoVo.getGender()==1){
-                    genderText="男";
-                }
-                else{
-                    genderText="女";
-                }
-                sex.setText(genderText);
-                mYearin.setText(studentInfoVo.getYear());
-                mBirthday.setText(studentInfoVo.getBirthday().toString());
-                //  Intent intent=new Intent();
-                //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                //   intent.setClass(LookupAcivity.this, InitActivity.class);
-                //   startActivity(intent);
+                        mInstitute.setText(studentInfoVo.getInstitute());
+                        mMajor.setText(studentInfoVo.getMajor());
+                        String genderText = " ";
+                        //  mInstitute.setText(studentInfoVo.getInstitute());
+                        mPhone.setText(studentInfoVo.getPhone());
+                        mNickname.setText(studentInfoVo.getNickName());
+                        if (studentInfoVo.getGender() == 1) {
+                            genderText = "男";
+                        } else {
+                            genderText = "女";
+                        }
+                        sex.setText(genderText);
+                        mYearin.setText(studentInfoVo.getYear());
+                        if(studentInfoVo.getBirthday()!=null) {
+                            mBirthday.setText(studentInfoVo.getBirthday().toString());
+                        }
+                        //  Intent intent=new Intent();
+                    }else{
+                        teacherInfoVo = new Gson().fromJson(data, TeacherInfoVo.class);
+                        Log.i("info json ==", teacherInfoVo.toString());
+
+                        mInstitute.setVisibility(View.INVISIBLE);
+                        mMajor.setVisibility(View.INVISIBLE);
+                        String genderText = " ";
+                        //  mInstitute.setText(studentInfoVo.getInstitute());
+                        mPhone.setVisibility(View.INVISIBLE);
+                        mNickname.setText(teacherInfoVo.getNickName());
+                        if (teacherInfoVo.getGender() == 1) {
+                            genderText = "男";
+                        } else {
+                            genderText = "女";
+                        }
+                        sex.setText(genderText);
+                        mYearin.setVisibility(View.INVISIBLE);
+                        tYear.setVisibility(View.INVISIBLE);
+                        tPhone.setVisibility(View.INVISIBLE);
+                        tInsi.setVisibility(View.INVISIBLE);
+                        tMajor.setVisibility(View.INVISIBLE);
+                        if(teacherInfoVo.getBirthday()!=null) {
+                            mBirthday.setText(teacherInfoVo.getBirthday().toString());
+                        }
+                    }
+                }//   startActivity(intent);
             }else if (code==400){
                 result = "信息获取失败";
             }
@@ -243,6 +284,11 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
         rb_update =(Button)findViewById(R.id.update_button);
         sex = (EditText)findViewById(R.id.user_gender_d);
         rb_return =(TextView)findViewById(R.id.rb_return);
+
+        tYear =(TextView)findViewById(R.id.year_in);
+        tInsi =(TextView)findViewById(R.id.institute);
+        tMajor =(TextView)findViewById(R.id.user_id_card);
+        tPhone =(TextView)findViewById(R.id.course_day_t);
     }
 
     private void initEvent() {
@@ -375,6 +421,7 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
     private void update(){
 
 
+        Date date= new Date();
         int sext= 1;
         if(sex.getText().toString().trim()=="男"){
             sext=1;
@@ -412,6 +459,7 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
                     .addFormDataPart("area",charSequence3.toString())
                     .addFormDataPart("gender",String.valueOf(sext))
                     .addFormDataPart("birthday",mBirthday.getText().toString().trim())
+                    .addFormDataPart("lastLoginTime",date.toString())
                     .build();
           }
         else {
@@ -427,6 +475,7 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
                     .addFormDataPart("area",charSequence3.toString())
                     .addFormDataPart("gender",String.valueOf(sext))
                     .addFormDataPart("birthday",mBirthday.getText().toString().trim())
+                    .addFormDataPart("lastLoginTime",date.toString())
                     .build();
           }
         //发起请求

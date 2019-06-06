@@ -21,6 +21,7 @@ import com.google.gson.*;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.StudentInfoVo;
+import com.ma.frontend.Vo.TeacherInfoVo;
 import com.ma.frontend.activities.person.LookupAcivity;
 import com.ma.frontend.activities.person.SettingAcivity;
 import com.ma.frontend.activities.person.UpdateAcivity;
@@ -53,7 +54,7 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
     private int uid;
 
     public StudentInfoVo studentInfoVo;
-
+    public TeacherInfoVo teacherInfoVo;
     private Button mSearch;
     private Button mCourse;
  //   private RadioButton mPerson;
@@ -155,30 +156,55 @@ public class PersonActivity extends AppCompatActivity implements View.OnClickLis
 
             Log.i("resultvo data is",ReturnMessage);
             Log.i("--------------","-----------");
-            Log.i("data is ",data);
+        //    Log.i("data is ",data);
             if (code==200){
                 result = "获取信息成功";
 
-
-                studentInfoVo = new Gson().fromJson(data, StudentInfoVo.class);
-                Log.i("info json ==",studentInfoVo.toString());
-
-
-                //////////div头像的的变量初始化
-                if(studentInfoVo.getGender().equals("2")){
-                    headshotView.setImageResource(R.drawable.nav_icon_female);
-                }
-                else{
-                    headshotView.setImageResource(R.drawable.nav_icon_male);
-                }
-                nameTextView.setText(studentInfoVo.getNickName()+"，你好");
-
-                if(studentInfoVo.getInstitute()!=null) {
-                    insTextView.setText(studentInfoVo.getInstitute());
-                    majorTextView.setText(studentInfoVo.getMajor());
-                }else {
+                if(data.isEmpty()){
                     insTextView.setText("请填写信息");
-                }
+                }else {
+                    Context ctx = PersonActivity.this;
+                    SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+                    SharedPreferences.Editor editor =sp.edit();
+                    if(sp.getString("rid","none").equals("1")) {
+                        studentInfoVo = new Gson().fromJson(data, StudentInfoVo.class);
+                        Log.i("info json ==", studentInfoVo.toString());
+
+
+                        //////////div头像的的变量初始化
+                        if (studentInfoVo.getGender().equals("2")) {
+                            headshotView.setImageResource(R.drawable.nav_icon_female);
+                        } else {
+                            headshotView.setImageResource(R.drawable.nav_icon_male);
+                        }
+                        nameTextView.setText(studentInfoVo.getNickName() + "，你好");
+
+                        if (studentInfoVo.getInstitute() != null) {
+                            insTextView.setText(studentInfoVo.getInstitute());
+                            majorTextView.setText(studentInfoVo.getMajor());
+                        } else {
+                            insTextView.setText("请填写信息");
+                        }
+                    }else {
+                        teacherInfoVo = new Gson().fromJson(data, TeacherInfoVo.class);
+                        Log.i("info json ==", teacherInfoVo.toString());
+
+
+                        //////////div头像的的变量初始化
+                        if (teacherInfoVo.getGender().equals("2")) {
+                            headshotView.setImageResource(R.drawable.nav_icon_female);
+                        } else {
+                            headshotView.setImageResource(R.drawable.nav_icon_male);
+                        }
+                        nameTextView.setText(teacherInfoVo.getNickName() + "老师，你好");
+
+                        insTextView.setVisibility(View.INVISIBLE);
+                        majorTextView.setVisibility(View.INVISIBLE);
+
+
+                    }
+
+                    }
 
             }else if (code==400){
                 result = "信息获取失败";
