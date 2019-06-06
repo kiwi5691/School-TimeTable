@@ -18,4 +18,6 @@ public interface ClassRoomOnDutyMapper {
     int updateByPrimaryKey(ClassRoomOnDuty record);
 
     List<ClassRoomOnDuty> selectFromUserName(String UserId);
+
+    List<ClassRoomOnDuty> selectFromUserNameAndCourseId(ClassRoomOnDuty classRoomOnDuty);
 }

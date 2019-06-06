@@ -1,16 +1,19 @@
 package com.ma.frontend.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.ma.frontend.R;
-import com.ma.frontend.activities.search.AddCourseAcitvity;
-import com.ma.frontend.activities.search.CheckGradeAcivity;
-import com.ma.frontend.activities.search.CheckTeacherAcivity;
+import com.ma.frontend.activities.person.UpdateAcivity;
+import com.ma.frontend.activities.search.*;
+import okhttp3.RequestBody;
 
 /**
  * @Auther:kiwi
@@ -21,6 +24,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     //private Button mSearch;
     private Button mCourse;
     private Button mPerson;
+
+    private TextView tGrade;
+    private TextView tHomworksetting;
+    private LinearLayout tCourse;
 
     protected LinearLayout mAddcourse;
     protected LinearLayout mCheckgrade;
@@ -47,6 +54,22 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
        mCheckTeacher = (LinearLayout) findViewById(R.id.check_teacher);
        mHomeWork = (LinearLayout) findViewById(R.id.home_work);
        mCourseEvatue = (LinearLayout) findViewById(R.id.course_evatue);
+
+
+       ////////
+        tCourse =(LinearLayout) findViewById(R.id.course);
+        tGrade =(TextView)findViewById(R.id.searchgrade);
+        tHomworksetting=(TextView)findViewById(R.id.searchgrade);
+
+
+        Context ctx = SearchActivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+        SharedPreferences.Editor editor =sp.edit();
+        if(sp.getString("rid","none").equals("2")){
+          tCourse.setVisibility(View.INVISIBLE);
+          tGrade.setText("设置平时成绩");
+          tHomworksetting.setText("设置出勤和作业");
+        }
     }
 
     private void initEvent() {
@@ -94,12 +117,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
     private void HomeWork(){
         Intent intent=new Intent();
-        intent.setClass(SearchActivity.this, PersonActivity.class);
+        intent.setClass(SearchActivity.this, HomeWorkAcivity.class);
         startActivity(intent);
     }
     private void CourseEvatue(){
         Intent intent=new Intent();
-        intent.setClass(SearchActivity.this, PersonActivity.class);
+        intent.setClass(SearchActivity.this, CourseEvatueAcivity.class);
         startActivity(intent);
     }
 

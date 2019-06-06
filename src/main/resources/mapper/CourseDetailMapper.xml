@@ -17,6 +17,12 @@
     from course_detail
     where student_name = #{studentName,jdbcType=VARCHAR}
   </select>
+  <select id="selectFromCid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from course_detail
+    where course_id = #{courseId,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

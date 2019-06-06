@@ -53,7 +53,7 @@ public class LookupAcivity extends AppCompatActivity {
      */
     String root= HttpConstant.OriginAddress;
     private String originAddress = root + "/user/showStudentInfo";
-
+    private String originAddressTeacher = root +"/user/showTeacherInfo";
 
 
     /**
@@ -175,12 +175,20 @@ public class LookupAcivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor =sp.edit();
 
+
+        String tempAddress="";
 //        originAddress = originAddress + "?UserId=kiwi";
-        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",originAddress);
-        //发起请求
+        if(sp.getString("rid","none").equals("1")) {
+            tempAddress = originAddress + "?UserId=" + sp.getString("userName", "none");
+            Log.i("url is------", tempAddress);
+        }
+        else {
+            tempAddress = originAddressTeacher + "?UserId=" + sp.getString("userName", "none");
+            Log.i("url is------", tempAddress);
+        }
+
         final Request request = new Request.Builder()
-                .url(originAddress)
+                .url(tempAddress)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {

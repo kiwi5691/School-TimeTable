@@ -9,10 +9,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.google.gson.*;
 import com.ma.frontend.R;
-import com.ma.frontend.Vo.CourseNameVo;
 import com.ma.frontend.Vo.RegularGradeVo;
 import com.ma.frontend.Vo.ResultVo;
 import com.ma.frontend.Vo.TeacherAllVo;
@@ -36,10 +37,9 @@ import java.util.concurrent.TimeUnit;
 public class CheckGradeAcivity extends AppCompatActivity implements View.OnClickListener{
 
 
+    public List<RegularGradeVo> regularGradeVos = new ArrayList<RegularGradeVo>();
     private static Context context;
-    public List<CourseNameVo> allCourseName = new ArrayList<CourseNameVo>();
 
-    public List<RegularGradeVo> regularGradeVoList = new ArrayList<RegularGradeVo>();
     /**
      *@Auther kiwi
      */
@@ -60,12 +60,13 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.search_checkgrade);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        context = getApplicationContext();initView();
+        context = getApplicationContext();
+        initView();
         intInfoRequest();
     }
 
 
-    //用于获取分数信息消息的Handler
+    //用于处理消息的Handler
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -92,12 +93,28 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
 
             if (code==200){
                 result = "获取信息成功";
-
                 RegularGradeVo[] array = new Gson().fromJson(data, RegularGradeVo[].class);
-                regularGradeVoList= Arrays.asList(array);
+                regularGradeVos= Arrays.asList(array);
 
 
-                Log.i("info json ==",regularGradeVoList.toString());
+
+
+                Log.i("info json ==",regularGradeVos.toString());
+
+
+                List<String> dataa = new ArrayList<String>();
+                for(RegularGradeVo regularGradeVo:regularGradeVos){
+                    String c_n ="";
+                    c_n="           "+regularGradeVo.getRegularGrade()+"                                     "+regularGradeVo.getCourseName();
+
+
+                    dataa.add(c_n);
+//                    Log.i("data is ",dataa.get(0));
+//                    Log.i("teacherinfo is ",teacherAllVo.getCourseName());
+                }
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(CheckGradeAcivity.this,android.R.layout.simple_list_item_1,dataa);
+                ListView listView=(ListView)findViewById(R.id.name);
+                listView.setAdapter(adapter);
 
 
             }else if (code==400){
@@ -108,84 +125,6 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
     };
 
 
-    //用于获取课程信息的Handler
-    private Handler cHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            GsonBuilder builder = new GsonBuilder();
-
-            // Register an adapter to manage the date types as long values
-            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                    return new Date(json.getAsJsonPrimitive().getAsLong());
-                }
-            });
-
-            Gson gson = builder.create();
-
-            super.handleMessage(msg);
-            String result = "";
-            String ReturnMessage = (String) msg.obj;
-
-
-            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
-            final int code = showresult.getCode();
-            final String message = showresult.getMessage();
-            final String data = (String) showresult.getData();
-
-            if (code==200){
-                result = "获取信息成功";
-
-                CourseNameVo[] array = new Gson().fromJson(data, CourseNameVo[].class);
-                allCourseName= Arrays.asList(array);
-
-
-                Log.i("info json ==",allCourseName.toString());
-
-
-            }else if (code==400){
-                result = "信息获取失败";
-            }
-            Toast.makeText(CheckGradeAcivity.this, result, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private void getAllCourse(){
-
-        Context ctx = CheckGradeAcivity.this;
-        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
-
-        SharedPreferences.Editor editor =sp.edit();
-
-//        originAddress = originAddress + "?UserId=kiwi";
-        getALLcourseAddress = getALLcourseAddress + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",getALLcourseAddress);
-        //发起请求
-        final Request request = new Request.Builder()
-                .url(getALLcourseAddress)
-                .build();
-        //新建一个线程，用于得到服务器响应的参数
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Response response = null;
-                try {
-                    //回调
-                    response = client.newCall(request).execute();
-                    if (response.isSuccessful()) {
-                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
-                        cHandler.obtainMessage(1, response.body().string()).sendToTarget();
-                    } else {
-                        throw new IOException("Unexpected code:" + response);
-                    }
-                } catch (IOException e) {
-                    // Toast.makeText(RegisterActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-    }
     public void initView(){
 
     }

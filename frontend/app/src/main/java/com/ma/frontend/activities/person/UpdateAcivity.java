@@ -393,27 +393,50 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
 
         SharedPreferences.Editor editor =sp.edit();
 
+        String tempAddress="";
+        RequestBody formBody ;
 //        originAddress = originAddress + "?UserId=kiwi";
-        originAddressUpdateStu = originAddressUpdateStu + "?UserId="+sp.getString("userName","none");
-        Log.i("update url is------",originAddressUpdateStu);
-        //发起请求
-        RequestBody formBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("nickName",mNickname.getText().toString().trim())
-                .addFormDataPart("phone",mPhone.getText().toString().trim())
-                .addFormDataPart("major",mMajor.getText().toString().trim())
-                .addFormDataPart("year",mYearin.getText().toString().trim())
-                .addFormDataPart("institute",mInstitute.getText().toString().trim())
-                .addFormDataPart("province",charSequence1.toString())
-                .addFormDataPart("city",charSequence2.toString())
-                .addFormDataPart("area",charSequence3.toString())
-                .addFormDataPart("gender",String.valueOf(sext))
-                .build();
+        if(sp.getString("rid","none").equals("1")) {
+            tempAddress = originAddressUpdateStu + "?UserId="+sp.getString("userName","none");
+            Log.i("update url is------",tempAddress);
+            //发起请求
+             formBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("nickName",mNickname.getText().toString().trim())
+                    .addFormDataPart("phone",mPhone.getText().toString().trim())
+                    .addFormDataPart("major",mMajor.getText().toString().trim())
+                    .addFormDataPart("year",mYearin.getText().toString().trim())
+                    .addFormDataPart("institute",mInstitute.getText().toString().trim())
+                    .addFormDataPart("province",charSequence1.toString())
+                    .addFormDataPart("city",charSequence2.toString())
+                    .addFormDataPart("area",charSequence3.toString())
+                    .addFormDataPart("gender",String.valueOf(sext))
+                    .addFormDataPart("birthday",mBirthday.getText().toString().trim())
+                    .build();
+          }
+        else {
+            tempAddress = originAddressUpdateTea + "?UserId="+sp.getString("userName","none");
+            Log.i("update url is------",tempAddress);
+            //发起请求
+             formBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("nickName",mNickname.getText().toString().trim())
+                    .addFormDataPart("phone",mPhone.getText().toString().trim())
+                    .addFormDataPart("province",charSequence1.toString())
+                    .addFormDataPart("city",charSequence2.toString())
+                    .addFormDataPart("area",charSequence3.toString())
+                    .addFormDataPart("gender",String.valueOf(sext))
+                    .addFormDataPart("birthday",mBirthday.getText().toString().trim())
+                    .build();
+          }
         //发起请求
         final Request request = new Request.Builder()
-                .url(originAddressUpdateStu)
+                .url(tempAddress)
                 .post(formBody)
                 .build();
+
+
+//        originAddress = originAddress + "?UserId=kiwi";
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {
             @Override
@@ -471,12 +494,19 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
 
         SharedPreferences.Editor editor =sp.edit();
 
+        String tempAddress="";
 //        originAddress = originAddress + "?UserId=kiwi";
-        originAddressShowStu = originAddressShowStu + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",originAddressShowStu);
+        if(sp.getString("rid","none").equals("1")) {
+            tempAddress = originAddressShowStu + "?UserId=" + sp.getString("userName", "none");
+            Log.i("url is------", tempAddress);
+        }
+        else {
+            tempAddress = originAddressShowTea + "?UserId=" + sp.getString("userName", "none");
+            Log.i("url is------", tempAddress);
+        }
         //发起请求
         final Request request = new Request.Builder()
-                .url(originAddressShowStu)
+                .url(tempAddress)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {

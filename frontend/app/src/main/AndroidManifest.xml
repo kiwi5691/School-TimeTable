@@ -73,6 +73,10 @@
                 android:name=".activities.search.CheckTeacherAcivity"
                 android:label= "@string/check_teacher" >
         </activity>
+        <activity
+                android:name=".activities.search.AddEvatueAcivity"
+                android:label= "@string/add_eva" >
+        </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

@@ -18,7 +18,7 @@
             <LinearLayout style="@style/wrap_layout">
                 <!-- 上圆角-->
                 <LinearLayout style="@style/top_layout" android:id="@+id/check_grade">
-                    <TextView style="@style/usertext" android:text="平时成绩查询"/>
+                    <TextView style="@style/usertext" android:text="平时成绩查询" android:id="@+id/searchgrade"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
 
@@ -32,14 +32,14 @@
                 <View style="@style/bg_line"/>
                 <!-- 下圆角-->
                 <LinearLayout style="@style/bottom_layout" android:id="@+id/home_work">
-                    <TextView style="@style/usertext" android:text="查看出勤和作业"/>
+                    <TextView style="@style/usertext" android:text="查看出勤和作业" android:id="@+id/setting_homwrok"/>
                     <ImageView style="@style/img_arrow"/>
                 </LinearLayout>
 
             </LinearLayout>
 
             <!-- 全圆角-->
-            <LinearLayout style="@style/wrap_layout">
+            <LinearLayout style="@style/wrap_layout" android:id="@+id/course">
                 <LinearLayout style="@style/single_layout" android:id="@+id/check_teacher">
                     <TextView style="@style/usertext" android:text="查看教师"/>
                     <ImageView style="@style/img_arrow"/>

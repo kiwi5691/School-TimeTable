@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
-                android:text="请选择课程"
-                android:gravity="center"
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="50dp" android:id="@+id/textView" android:textSize="30sp"/>
-        <Spinner
+                android:layout_height="51dp" tools:ignore="MissingConstraints">
+            <TextView
+                    android:text="          分数                  课程"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/textView6" android:textSize="30sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="73dp"
-                android:theme="@style/SpinnerStyle"
-                android:id="@+id/spinner"
-                android:dropDownWidth="match_parent" android:background="@color/border_clo"/>
+                android:layout_height="646dp" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp">
+
+            <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="632dp" android:id="@+id/name"/>
+        </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

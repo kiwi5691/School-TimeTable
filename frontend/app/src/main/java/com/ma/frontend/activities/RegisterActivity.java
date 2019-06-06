@@ -1,6 +1,8 @@
 package com.ma.frontend.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,6 +14,7 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.ma.frontend.R;
 import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
 import com.ma.frontend.utils.HttpCallbackListener;
 import com.ma.frontend.utils.HttpUtil;
@@ -91,6 +94,32 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if (code==200){
                 result = "注册成功";
 
+
+
+                if(mStudent.isChecked()){
+                    Ridt="1";
+                }
+                else {
+                    Ridt="2";
+                }
+
+                name = mUsernameEditText.getText().toString().trim();
+                pwd = mPassWordEditText.getText().toString().trim();
+                nikname =mNicknameEditText.getText().toString().trim();
+
+                GolabConstant.userName=name;
+                GolabConstant.userPassword=pwd;
+                GolabConstant.rid=Ridt;
+
+                Context ctx = RegisterActivity.this;
+                SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("userName",GolabConstant.userName);
+                editor.putString("userPassword",GolabConstant.userPassword);
+                editor.putString("rid",GolabConstant.rid);
+                editor.commit();
+
+
                 Intent intent=new Intent();
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setClass(RegisterActivity.this, InitActivity.class);
@@ -131,6 +160,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void LoginRequest(String username,String password,String nikName)  {
 
+        if(mStudent.isChecked()){
+            Ridt="1";
+        }
+        else {
+            Ridt="2";
+        }
         if (!isInputValid()){
             return;
         }
@@ -144,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addFormDataPart("UserName",name)
                 .addFormDataPart("UserPassword",pwd)
                 .addFormDataPart("Nickname",nikname)
-                .addFormDataPart("rid","1")
+                .addFormDataPart("rid",Ridt)
                 .build();
         //发起请求
         final Request request = new Request.Builder()

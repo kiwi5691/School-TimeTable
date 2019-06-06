@@ -18,6 +18,9 @@ public interface CourseDetailMapper {
 
     int updateByPrimaryKey(CourseDetail record);
 
+    CourseDetail selectFromCid(String cid);
+
+
     List<CourseDetail> selectFromUserId(String userId);
 
     int updateEvaluateByUserId(CourseDetail courseDetail);

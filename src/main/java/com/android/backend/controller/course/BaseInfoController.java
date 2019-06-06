@@ -127,9 +127,11 @@ public class BaseInfoController {
      *@reutn com.android.backend.util.Result
     */
     @RequestMapping(value = "user/search/checkPartAndHomeWork",method = RequestMethod.GET,produces = "application/json")
-    public Result getPartAndHomeWork(String UserId) throws JsonProcessingException {
+    public Result getPartAndHomeWork(String UserId,String CourseName) throws JsonProcessingException {
 
-        String jsonStr = JSONChange.objToJson(baseInfoService.getHomeWorkAndPart(UserId));
+
+
+        String jsonStr = JSONChange.objToJson(baseInfoService.getHomeWorkAndPart(UserId,CourseName));
         logger.info("json is"+jsonStr);
         logger.info("发送出勤，作业");
         return ResultFactory.buildSuccessResult(jsonStr);
@@ -152,6 +154,22 @@ public class BaseInfoController {
             return ResultFactory.buildSuccessResult("更新成功");
         }
         else
+            return ResultFactory.buildFailResult("更新失败");
+    }
+
+
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/6
+     * 老师获取所有学生id
+     @param  * @param UserId
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/getAllStudents",method = RequestMethod.GET,produces = "application/json")
+    public Result getAllStudents(String UserId){
+
+
             return ResultFactory.buildFailResult("更新失败");
     }
 }

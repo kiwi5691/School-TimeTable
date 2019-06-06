@@ -69,30 +69,32 @@ public class BaseInfoService {
      *@reutn java.util.List<com.android.backend.dtd.EvaluationInfoDTD>
     */
 
-    public List<EvaluationInfoDTD> getEvalution(String userId,String courseName){
+    public EvaluationInfoDTD getEvalution(String userId,String courseName){
 
-        List<EvaluationInfoDTD> evaluationInfoDTDS = new ArrayList<EvaluationInfoDTD>();
+        EvaluationInfoDTD evaluationInfoDTD = new EvaluationInfoDTD();
 
         List<CourseDetail> courseDetails = new ArrayList<CourseDetail>();
         courseDetails=courseDetailMapper.selectFromUserId(userId);
 
         for(CourseDetail courseDetail:courseDetails) {
 
-            EvaluationInfoDTD evaluationInfoDTD = new EvaluationInfoDTD();
+            EvaluationInfoDTD evaluationInfoDTDs = new EvaluationInfoDTD();
 
+            CourseDetail courseDetail1 = new CourseDetail();
 
-            CourseInfo courseInfo = new CourseInfo();
+            CourseInfo courseInfo = new CourseInfo();   //获取courseName
+            int cid = courseInfoMapper.selectCourseName(courseName);
             courseInfo=courseInfoMapper.selectfromCid(Integer.parseInt(courseDetail.getCourseId()));
 
+            courseDetail1=courseDetailMapper.selectFromCid(String.valueOf(cid));
             evaluationInfoDTD.setCourseName(courseInfo.getCourseName());
-            evaluationInfoDTD.setEvaluationInfo(courseDetail.getEvaluationInfo());
-            evaluationInfoDTD.setEvaluationScore(courseDetail.getEvaluationScore());
-
-            evaluationInfoDTDS.add(evaluationInfoDTD);
+            evaluationInfoDTD.setEvaluationInfo(courseDetail1.getEvaluationInfo());
+            evaluationInfoDTD.setEvaluationScore(courseDetail1.getEvaluationScore());
+            break;
         }
 
 
-            return evaluationInfoDTDS;
+            return evaluationInfoDTD;
     }
 
 
@@ -147,12 +149,19 @@ public class BaseInfoService {
      @param  * @param userId
      *@reutn java.util.List<com.android.backend.dtd.HomeWorkInfoDTD>
     */
-    public List<HomeWorkInfoDTD> getHomeWorkAndPart(String userId){
+    public List<HomeWorkInfoDTD> getHomeWorkAndPart(String userId,String courseName){
 
         List<HomeWorkInfoDTD> homeWorkInfoDTDS = new ArrayList<HomeWorkInfoDTD>();
         List<ClassRoomOnDuty> classRoomOnDuties = new ArrayList<ClassRoomOnDuty>();
 
-        classRoomOnDuties = classRoomOnDutyMapper.selectFromUserName(userId);
+        int cid = courseInfoMapper.selectCourseName(courseName);
+
+        ClassRoomOnDuty classRoomOnDut = new ClassRoomOnDuty();
+
+        classRoomOnDut.setCourseId(String.valueOf(cid));
+        classRoomOnDut.setStudentName(userId);
+
+        classRoomOnDuties = classRoomOnDutyMapper.selectFromUserNameAndCourseId(classRoomOnDut);
 
         for(ClassRoomOnDuty classRoomOnDuty:classRoomOnDuties){
 

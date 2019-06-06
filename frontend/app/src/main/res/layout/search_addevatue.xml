@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff">
+    <!-- padding 内边距   layout_margin 外边距
+  		android:layout_alignParentTop 布局的位置是否处于顶部 -->
+
+    <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dip"
+            android:layout_margin="15dip"
+            android:background="#93ffffff">
+
+        <!-- 账号 -->
+        <!-- 姓名 text -->
+        <TextView
+                android:id="@+id/year_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:layout_marginTop="3dp"
+                android:text=" "/>
+        <TextView
+                android:id="@+id/year_in_d"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/year_in"
+                android:gravity="center"
+                android:singleLine="true"
+                android:inputType="text" android:hint="课程名字" android:textSize="30sp"/>
+        <!-- 身份证号码 text -->
+        <TextView
+                android:id="@+id/user_id_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/year_in_d"
+                android:layout_marginTop="3dp"
+                android:text="评价分数"/>
+        <EditText
+                android:id="@+id/major"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_id_card"
+                android:singleLine="true"
+                android:inputType="text" android:hint="请填入数字"/>
+        <TextView
+                android:id="@+id/institute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/major"
+                android:layout_marginTop="3dp"
+                android:text="评价信息"/>
+        <EditText
+                android:id="@+id/institute_d"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/institute"
+                android:singleLine="true"
+                android:inputType="text" android:hint="评价信息"/>
+        <!-- 重复输入密码 text -->
+        <!-- 登录button -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/warnText"
+                android:layout_below="@id/institute_d"
+                android:textSize="15dp"
+                android:textColor="#ff0000"/>
+
+        <Button
+                android:id="@+id/update_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/warnText"
+                android:layout_alignRight="@id/user_password"
+                android:text="修改信息"
+                android:background="#4FC1FB"
+                android:layout_alignLeft="@+id/user_password"
+                android:layout_alignStart="@+id/user_password"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+</LinearLayout>

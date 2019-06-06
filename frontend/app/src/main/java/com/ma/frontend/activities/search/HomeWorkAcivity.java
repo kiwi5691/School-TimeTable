@@ -9,14 +9,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.ma.frontend.R;
-import com.ma.frontend.Vo.CourseNameVo;
-import com.ma.frontend.Vo.HomeWorkInfoVo;
-import com.ma.frontend.Vo.ResultVo;
-import com.ma.frontend.Vo.TeacherAllVo;
+import com.ma.frontend.Vo.*;
 import com.ma.frontend.config.HttpConstant;
+import com.ma.frontend.utils.PartUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -40,6 +39,9 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
     public List<CourseNameVo> allCourseName = new ArrayList<CourseNameVo>();
 
     public List<HomeWorkInfoVo> homeWorkInfoVos = new ArrayList<HomeWorkInfoVo>();
+
+    public List<String> data_list;
+
     /**
      *@Auther kiwi
      */
@@ -47,6 +49,9 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
     private String originAddress = root + "/user/search/checkPartAndHomeWork";
     private String getALLcourseAddress = root + "/user/course/getAllcourseName";
 
+    private String str;
+    private Spinner sCourses;
+    private ArrayAdapter<String> arr_adapter;
 
     OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -63,7 +68,30 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
         actionBar.hide();
         initView();
         getAllCourse();
-        intInfoRequest();
+        //        intInfoRequest();
+        str = (String) sCourses.getSelectedItem();
+        sCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+
+                str="";
+                //拿到被选择项的值
+                str = (String) sCourses.getSelectedItem();
+                //把该值传给 TextView
+                //  tv.setText(str);
+                intInfoRequest(str);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+
     }
 
 
@@ -94,12 +122,31 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
 
             if (code==200){
                 result = "获取信息成功";
-
                 HomeWorkInfoVo[] array = new Gson().fromJson(data, HomeWorkInfoVo[].class);
                 homeWorkInfoVos= Arrays.asList(array);
 
 
+
+
                 Log.i("info json ==",homeWorkInfoVos.toString());
+
+
+                List<String> dataa = new ArrayList<String>();
+                for(HomeWorkInfoVo homeWorkInfoVo:homeWorkInfoVos){
+
+                    String c_n ="";
+
+                    c_n="     第"+homeWorkInfoVo.getDay()+"节课              作业成绩:"+homeWorkInfoVo.getHomeworkGrade()+"             出勤:"+ PartUtil.checkIn(String.valueOf(homeWorkInfoVo.getParticipation()));
+
+
+                    dataa.add(c_n);
+//                    Log.i("data is ",dataa.get(0));
+//                    Log.i("teacherinfo is ",teacherAllVo.getCourseName());
+                }
+                ArrayAdapter<String> adapter=new ArrayAdapter<String>(HomeWorkAcivity.this,android.R.layout.simple_list_item_1,dataa);
+                ListView listView=(ListView)findViewById(R.id.listc);
+                listView.setAdapter(null);
+                listView.setAdapter(adapter);
 
 
             }else if (code==400){
@@ -111,7 +158,7 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
 
 
     public void initView(){
-
+        sCourses =(Spinner) findViewById(R.id.spinner);
     }
 
 
@@ -143,12 +190,19 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
             if (code==200){
                 result = "获取信息成功";
 
-                CourseNameVo[] array = new Gson().fromJson(data, CourseNameVo[].class);
-                allCourseName= Arrays.asList(array);
+                List<String> ccou = new ArrayList<String>();
+
+                ccou=new Gson().fromJson(data, new TypeToken<List<Object>>(){}.getType());
+                Log.i("String is ",ccou.get(0));
 
 
-                Log.i("info json ==",allCourseName.toString());
 
+                arr_adapter= new ArrayAdapter<String>(HomeWorkAcivity.this, android.R.layout.simple_spinner_item,ccou);
+                //设置样式
+                arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //加载适配器
+                sCourses.setAdapter(arr_adapter);
+                Log.i("info json ==",ccou.toString());
 
             }else if (code==400){
                 result = "信息获取失败";
@@ -193,19 +247,20 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
         }).start();
 
     }
-    private void intInfoRequest()  {
+    private void intInfoRequest(String courseName)  {
 
         Context ctx = HomeWorkAcivity.this;
         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
 
         SharedPreferences.Editor editor =sp.edit();
 
+        String tempAddress ="";
 //        originAddress = originAddress + "?UserId=kiwi";
-        originAddress = originAddress + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",originAddress);
+        tempAddress = originAddress + "?UserId="+sp.getString("userName","none")+"&CourseName="+courseName;
+        Log.i("url is------",tempAddress);
         //发起请求
         final Request request = new Request.Builder()
-                .url(originAddress)
+                .url(tempAddress)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {

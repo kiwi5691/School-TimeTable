@@ -12,6 +12,11 @@
   <sql id="Base_Column_List" >
     id, student_name, course_id, homework_grade, participation, day
   </sql>
+  <select id="selectFromUserNameAndCourseId" resultMap="BaseResultMap" parameterType="com.android.backend.domain.ClassRoomOnDuty" >
+    select *
+    from class_room_on_duty
+    where student_name = #{studentName,jdbcType=VARCHAR} and course_id= #{courseId,jdbcType=VARCHAR}
+  </select>
   <select id="selectFromUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select *
     from class_room_on_duty

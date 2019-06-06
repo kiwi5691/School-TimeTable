@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (code==200){
                 result = "登录成功";
 
-                GolabConstant.uid="kiwi";//测试用uid
                 GolabConstant.userName=name;
                 GolabConstant.userPassword=pwd;
                 GolabConstant.rid=Ridt;
@@ -82,7 +81,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Context ctx = LoginActivity.this;
                 SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("uid",GolabConstant.uid);
                 editor.putString("userName",GolabConstant.userName);
                 editor.putString("userPassword",GolabConstant.userPassword);
                 editor.putString("rid",GolabConstant.rid);
