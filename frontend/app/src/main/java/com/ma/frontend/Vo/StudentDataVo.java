@@ -6,7 +6,7 @@ package com.ma.frontend.Vo;
  */
 public class StudentDataVo {
     private String userId;
-    private String Name;
+    private String name;
 
     public String getUserId() {
         return userId;
@@ -17,10 +17,18 @@ public class StudentDataVo {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentDataVo{" +
+                "userId='" + userId + '\'' +
+                ", Name='" + name + '\'' +
+                '}';
     }
 }

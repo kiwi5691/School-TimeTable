@@ -138,12 +138,29 @@ public class BaseInfoController {
 
     /**
      *@Auther kiwi
-     *@Data 2019/6/5
-     * 更新出勤，作业
-     @param  * @param homeWorkInfoDTD
-     * @param UserId
+     * 教师查看自己的评价
+     *@Data 2019/6/7
+     @param  * @param UserId
      *@reutn com.android.backend.util.Result
     */
+    @RequestMapping(value = "user/search/teacherGetEvatue",method = RequestMethod.GET,produces = "application/json")
+    public Result getPartAndHomeWork(String UserId) throws JsonProcessingException {
+
+
+        String jsonStr = JSONChange.objToJson("asd");
+        logger.info("json is" + jsonStr);
+        logger.info("发送出勤，作业");
+        return ResultFactory.buildSuccessResult(jsonStr);
+    }
+
+        /**
+         *@Auther kiwi
+         *@Data 2019/6/5
+         * 更新出勤，作业
+         @param  * @param homeWorkInfoDTD
+         * @param UserId
+         *@reutn com.android.backend.util.Result
+        */
     @RequestMapping(value = "user/search/updatePartAndHomeWork",method = RequestMethod.POST,produces = "application/json")
     public Result updatePartAndHomeWork(HomeWorkInfoDTD homeWorkInfoDTD,String UserId){
 

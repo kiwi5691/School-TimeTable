@@ -28,10 +28,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -48,6 +45,7 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
     private Button bAdd;
     private TextView mCourseName;
 
+    public Map<String, String> studentMap = new HashMap<String, String>();
     private String str;
     private Spinner sCourses;
     private ArrayAdapter<String> arr_adapter;
@@ -131,27 +129,32 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
             if (code==200){
                 result = "获取信息成功";
 
+                Log.i("star get gson","fuck");
 
                 StudentDataVo[] array = new Gson().fromJson(data, StudentDataVo[].class);
                 studentDataVos= Arrays.asList(array);
+                Log.i("student vo is",studentDataVos.toString());
 
-                Log.i("info json ==",studentDataVos.toString());
+
 
                 List<String> dataa = new ArrayList<String>();
                 for(StudentDataVo studentDataVo:studentDataVos){
                     String c_n ="";
+                    String id ="";
                     c_n=studentDataVo.getName();
+                    id=studentDataVo.getUserId();
+
+                    studentMap.put(c_n,id);
 
                     dataa.add(c_n);
                 }
 
-
+                Log.i("dataa is",dataa.get(0));
                 arr_adapter= new ArrayAdapter<String>(AddGradeAcivity.this, android.R.layout.simple_spinner_item,dataa);
                 //设置样式
                 arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 //加载适配器
                 sCourses.setAdapter(arr_adapter);
-                Log.i("info json ==",data.toString());
 
             }else if (code==400){
                 result = "信息获取失败";
@@ -230,7 +233,7 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
             if (code==200){
                 result = "获取信息成功";
 
-                mGrade.setText(data.toString());
+                mGrade.setText(data);
 
             }else if (code==400){
                 result = "信息获取失败";
@@ -285,8 +288,6 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
 
         sCourses =(Spinner) findViewById(R.id.spinner);
 
-        Intent intent =getIntent();
-        mCourseName.setText(intent.getStringExtra("courseName"));
     }
 
     public void intEvent(){
@@ -340,7 +341,7 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
         RequestBody formBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("grade",mInfo.getText().toString().trim())
-                .addFormDataPart("UserId",str)
+                .addFormDataPart("UserId",studentMap.get(str).trim())
                 .addFormDataPart("courseName",mGrade.getText().toString().trim())
                 .build();
         //发起请求

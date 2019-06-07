@@ -2,6 +2,8 @@
 package com.android.backend.controller.user;
 
 import com.android.backend.dao.RolePermissionMapper;
+import com.android.backend.dao.StudentInfoMapper;
+import com.android.backend.dao.TeacherInfoMapper;
 import com.android.backend.dao.UserLoginMapper;
 import com.android.backend.domain.UserLogin;
 import com.android.backend.service.UserLoginService;
@@ -44,7 +46,10 @@ public class UserController {
     private UserLoginService userLoginService;
     @Autowired
     private UserInfoService userInfoService;
-
+    @Autowired
+    private StudentInfoMapper studentInfoMapper;
+    @Autowired
+    private TeacherInfoMapper teacherInfoMapper;
 
     /*@RequestMapping(value = "/user_student/login", method = RequestMethod.POST, produces = "application/json")
     public Result login(StudentVo loginInfoVo, BindingResult bindingResult) {
@@ -114,7 +119,24 @@ public class UserController {
         }
         if(currentUser.isAuthenticated()) {
             model.addAttribute("role", rolePermissionMapper.CheckRoles(rid));
-            return ResultFactory.buildSuccessResult("登陆成功。");
+
+            logger.info("rid is"+rid);
+            if(rid==1){
+                try{
+                    studentInfoMapper.selectIsRid(String.valueOf(username));
+                    return ResultFactory.buildSuccessResult("登陆成功。");
+                }catch (Exception e){
+                    return ResultFactory.buildFailResult("账号密码没错，但是请选择好你的角色");
+                }
+            }else if(rid==2) {
+                try{
+                    teacherInfoMapper.selectIsRid(String.valueOf(username));
+                    return ResultFactory.buildSuccessResult("登陆成功。");
+                }catch (Exception e){
+                    return ResultFactory.buildFailResult("账号密码没错，但是请选择好你的角色");
+                }
+            }
+          return ResultFactory.buildFailResult("未知错误");
         }else{
             String message = String.format("登陆失败");
             return ResultFactory.buildFailResult(message);

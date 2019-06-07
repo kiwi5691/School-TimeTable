@@ -23,4 +23,7 @@ public interface StudentInfoMapper {
 
     int updateLoginTime(StudentInfo studentInfo);
 
+    int selectIsRid(String userId);
+
+
 }

@@ -24,4 +24,6 @@ public interface TeacherInfoMapper {
     int updateLoginTime(TeacherInfo teacherInfo);
 
     String selectNameFromId(String userId);
+
+    int selectIsRid(String userId);
 }

@@ -23,6 +23,9 @@
     id, nick_name, user_id, phone, major, year, institute, province, city, area, gender, 
     birthday, last_login_time, add_time, update_time, headshot
   </sql>
+  <select id="selectIsRid" resultType="java.lang.Integer" parameterType="java.lang.String">
+    SELECT 1 from student_info  where user_id = #{userId, jdbcType=VARCHAR}
+  </select>
   <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap" >
     select *
     from student_info where
