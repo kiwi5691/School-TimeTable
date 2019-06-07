@@ -92,7 +92,6 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
 
             }
         });

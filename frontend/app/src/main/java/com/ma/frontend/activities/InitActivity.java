@@ -55,7 +55,6 @@ public class InitActivity extends Activity {
 
     /**
      *@Auther kiwi
-     *TODO 服务端获取初始化。josn传值
      */
     String root= HttpConstant.OriginAddress;
     private String originAddress = root + "/user/login?";

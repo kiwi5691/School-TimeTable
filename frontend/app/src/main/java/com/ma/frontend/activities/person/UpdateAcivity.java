@@ -388,19 +388,15 @@ public class UpdateAcivity extends AppCompatActivity implements View.OnClickList
                 type = parser.next();
             }
         }catch (XmlPullParserException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         /*catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } */
         catch (NumberFormatException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
 
         }catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return list;

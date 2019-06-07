@@ -92,7 +92,6 @@ public class CourseEvatueAcivity extends AppCompatActivity implements View.OnCli
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
 
             }
         });

@@ -91,7 +91,6 @@ public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
 
             }
         });
