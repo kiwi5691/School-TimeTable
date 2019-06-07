@@ -20,55 +20,60 @@
     from user_course where
       uid =#{uid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user_course
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.android.backend.domain.UserCourse" >
-    insert into user_course (id, cid, uid)
-    values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.android.backend.domain.UserCourse" >
-    insert into user_course
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="cid != null" >
-        cid,
-      </if>
-      <if test="uid != null" >
-        uid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="cid != null" >
-        #{cid,jdbcType=INTEGER},
-      </if>
-      <if test="uid != null" >
-        #{uid,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.UserCourse" >
-    update user_course
-    <set >
-      <if test="cid != null" >
-        cid = #{cid,jdbcType=INTEGER},
-      </if>
-      <if test="uid != null" >
-        uid = #{uid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.android.backend.domain.UserCourse" >
-    update user_course
-    set cid = #{cid,jdbcType=INTEGER},
-      uid = #{uid,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-</mapper>
+  <select id="selectCid" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select *
+    from user_course where
+    cid =#{cid,jdbcType=INTEGER}
+  </select>
+<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+delete from user_course
+where id = #{id,jdbcType=INTEGER}
+</delete>
+<insert id="insert" parameterType="com.android.backend.domain.UserCourse" >
+insert into user_course (id, cid, uid)
+values (#{id,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR})
+</insert>
+<insert id="insertSelective" parameterType="com.android.backend.domain.UserCourse" >
+insert into user_course
+<trim prefix="(" suffix=")" suffixOverrides="," >
+  <if test="id != null" >
+    id,
+  </if>
+  <if test="cid != null" >
+    cid,
+  </if>
+  <if test="uid != null" >
+    uid,
+  </if>
+</trim>
+<trim prefix="values (" suffix=")" suffixOverrides="," >
+  <if test="id != null" >
+    #{id,jdbcType=INTEGER},
+  </if>
+  <if test="cid != null" >
+    #{cid,jdbcType=INTEGER},
+  </if>
+  <if test="uid != null" >
+    #{uid,jdbcType=VARCHAR},
+  </if>
+</trim>
+</insert>
+<update id="updateByPrimaryKeySelective" parameterType="com.android.backend.domain.UserCourse" >
+update user_course
+<set >
+  <if test="cid != null" >
+    cid = #{cid,jdbcType=INTEGER},
+  </if>
+  <if test="uid != null" >
+    uid = #{uid,jdbcType=VARCHAR},
+  </if>
+</set>
+where id = #{id,jdbcType=INTEGER}
+</update>
+<update id="updateByPrimaryKey" parameterType="com.android.backend.domain.UserCourse" >
+update user_course
+set cid = #{cid,jdbcType=INTEGER},
+    uid = #{uid,jdbcType=VARCHAR}
+where id = #{id,jdbcType=INTEGER}
+</update>
+        </mapper>

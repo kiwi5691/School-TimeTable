@@ -24,6 +24,11 @@
     from teacher_info where
       user_id =#{userId,jdbcType=VARCHAR}
   </select>
+  <select id="selectNameFromId" parameterType="java.lang.String" resultType="java.lang.String" >
+    select nick_name
+    from teacher_info where
+      user_id =#{userId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -77,6 +77,10 @@
                 android:name=".activities.search.AddEvatueAcivity"
                 android:label= "@string/add_eva" >
         </activity>
+        <activity
+                android:name=".activities.search.AddGradeAcivity"
+                android:label= "@string/addgrade" >
+        </activity>
     </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

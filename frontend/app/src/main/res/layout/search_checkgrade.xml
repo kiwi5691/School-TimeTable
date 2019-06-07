@@ -24,6 +24,10 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp">
 
+            <TextView
+                    android:text=" "
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/addgrade"/>
             <ListView
                     android:layout_width="match_parent"
                     android:layout_height="632dp" android:id="@+id/name"/>

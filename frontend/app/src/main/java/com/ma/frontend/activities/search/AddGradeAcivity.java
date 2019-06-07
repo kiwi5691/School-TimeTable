@@ -1,6 +1,8 @@
 package com.ma.frontend.activities.search;
 
+import android.app.Person;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,12 +15,16 @@ import android.widget.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.ma.frontend.R;
-import com.ma.frontend.Vo.*;
+import com.ma.frontend.Vo.ResultVo;
+import com.ma.frontend.Vo.StudentDataVo;
+import com.ma.frontend.Vo.TeacherAllVo;
+import com.ma.frontend.activities.InitActivity;
+import com.ma.frontend.activities.LoginActivity;
+import com.ma.frontend.activities.PersonActivity;
+import com.ma.frontend.activities.SearchActivity;
+import com.ma.frontend.config.GolabConstant;
 import com.ma.frontend.config.HttpConstant;
-import com.ma.frontend.utils.PartUtil;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -30,34 +36,27 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Auther:kiwi
- * @Date: 2019/5/23 11:30
+ * @Date: 2019/6/6 14:28
  */
-public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickListener{
+public class AddGradeAcivity  extends AppCompatActivity implements View.OnClickListener {
 
 
-
-    private TextView mAdd;
-
-    private TextView mUpdate;
-
+    public List<StudentDataVo> studentDataVos = new ArrayList<StudentDataVo>();
     private static Context context;
-
-    public List<CourseNameVo> allCourseName = new ArrayList<CourseNameVo>();
-
-    public List<HomeWorkInfoVo> homeWorkInfoVos = new ArrayList<HomeWorkInfoVo>();
-
-    public List<String> data_list;
-
-    /**
-     *@Auther kiwi
-     */
-    String root= HttpConstant.OriginAddress;
-    private String originAddress = root + "/user/search/checkPartAndHomeWork";
-    private String getALLcourseAddress = root + "/user/course/getAllcourseName";
+    private EditText mInfo;
+    private TextView mGrade;
+    private Button bAdd;
+    private TextView mCourseName;
 
     private String str;
     private Spinner sCourses;
     private ArrayAdapter<String> arr_adapter;
+
+    String root= HttpConstant.OriginAddress;
+    private String originAddress = root + "/user/search/updateGrade?";
+    private String getStudentAddress = root + "/user/search/getStudent";
+    private String getCourseName = root + "/user/search/getTeacherCourseName";
+
 
     OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -69,11 +68,14 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_homework);
+        setContentView(R.layout.search_teacher_addgrade);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        context = getApplicationContext();
         initView();
-        getAllCourse();
+        intEvent();
+        intCourseName();
+        getAllStudents();
         //        intInfoRequest();
         str = (String) sCourses.getSelectedItem();
         sCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -87,7 +89,6 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
                 str = (String) sCourses.getSelectedItem();
                 //把该值传给 TextView
                 //  tv.setText(str);
-                intInfoRequest(str);
             }
 
             @Override
@@ -98,77 +99,11 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
         });
 
 
+
     }
 
 
-    //用于处理消息的Handler
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            GsonBuilder builder = new GsonBuilder();
-
-            // Register an adapter to manage the date types as long values
-            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                    return new Date(json.getAsJsonPrimitive().getAsLong());
-                }
-            });
-
-            Gson gson = builder.create();
-
-            super.handleMessage(msg);
-            String result = "";
-            String ReturnMessage = (String) msg.obj;
-
-
-            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
-            final int code = showresult.getCode();
-            final String message = showresult.getMessage();
-            final String data = (String) showresult.getData();
-
-            if (code==200){
-                result = "获取信息成功";
-                HomeWorkInfoVo[] array = new Gson().fromJson(data, HomeWorkInfoVo[].class);
-                homeWorkInfoVos= Arrays.asList(array);
-
-
-
-
-                Log.i("info json ==",homeWorkInfoVos.toString());
-
-
-                List<String> dataa = new ArrayList<String>();
-                for(HomeWorkInfoVo homeWorkInfoVo:homeWorkInfoVos){
-
-                    String c_n ="";
-
-                    c_n="     第"+homeWorkInfoVo.getDay()+"节课              作业成绩:"+homeWorkInfoVo.getHomeworkGrade()+"             出勤:"+ PartUtil.checkIn(String.valueOf(homeWorkInfoVo.getParticipation()));
-
-
-                    dataa.add(c_n);
-//                    Log.i("data is ",dataa.get(0));
-//                    Log.i("teacherinfo is ",teacherAllVo.getCourseName());
-                }
-                ArrayAdapter<String> adapter=new ArrayAdapter<String>(HomeWorkAcivity.this,android.R.layout.simple_list_item_1,dataa);
-                ListView listView=(ListView)findViewById(R.id.listc);
-                listView.setAdapter(null);
-                listView.setAdapter(adapter);
-
-
-            }else if (code==400){
-                result = "信息获取失败";
-            }
-            Toast.makeText(HomeWorkAcivity.this, result, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-
-    public void initView(){
-        sCourses =(Spinner) findViewById(R.id.spinner);
-    }
-
-
-    //用于获取课程信息的Handler
+    //用于获取所有信息的Handler
     private Handler cHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -196,40 +131,51 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
             if (code==200){
                 result = "获取信息成功";
 
-                List<String> ccou = new ArrayList<String>();
 
-                ccou=new Gson().fromJson(data, new TypeToken<List<Object>>(){}.getType());
-                Log.i("String is ",ccou.get(0));
+                StudentDataVo[] array = new Gson().fromJson(data, StudentDataVo[].class);
+                studentDataVos= Arrays.asList(array);
+
+                Log.i("info json ==",studentDataVos.toString());
+
+                List<String> dataa = new ArrayList<String>();
+                for(StudentDataVo studentDataVo:studentDataVos){
+                    String c_n ="";
+                    c_n=studentDataVo.getName();
+
+                    dataa.add(c_n);
+                }
 
 
-
-                arr_adapter= new ArrayAdapter<String>(HomeWorkAcivity.this, android.R.layout.simple_spinner_item,ccou);
+                arr_adapter= new ArrayAdapter<String>(AddGradeAcivity.this, android.R.layout.simple_spinner_item,dataa);
                 //设置样式
                 arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 //加载适配器
                 sCourses.setAdapter(arr_adapter);
-                Log.i("info json ==",ccou.toString());
+                Log.i("info json ==",data.toString());
 
             }else if (code==400){
                 result = "信息获取失败";
             }
-            Toast.makeText(HomeWorkAcivity.this, result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddGradeAcivity.this, result, Toast.LENGTH_SHORT).show();
         }
     };
 
-    private void getAllCourse(){
 
-        Context ctx = HomeWorkAcivity.this;
+    public void getAllStudents(){
+
+
+        Context ctx = AddGradeAcivity.this;
         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
 
         SharedPreferences.Editor editor =sp.edit();
 
+        String tempAddress="";
 //        originAddress = originAddress + "?UserId=kiwi";
-        getALLcourseAddress = getALLcourseAddress + "?UserId="+sp.getString("userName","none");
-        Log.i("url is------",getALLcourseAddress);
+        tempAddress = getStudentAddress + "?UserId="+sp.getString("userName","none");
+        Log.i("url is------",tempAddress);
         //发起请求
         final Request request = new Request.Builder()
-                .url(getALLcourseAddress)
+                .url(tempAddress)
                 .build();
         //新建一个线程，用于得到服务器响应的参数
         new Thread(new Runnable() {
@@ -253,16 +199,58 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
         }).start();
 
     }
-    private void intInfoRequest(String courseName)  {
 
-        Context ctx = HomeWorkAcivity.this;
+
+
+    //用于获取所有信息的Handler
+    private Handler fHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            GsonBuilder builder = new GsonBuilder();
+
+            // Register an adapter to manage the date types as long values
+            builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                    return new Date(json.getAsJsonPrimitive().getAsLong());
+                }
+            });
+
+            Gson gson = builder.create();
+
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+
+
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            final String data = (String) showresult.getData();
+
+            if (code==200){
+                result = "获取信息成功";
+
+                mGrade.setText(data.toString());
+
+            }else if (code==400){
+                result = "信息获取失败";
+            }
+            Toast.makeText(AddGradeAcivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+    public void intCourseName(){
+
+
+        Context ctx = AddGradeAcivity.this;
         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
 
         SharedPreferences.Editor editor =sp.edit();
 
-        String tempAddress ="";
+        String tempAddress="";
 //        originAddress = originAddress + "?UserId=kiwi";
-        tempAddress = originAddress + "?UserId="+sp.getString("userName","none")+"&CourseName="+courseName;
+        tempAddress = getCourseName + "?UserId="+sp.getString("userName","none");
         Log.i("url is------",tempAddress);
         //发起请求
         final Request request = new Request.Builder()
@@ -278,7 +266,7 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
                     response = client.newCall(request).execute();
                     if (response.isSuccessful()) {
                         //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
-                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                        fHandler.obtainMessage(1, response.body().string()).sendToTarget();
                     } else {
                         throw new IOException("Unexpected code:" + response);
                     }
@@ -290,11 +278,105 @@ public class HomeWorkAcivity extends AppCompatActivity implements View.OnClickLi
         }).start();
 
     }
+    public void initView(){
+        mInfo =(EditText)findViewById(R.id.institute_d); //grade
+        mGrade =(TextView)findViewById(R.id.major); // courseName
+        bAdd=(Button) findViewById(R.id.update_button);
+
+        sCourses =(Spinner) findViewById(R.id.spinner);
+
+        Intent intent =getIntent();
+        mCourseName.setText(intent.getStringExtra("courseName"));
+    }
+
+    public void intEvent(){
+        bAdd.setOnClickListener(this);
+    }
 
 
 
-    @Override
-    public void onClick(View v) {
+
+    //用于处理消息的Handler
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            String result = "";
+            String ReturnMessage = (String) msg.obj;
+            final ResultVo showresult = new Gson().fromJson(ReturnMessage, ResultVo.class);
+            final int code = showresult.getCode();
+            final String message = showresult.getMessage();
+            Log.i("code is",String.valueOf(code));
+
+            if (code==200){
+                result = "添加成功";
+
+                Intent intent=new Intent();
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setClass(AddGradeAcivity.this, SearchActivity.class);
+                startActivity(intent);
+            }else if (code==400){
+                result = "添加失败";
+            }
+            Toast.makeText(AddGradeAcivity.this, result, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
+
+
+
+    public void update(){
+
+
+        Context ctx = AddGradeAcivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+        String tempAddress="";
+        tempAddress=originAddress;
+        //建立请求表单，添加上传服务器的参数
+        RequestBody formBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("grade",mInfo.getText().toString().trim())
+                .addFormDataPart("UserId",str)
+                .addFormDataPart("courseName",mGrade.getText().toString().trim())
+                .build();
+        //发起请求
+        final Request request = new Request.Builder()
+                .url(tempAddress)
+                .post(formBody)
+                .build();
+        Log.i("url",tempAddress);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Response response = null;
+                try {
+                    //回调
+                    response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        //将服务器响应的参数response.body().string())发送到hanlder中，并更新ui
+                        mHandler.obtainMessage(1, response.body().string()).sendToTarget();
+                    } else {
+                        throw new IOException("Unexpected code:" + response);
+                    }
+                } catch (IOException e) {
+                    //      Toast.makeText(LoginActivity.this, "连接不上服务器，请检查网络", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.update_button:
+                update();
+                break;
+        }
+    }
+
 }

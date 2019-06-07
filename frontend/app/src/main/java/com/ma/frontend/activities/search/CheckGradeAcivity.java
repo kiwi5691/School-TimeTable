@@ -1,6 +1,7 @@
 package com.ma.frontend.activities.search;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.gson.*;
 import com.ma.frontend.R;
@@ -40,12 +42,16 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
     public List<RegularGradeVo> regularGradeVos = new ArrayList<RegularGradeVo>();
     private static Context context;
 
+
+
+    private TextView mAdd;
     /**
      *@Auther kiwi
      */
     String root= HttpConstant.OriginAddress;
     private String originAddress = root + "/user/search/checkgrade";
     private String getALLcourseAddress = root + "/user/course/getAllcourseName";
+
 
 
     OkHttpClient client = new OkHttpClient.Builder()
@@ -62,6 +68,23 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
         actionBar.hide();
         context = getApplicationContext();
         initView();
+        intEvent();
+
+        Context ctx = CheckGradeAcivity.this;
+        SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor =sp.edit();
+
+        if(sp.getString("rid","none").equals("1")){
+            mAdd.setVisibility(View.INVISIBLE);
+        }else {
+            mAdd.setText("点击设置学生成绩");
+            ListView listView=(ListView)findViewById(R.id.name);
+            listView.setAdapter(null);
+
+
+        }
+
         intInfoRequest();
     }
 
@@ -127,6 +150,10 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
 
     public void initView(){
 
+        mAdd = (TextView)findViewById(R.id.addgrade);
+    }
+    public void intEvent(){
+        mAdd.setOnClickListener(this);
     }
     private void intInfoRequest()  {
 
@@ -168,9 +195,19 @@ public class CheckGradeAcivity extends AppCompatActivity implements View.OnClick
     }
 
 
+    public void toAdd(){
+        Intent intent = new Intent();
+        intent.setClass(CheckGradeAcivity.this, AddGradeAcivity.class);
+        startActivity(intent);
 
+    }
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.addgrade:
+                toAdd();
+                break;
+        }
 
     }
 }

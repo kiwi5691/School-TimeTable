@@ -59,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
        ////////
         tCourse =(LinearLayout) findViewById(R.id.course);
         tGrade =(TextView)findViewById(R.id.searchgrade);
-        tHomworksetting=(TextView)findViewById(R.id.searchgrade);
+        tHomworksetting=(TextView)findViewById(R.id.setting_homwrok);
 
 
         Context ctx = SearchActivity.this;

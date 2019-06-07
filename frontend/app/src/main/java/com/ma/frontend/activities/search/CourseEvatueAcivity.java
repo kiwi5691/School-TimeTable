@@ -73,7 +73,7 @@ public class CourseEvatueAcivity extends AppCompatActivity implements View.OnCli
         initView();
         intEvent();
         getAllCourse();
-        upd.setVisibility(View.GONE);
+        upd.setVisibility(View.INVISIBLE);
 //        tv = (TextView) findViewById(R.id.txt01);
         str = (String) sCourses.getSelectedItem();
         sCourses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -151,7 +151,7 @@ public class CourseEvatueAcivity extends AppCompatActivity implements View.OnCli
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(CourseEvatueAcivity.this, android.R.layout.simple_list_item_1, dataa);
                 ListView listView = (ListView) findViewById(R.id.listc);
                 listView.setAdapter(null);
-                if (checkEvaluation.isEmpty()) {
+                if (c_n.equals("  评分:null"  + "                                     评价:null" )) {
                     String tempData = "     请添加课堂评价,点击添加  ";
                     upd.setVisibility(View.VISIBLE);
                     upd.setText(tempData);

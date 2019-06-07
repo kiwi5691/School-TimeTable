@@ -6,6 +6,7 @@
     <string name="course">课本</string>
     <string name="search">查询</string>
     <string name="detail">详细</string>
+    <string name="addgrade">添加分数</string>
     <string name="lookup">查看信息</string>
     <string name="update">修改</string>
     <string name="setting">设置</string>

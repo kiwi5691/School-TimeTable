@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/warnText"
                 android:layout_alignRight="@id/user_password"
-                android:text="修改信息"
+                android:text="添加评价"
                 android:background="#4FC1FB"
                 android:layout_alignLeft="@+id/user_password"
                 android:layout_alignStart="@+id/user_password"

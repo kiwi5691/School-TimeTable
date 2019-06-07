@@ -4,6 +4,7 @@ import com.android.backend.dao.*;
 import com.android.backend.dtd.EvaluationInfoDTD;
 import com.android.backend.dtd.HomeWorkInfoDTD;
 import com.android.backend.service.BaseInfoService;
+import com.android.backend.service.TeacherSettingService;
 import com.android.backend.util.JSONChange;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
@@ -36,9 +37,7 @@ public class BaseInfoController {
      *注入
      */
     @Autowired
-    private UserCourseMapper userCourseMapper;
-    @Autowired
-    private CourseDetailMapper courseDetailMapper;
+    private TeacherSettingService teacherSettingService;
     @Autowired
     private BaseInfoService baseInfoService;
 
@@ -87,6 +86,7 @@ public class BaseInfoController {
     @RequestMapping(value = "user/search/updateClassEvate",method = RequestMethod.POST,produces = "application/json")
     public Result updateClassEvate(EvaluationInfoDTD evaluationInfoDTD,String UserId){
 
+        logger.info(evaluationInfoDTD.toString());
         if(baseInfoService.updateEvaluation(evaluationInfoDTD,UserId)) {
 
             return ResultFactory.buildSuccessResult("更新成功");
@@ -115,8 +115,6 @@ public class BaseInfoController {
         else
             return ResultFactory.buildFailResult("更新失败");
     }
-
-
 
 
     /**
@@ -166,10 +164,36 @@ public class BaseInfoController {
      @param  * @param UserId
      *@reutn com.android.backend.util.Result
     */
-    @RequestMapping(value = "user/search/getAllStudents",method = RequestMethod.GET,produces = "application/json")
-    public Result getAllStudents(String UserId){
+    @RequestMapping(value = "user/search/getStudent",method = RequestMethod.GET,produces = "application/json")
+    public Result getAllStudents(String UserId)throws JsonProcessingException {
 
 
-            return ResultFactory.buildFailResult("更新失败");
+
+        String jsonStr = JSONChange.objToJson(teacherSettingService.getAllStudent(UserId));
+        logger.info("json is"+jsonStr);
+        logger.info("发送课程评价");
+        return ResultFactory.buildSuccessResult(jsonStr);
     }
+
+    /**
+     *@Auther kiwi
+     *@Data 2019/6/7
+     * 获取老师上的课
+     @param  * @param UserId
+     *@reutn com.android.backend.util.Result
+    */
+    @RequestMapping(value = "user/search/getTeacherCourseName",method = RequestMethod.GET,produces = "application/json")
+    public Result getTeacherCourseName(String UserId){
+
+        String courseName="";
+
+        courseName=teacherSettingService.getTeacherCourse(UserId);
+
+        if(courseName.isEmpty()){
+            return ResultFactory.buildFailResult("此老师还没有课程");
+        }else {
+        return ResultFactory.buildSuccessResult(courseName);
+        }
+    }
+
 }

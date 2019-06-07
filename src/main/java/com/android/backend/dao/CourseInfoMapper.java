@@ -21,6 +21,6 @@ public interface CourseInfoMapper {
 
     int findId(CourseInfo courseInfo);
 
-
+    String selectCourseNameByName(String name);
 
 }

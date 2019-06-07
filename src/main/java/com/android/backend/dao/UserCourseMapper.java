@@ -19,4 +19,6 @@ public interface UserCourseMapper {
     int updateByPrimaryKey(UserCourse record);
 
     List<UserCourse> selectUserId(String userId);           //TODO 可能需要修改1对多的stirng
+
+    List<UserCourse> selectCid(Integer cid);
 }

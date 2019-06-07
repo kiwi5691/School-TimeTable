@@ -69,7 +69,7 @@ public class AddEvatueAcivity  extends AppCompatActivity implements View.OnClick
         bAdd=(Button) findViewById(R.id.update_button);
 
         Intent intent =getIntent();
-        bAdd.setText(intent.getStringExtra("courseName"));
+        mCourseName.setText(intent.getStringExtra("courseName"));
     }
 
     public void intEvent(){
@@ -122,11 +122,6 @@ public class AddEvatueAcivity  extends AppCompatActivity implements View.OnClick
     public void update(){
 
 
-        if(isInputValid()){
-            return;
-        }
-
-
         Context ctx = AddEvatueAcivity.this;
         SharedPreferences sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
 
@@ -145,6 +140,7 @@ public class AddEvatueAcivity  extends AppCompatActivity implements View.OnClick
                 .url(originAddress)
                 .post(formBody)
                 .build();
+        Log.i("url",originAddress);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -169,7 +165,7 @@ public class AddEvatueAcivity  extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.update_null:
+            case R.id.update_button:
                 update();
                 break;
         }

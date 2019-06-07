@@ -111,8 +111,9 @@ public class BaseInfoService {
         courseDetail.setStudentName(userId);
         courseDetail.setEvaluationInfo(evaluationInfoDTD.getEvaluationInfo());
         courseDetail.setEvaluationScore(evaluationInfoDTD.getEvaluationScore());
+        courseDetail.setCourseId(String.valueOf(courseInfoMapper.selectCourseName(evaluationInfoDTD.getCourseName()))); //id
 
-       if(courseDetailMapper.updateEvaluateByUserId(courseDetail)==1){
+        if(courseDetailMapper.updateEvaluateByUserId(courseDetail)!=0){
            return true;
        }
        else
@@ -134,7 +135,7 @@ public class BaseInfoService {
         courseDetail.setStudentName(userId); //userid
         courseDetail.setCourseId(String.valueOf(courseInfoMapper.selectCourseName(courseName))); //id
         courseDetail.setRegularGrade(grade);
-        if(courseDetailMapper.updateGradeByCourseName(courseDetail)==1){
+        if(courseDetailMapper.updateGradeByCourseName(courseDetail)!=0){
             return true;
         }
         else
@@ -191,6 +192,7 @@ public class BaseInfoService {
             classRoomOnDuty.setParticipation(homeWorkInfoDTD.getParticipation());
             classRoomOnDuty.setDay(homeWorkInfoDTD.getDay());
             classRoomOnDutyMapper.insert(classRoomOnDuty);
+            return true;
         }catch (Exception e){
 //            return false;
               e.printStackTrace();
