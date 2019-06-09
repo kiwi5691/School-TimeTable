@@ -1,6 +1,6 @@
-# admin-vue
+# demo
 
-> timeTable-andriod
+> A Vue.js project
 
 ## Build Setup
 
