@@ -2,7 +2,7 @@
 基于Springboot的Android课程表
 
 
-技术栈
+# 技术栈
 > 1. Spring Boot    SpringBoot, Jackson, Shiro, Druid, MyBatis,Maven
 > 2. Vue          axios，element ui，vue-router，vuex
 > 3. Android    Gradle,Gson,Okhttp3,Fastjson
@@ -44,7 +44,7 @@
     
 4. 启动vue前端
 
-    打开命令行，输入命令
+    打开命令行，输入命令#
      ```bash
     npm install -g cnpm --registry=https://registry.npm.taobao.org
     cd school timetable/admin-vue
