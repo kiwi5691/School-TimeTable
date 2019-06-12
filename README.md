@@ -49,10 +49,11 @@
     npm install -g cnpm --registry=https://registry.npm.taobao.org
     cd school timetable/admin-vue
     cnpm install
-    cnpm run dev
+    cnpm run dev   
+    http://localhost:8081
+   
     ```
-    `http://localhost:8081`
-    
+     
 5. 启动Android端
     ```bash
     进入frontend文件夹里
