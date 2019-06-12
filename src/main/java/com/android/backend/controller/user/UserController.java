@@ -10,6 +10,10 @@ import com.android.backend.service.UserLoginService;
 import com.android.backend.service.UserInfoService;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -26,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@Api(value="用户登录注册接口Controller")
 public class UserController {
     /**
      *@Auther kiwi
@@ -76,6 +81,10 @@ public class UserController {
      * @param model
      *@reutn com.android.backend.util.Result
      */
+    @ApiOperation(value="登录接口", notes="登录接口" ,httpMethod="POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="name", value="用户姓名", dataType = "String", required=true, paramType="form"),
+    })
     @RequestMapping(value = "/user/login", method = RequestMethod.POST, produces = "application/json")
     public Result login(UserLogin loginInfoVo, int rid,
                         BindingResult bindingResult, Model model) {

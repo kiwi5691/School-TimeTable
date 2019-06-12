@@ -31,7 +31,7 @@ export default new Router({
     {
       path: '/',
       component: Home,
-      name: '导航一',
+      name: '用户信息',
       iconCls: 'el-icon-message',//图标样式class
       children: [
         { path: '/main', component: Main, name: '主页', hidden: true },
@@ -43,7 +43,7 @@ export default new Router({
     {
       path: '/',
       component: Home,
-      name: '导航二',
+      name: '课程信息',
       iconCls: 'fa fa-id-card-o',
       children: [
         { path: '/page4', component: Page4, name: '页面4' },
@@ -57,7 +57,7 @@ export default new Router({
       iconCls: 'fa fa-address-card',
       leaf: true,//只有一个节点
       children: [
-        { path: '/page6', component: Page6, name: '导航三' }
+        { path: '/page6', component: Page6, name: '基础信息' }
       ]
     },
     {

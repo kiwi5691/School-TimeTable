@@ -1,8 +1,14 @@
 package com.android.backend.controller.admin;
 
-import com.android.backend.dtd.VueLoginInfoVo;
+import com.android.backend.Vo.VueLoginInfoVo;
+import com.android.backend.service.FrontEndService;
+import com.android.backend.service.UserInfoService;
+import com.android.backend.util.JSONChange;
 import com.android.backend.util.Result;
 import com.android.backend.util.ResultFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +26,18 @@ import org.slf4j.LoggerFactory;
 @RestController
 public class AdminController {
 
-    // 用不打算用哦
+
+
+    /**
+     * @Auther kiwi
+     * 注入
+     */
+    @Autowired
+    private UserInfoService userInfoService;
+
+    @Autowired
+    private FrontEndService frontEndService;
+
     private static  Logger logger =  LoggerFactory.getLogger(AdminController.class);
 
     @CrossOrigin
@@ -39,4 +56,20 @@ public class AdminController {
         }
         return ResultFactory.buildSuccessResult("登陆成功。");
     }
+
+
+    @RequestMapping(value = "/api/user/listpage", method = RequestMethod.GET, produces = "application/json")
+    public Result showStudentInfo(SpringDataWebProperties.Pageable page,String name) throws JsonProcessingException {
+
+
+
+        String jsonStr = JSONChange.objToJson(frontEndService.getList());
+
+
+        logger.info("开始发送list page，下例");
+        logger.info(jsonStr);
+
+        return ResultFactory.buildSuccessResult(jsonStr);
+    }
+
 }

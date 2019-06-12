@@ -3,6 +3,7 @@ package com.android.backend.dao;
 import com.android.backend.domain.StudentInfo;
 
 import java.util.Date;
+import java.util.List;
 
 public interface StudentInfoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -25,5 +26,6 @@ public interface StudentInfoMapper {
 
     int selectIsRid(String userId);
 
+    List<StudentInfo> getAll();
 
 }

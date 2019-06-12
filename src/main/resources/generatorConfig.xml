@@ -10,7 +10,7 @@
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://134.175.132.161:3306/timeTable?characterEncoding=UTF-8"
+                        connectionURL="jdbc:mysql://localhost:3306/timeTable?characterEncoding=UTF-8"
                         userId="timeTable"
                         password="4tBmJs5wF5KWcSf2" >
         </jdbcConnection>

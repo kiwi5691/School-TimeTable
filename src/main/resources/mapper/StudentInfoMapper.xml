@@ -37,6 +37,9 @@
     from student_info
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultMap="BaseResultMap"  >
+    select * from student_info
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from student_info
     where id = #{id,jdbcType=INTEGER}

@@ -13,11 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
-/**
- * 阿里数据库连接池 Druid配置
- * 创建者 柒
- * 创建时间    2018年3月15日
- */
+
 @Configuration
 public class DruidDbConfig {
 
