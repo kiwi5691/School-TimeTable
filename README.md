@@ -3,9 +3,9 @@
 
 
 # 技术栈
-> 1. Spring Boot    SpringBoot, Jackson, Shiro, Druid, MyBatis,Maven
-> 2. Vue          axios，element ui，vue-router，vuex
-> 3. Android    Gradle,Gson,Okhttp3,Fastjson
+> 1. Spring Boot： Jackson, Shiro, Druid, MyBatis,Maven
+> 2. Vue ：          axios，element ui，vue-router，vuex
+> 3. Android ：   Gradle,Gson,Okhttp3,Fastjson
 
 
 
