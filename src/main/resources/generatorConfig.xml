@@ -10,9 +10,9 @@
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/timeTable?characterEncoding=UTF-8"
-                        userId="timeTable"
-                        password="4tBmJs5wF5KWcSf2" >
+                        connectionURL="jdbc:mysql://134.175.132.161:3306/epet?characterEncoding=UTF-8"
+                        userId="epet"
+                        password="epet" >
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -36,7 +36,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!--生成对应表及类名-->
-        <table tableName="course_baseinfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
+        <table tableName="account" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"> </table>
 
     </context>
 </generatorConfiguration>
