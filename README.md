@@ -69,3 +69,20 @@
     运行
     ```
   
+  #### 相关截图
+
+- ### 安卓端
+
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/login.png)
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/courseDetail.png)
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/table.png)
+
+- ### 后台
+
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/swagger.png)
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/swagge.png)
+  
+- ### admin端
+
+  ![image text](https://raw.githubusercontent.com/kiwi5691/School-TimeTable/adapter/screenShot/vue.png)
+
