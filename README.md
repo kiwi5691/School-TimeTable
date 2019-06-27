@@ -1,6 +1,11 @@
 # School-TimeTable
 基于Springboot的Android课程表
 
+#### 项目介绍
+
+- frontend: 是安卓端；
+- src: 是安卓端后台；
+- admin-vue: 是作为管理员的admin端（TODO）
 
 # 技术栈
 > 1. Spring Boot： Jackson, Shiro, Druid, MyBatis,Maven
@@ -17,7 +22,10 @@
 * 个人中心
 * 查看课程的分数/出勤/课堂作业等信息
 
-
+#### 项目特点
+- 友好的代码结构及注释，便于阅读及二次开发
+- 实现了前后台，通过Json进行数据交互
+- 引入了Swagger，友好的查看每一个api
 ## 启动
 
 1. 开发环境：
